@@ -35,7 +35,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Download all Tier 1 source documents with automated scripts and integrity verification
+- [x] 01-01-PLAN.md -- Download all Tier 1 source documents with automated scripts and integrity verification
 - [ ] 01-02-PLAN.md -- Create YAML provenance manifests, exclusion documentation, and final validation
 
 ### Phase 2: Document Processing
@@ -163,7 +163,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Content Sourcing & Licensing | 0/2 | Planning complete | - |
+| 1. Content Sourcing & Licensing | 1/2 | In progress | - |
 | 2. Document Processing | 0/TBD | Not started | - |
 | 3. Chunking & Embedding | 0/TBD | Not started | - |
 | 4. Retrieval Pipeline | 0/TBD | Not started | - |
