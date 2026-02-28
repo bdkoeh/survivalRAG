@@ -1,0 +1,42 @@
+# Provenance Manifest for Use Safe Water During an Emergency
+# Schema version: 1.0
+
+document:
+  title: "Use Safe Water During an Emergency"
+  designation: "CDC 334749-B"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "use-safe-water-emergency.pdf"
+  file_sha256: "f7bda1f9e7827ee74278d408001e9cdf4529924fa70144e0696ee0fd4ee39bad"
+
+source:
+  primary_url: "https://www.cdc.gov/water-emergency/media/pdfs/334749-B_UseSafeWater-OnePager-508.pdf"
+  official_listing_url: "https://www.cdc.gov/water-emergency/about/index.html"
+  fallback_urls: []
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - water
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from cdc.gov, 141 KB. One-page factsheet, 508-accessible."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

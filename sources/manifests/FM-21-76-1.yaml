@@ -1,0 +1,45 @@
+# Provenance Manifest for Survival, Evasion, and Recovery
+# Schema version: 1.0
+
+document:
+  title: "Survival, Evasion, and Recovery"
+  designation: "FM 21-76-1"
+  edition_date: "1999"
+  pages: 107
+  file_name: "FM-21-76-1.pdf"
+  file_sha256: "d5819a141f45397c0e8f2ef873b37f1fc66fe956e5122d4a5664d6bfa505f06b"
+
+source:
+  primary_url: "https://trueprepper.com/wp-content/uploads/2023/03/FM-21-76-1-Survival-Evasion-and-Recovery-Multiservice-Procedures.pdf"
+  official_listing_url: "https://armypubs.army.mil/ProductMaps/PubForm/FM.aspx"
+  fallback_urls:
+    - "https://irp.fas.org/doddir/army/fm21-76-1.pdf"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Verified via GlobalSecurity.org, FAS, and EverySpec.com (consistent across sources)"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Distribution Statement A confirmed across multiple independent sources: GlobalSecurity.org, Federation of American Scientists (FAS), EverySpec.com"
+  verified_by: "automated"
+
+content:
+  categories:
+    - survival
+    - navigation
+    - signaling
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF, 1.27 MB. Primary URL (irp.fas.org) returned empty file; downloaded from trueprepper.com fallback. Distribution Statement A verified independently of download source."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: "FM 3-50.3 (distribution status unknown - not included)"
+supersedes: null

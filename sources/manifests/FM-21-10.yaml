@@ -1,0 +1,46 @@
+# Provenance Manifest for Field Hygiene and Sanitation
+# Schema version: 1.0
+
+document:
+  title: "Field Hygiene and Sanitation"
+  designation: "FM 21-10 / MCRP 4-11.1D"
+  edition_date: "2000"
+  pages: "unknown"
+  file_name: "FM-21-10.pdf"
+  file_sha256: "ad5eab029ef51085cffc213ef89284e9089aadd82445ec594bca24b750ed9b63"
+
+source:
+  primary_url: "https://archive.org/details/FM21-10_2000"
+  official_listing_url: "https://armypubs.army.mil/ProductMaps/PubForm/FM.aspx"
+  fallback_urls:
+    - "https://www.marines.mil/Portals/1/Publications/MCRP%204-11.1D%20Field%20Hygiene%20and%20Sanitation.pdf"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Verified via marines.mil hosted PDF with Distribution Statement A visible"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Distribution Statement A confirmed on marines.mil hosted PDF; cross-referenced with armypubs.army.mil (successor TC 4-02.3 also Distribution Statement A)"
+  verified_by: "automated"
+
+content:
+  categories:
+    - hygiene
+    - sanitation
+    - water
+    - food
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Downloaded from archive.org fallback (marines.mil primary returned 404). 2.91 MB PDF."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: "TC 4-02.3 (2015, Distribution Statement A - included)"
+supersedes: null

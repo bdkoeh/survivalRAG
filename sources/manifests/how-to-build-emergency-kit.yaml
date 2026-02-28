@@ -1,0 +1,42 @@
+# Provenance Manifest for How to Build a Kit for Emergencies
+# Schema version: 1.0
+
+document:
+  title: "How to Build a Kit for Emergencies"
+  designation: "FEMA"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "how-to-build-emergency-kit.pdf"
+  file_sha256: "10ca3844679adf2506f89ffaa036e11a13709c2033534f2e02ecf12d5ccdac1c"
+
+source:
+  primary_url: "https://www.fema.gov/print/pdf/node/503732"
+  official_listing_url: "https://www.fema.gov"
+  fallback_urls: []
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - preparedness
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from fema.gov, 36.5 KB. Small document."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

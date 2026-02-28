@@ -1,0 +1,52 @@
+# Provenance Manifest for US Army Survival Manual
+# Schema version: 1.0
+
+document:
+  title: "US Army Survival Manual"
+  designation: "FM 21-76"
+  edition_date: "1992-06-05"
+  pages: 564
+  file_name: "FM-21-76.pdf"
+  file_sha256: "0a79b47f18a44206ea7830ea9dff740350786d2c0096e52f49a7291a3496469e"
+
+source:
+  primary_url: "https://www.bits.de/NRANEU/others/amd-us-archive/FM21-76(92).pdf"
+  official_listing_url: "https://armypubs.army.mil/ProductMaps/PubForm/FM.aspx"
+  fallback_urls:
+    - "https://archive.org/details/Fm21-76SurvivalManual"
+    - "https://archive.org/details/FM2176USARMYSURVIVALMANUAL"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - survival
+    - shelter
+    - water
+    - food
+    - navigation
+    - fire
+    - tools
+    - first_aid
+    - signaling
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Scanned PDF, 52.4 MB. Text may be partially selectable. OCR quality review recommended for medical content."
+  ocr_needed: true
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: "FM 3-05.70 (restricted distribution - not included)"
+supersedes: null

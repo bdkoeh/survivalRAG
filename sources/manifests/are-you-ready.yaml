@@ -1,0 +1,47 @@
+# Provenance Manifest for Are You Ready? An In-Depth Guide to Citizen Preparedness
+# Schema version: 1.0
+
+document:
+  title: "Are You Ready? An In-Depth Guide to Citizen Preparedness (IS-22)"
+  designation: "FEMA IS-22"
+  edition_date: "2004"
+  pages: 204
+  file_name: "are-you-ready.pdf"
+  file_sha256: "0d06472d035309aba015a830376da19f01e1ed6a5a3b87cc0ad346ea7cb67e4d"
+
+source:
+  primary_url: "https://web.archive.org/web/2020id_/https://www.fema.gov/pdf/areyouready/areyouready_full.pdf"
+  official_listing_url: "https://www.fema.gov/related-link/are-you-ready-guide-citizen-preparedness"
+  fallback_urls:
+    - "https://cnreurafcent.cnic.navy.mil/Portals/78/NSA_Naples/Documents/Emergency%20Management/References/Are%20You%20Ready%20...pdf"
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - preparedness
+    - shelter
+    - water
+    - food
+    - emergency_response
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Downloaded from Wayback Machine using id_ modifier for raw PDF (FEMA.gov URL no longer accessible, Navy CNIC fallback returned 403). 22.1 MB PDF, ~204 pages."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null
