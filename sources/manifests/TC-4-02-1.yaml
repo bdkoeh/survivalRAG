@@ -1,0 +1,43 @@
+# Provenance Manifest for First Aid (TC)
+# Schema version: 1.0
+
+document:
+  title: "First Aid"
+  designation: "TC 4-02.1"
+  edition_date: "2016"
+  pages: "unknown"
+  file_name: "TC-4-02-1.pdf"
+  file_sha256: "03a9505bd7fa1f5a13b2ea89b18d9ac1d0d2f9bdd50b0806eb1c692b19004791"
+
+source:
+  primary_url: "https://rdl.train.army.mil/catalog-ws/view/100.ATSC/B0A32FAD-8C7A-44A6-8FF4-F754A32F1C30-1453986206542/tc4-02.1wc1x2.pdf"
+  official_listing_url: "https://armypubs.army.mil/ProductMaps/PubForm/TC.aspx"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Verified via armypubs.army.mil and rdl.train.army.mil publication listings"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Distribution Statement A confirmed on armypubs.army.mil listing and rdl.train.army.mil hosted document"
+  verified_by: "automated"
+
+content:
+  categories:
+    - first_aid
+    - medical
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from rdl.train.army.mil, 1.63 MB. Electronic-only publication."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: "FM 4-25.11 (2002)"

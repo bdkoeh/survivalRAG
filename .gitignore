@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Build / data artifacts
+dist/
+build/
+*.egg-info/
+
+# Large model/embedding files
+*.bin
+*.gguf
+*.safetensors
+
+# Vector store data (regenerable)
+chroma_db/
+faiss_index/
+
+# Logs
+*.log
+
+# Source document PDFs (too large for git, downloaded via scripts)
+sources/originals/

@@ -1,0 +1,44 @@
+# Provenance Manifest for Emergency Wound Care After a Natural Disaster
+# Schema version: 1.0
+
+document:
+  title: "Emergency Wound Care After a Natural Disaster"
+  designation: "CDC Factsheet"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "emergency-wound-care.pdf"
+  file_sha256: "ee9b0b61906c5a731d6d0a8ed6c3c5ebaddf9a11f6588219e2b2c9dee2f87a6f"
+
+source:
+  primary_url: "https://www.cdc.gov/disasters/hurricanes/pdf/woundcare.pdf"
+  official_listing_url: "https://www.cdc.gov"
+  fallback_urls:
+    - "https://stacks.cdc.gov/view/cdc/25434"
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - first_aid
+    - medical
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from cdc.gov, 353 KB. Factsheet format."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

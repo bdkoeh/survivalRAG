@@ -1,0 +1,43 @@
+# Provenance Manifest for Basic Preparedness
+# Schema version: 1.0
+
+document:
+  title: "Basic Preparedness"
+  designation: "FEMA"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "basic-preparedness.pdf"
+  file_sha256: "fe0e858d2a5ba862f7168e2e7b7278333d2115fe03785e31390787650ab2f464"
+
+source:
+  primary_url: "https://www.fema.gov/pdf/areyouready/basic_preparedness.pdf"
+  official_listing_url: "https://www.fema.gov"
+  fallback_urls: []
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - preparedness
+    - emergency_response
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from fema.gov, 1.21 MB. May be an excerpt from the full 'Are You Ready?' guide."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

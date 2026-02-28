@@ -1,0 +1,42 @@
+# Provenance Manifest for How to Make Water Safe in an Emergency
+# Schema version: 1.0
+
+document:
+  title: "How to Make Water Safe in an Emergency"
+  designation: "CDC Factsheet"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "make-water-safe-emergency.pdf"
+  file_sha256: "c39b55b4d8f3dd40ecd2b13175f7661b52dfc6e73e4a24ef189de64fb9d513b1"
+
+source:
+  primary_url: "https://www.cdc.gov/water-emergency/media/pdfs/make-water-safe-during-emergency-p.pdf"
+  official_listing_url: "https://www.cdc.gov/water-emergency/about/index.html"
+  fallback_urls: []
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - water
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from cdc.gov, 731 KB."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

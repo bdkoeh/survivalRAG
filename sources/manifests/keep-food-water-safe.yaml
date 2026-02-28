@@ -1,0 +1,43 @@
+# Provenance Manifest for Keep Food and Water Safe After a Natural Disaster
+# Schema version: 1.0
+
+document:
+  title: "Keep Food and Water Safe After a Natural Disaster"
+  designation: "CDC Factsheet"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "keep-food-water-safe.pdf"
+  file_sha256: "badb88ba9a36bf2ef1da7e973fb1d477eb218b16e528e2846b30d0497077b34d"
+
+source:
+  primary_url: "https://stacks.cdc.gov/view/cdc/25410"
+  official_listing_url: "https://www.cdc.gov"
+  fallback_urls: []
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency) via CDC STACKS archival repository; US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - food
+    - water
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from stacks.cdc.gov, 97.9 KB."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

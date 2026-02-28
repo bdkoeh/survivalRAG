@@ -1,0 +1,45 @@
+# Provenance Manifest for Field Hygiene and Sanitation (TC)
+# Schema version: 1.0
+
+document:
+  title: "Field Hygiene and Sanitation"
+  designation: "TC 4-02.3"
+  edition_date: "2015"
+  pages: "unknown"
+  file_name: "TC-4-02-3.pdf"
+  file_sha256: "e024b79ca8c638355eb70f33bb62bccc8070ab2d669bcfa9ad9e5c1ad9e43732"
+
+source:
+  primary_url: "https://armypubs.army.mil/epubs/DR_pubs/DR_a/pdf/web/tc4_02x3.pdf"
+  official_listing_url: "https://armypubs.army.mil/ProductMaps/PubForm/TC.aspx"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Verified via armypubs.army.mil publication listing and PDF front matter"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Distribution Statement A confirmed on armypubs.army.mil publication listing and document front matter"
+  verified_by: "automated"
+
+content:
+  categories:
+    - hygiene
+    - sanitation
+    - water
+    - food
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from armypubs.army.mil, 362 KB. Electronic-only publication."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: "FM 21-10 / MCRP 4-11.1D (2000)"

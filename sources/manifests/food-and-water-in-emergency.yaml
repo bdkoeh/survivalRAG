@@ -1,0 +1,44 @@
+# Provenance Manifest for Food and Water in an Emergency
+# Schema version: 1.0
+
+document:
+  title: "Food and Water in an Emergency"
+  designation: "FEMA 477"
+  edition_date: "2004"
+  pages: "unknown"
+  file_name: "food-and-water-in-emergency.pdf"
+  file_sha256: "d28c8b2b20ee83081cc9a83c6c0763b27e8115574ad74c7234bdec7a55531ada"
+
+source:
+  primary_url: "https://www.fema.gov/pdf/library/f&web.pdf"
+  official_listing_url: "https://www.fema.gov"
+  fallback_urls: []
+  publisher: "FEMA / American Red Cross"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - food
+    - water
+    - preparedness
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF from fema.gov, 603 KB."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

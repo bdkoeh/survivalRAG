@@ -1,0 +1,44 @@
+# Provenance Manifest for First Aid
+# Schema version: 1.0
+
+document:
+  title: "First Aid"
+  designation: "FM 4-25.11"
+  edition_date: "2002-12-23"
+  pages: "unknown"
+  file_name: "FM-4-25-11.pdf"
+  file_sha256: "95fb01c941cdb385c152d045081ae011b59805931524e03192e953dc4e57af2f"
+
+source:
+  primary_url: "https://www.globalsecurity.org/military/library/policy/army/fm/4-25-11/fm4-25-11.pdf"
+  official_listing_url: "https://armypubs.army.mil/ProductMaps/PubForm/FM.aspx"
+  fallback_urls:
+    - "https://archive.org/details/FM4-25.11"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Verified via GlobalSecurity.org PDF front matter and Archive.org copy"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Distribution Statement A confirmed on GlobalSecurity.org hosted PDF front matter; cross-referenced with Archive.org (AHEC digitized) copy"
+  verified_by: "automated"
+
+content:
+  categories:
+    - first_aid
+    - medical
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Born-digital PDF, 2.62 MB. Text-selectable."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: "TC 4-02.1 (2016, Distribution Statement A - included)"
+supersedes: null
