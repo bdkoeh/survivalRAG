@@ -32,11 +32,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Every document has a YAML provenance manifest with source URL, license type, distribution statement text, verification date, and processing notes
   3. Every document's Distribution Statement A is verified against an official source (armypubs.army.mil, FEMA.gov, CDC.gov) -- no document with ambiguous status is included
   4. Original source PDFs are retained alongside any processed outputs for audit and re-processing
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md -- Download all Tier 1 source documents with automated scripts and integrity verification
+- [ ] 01-02-PLAN.md -- Create YAML provenance manifests, exclusion documentation, and final validation
 
 ### Phase 2: Document Processing
 **Goal**: Raw source PDFs are transformed into clean, classified, categorized text ready for chunking -- with zero corrupted medical dosages, measurements, or safety warnings
@@ -163,7 +163,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Content Sourcing & Licensing | 0/TBD | Not started | - |
+| 1. Content Sourcing & Licensing | 0/2 | Planning complete | - |
 | 2. Document Processing | 0/TBD | Not started | - |
 | 3. Chunking & Embedding | 0/TBD | Not started | - |
 | 4. Retrieval Pipeline | 0/TBD | Not started | - |
