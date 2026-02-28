@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build / data artifacts
+dist/
+build/
+*.egg-info/
+
+# Large model/embedding files
+*.bin
+*.gguf
+*.safetensors
+
+# Vector store data (regenerable)
+chroma_db/
+faiss_index/
+
+# Logs
+*.log
