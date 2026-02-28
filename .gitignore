@@ -19,6 +19,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# Claude Code local settings
+.claude/settings.local.json
+
 # Build / data artifacts
 dist/
 build/
@@ -35,3 +38,6 @@ faiss_index/
 
 # Logs
 *.log
+
+# Source document PDFs (too large for git, downloaded via scripts)
+sources/originals/

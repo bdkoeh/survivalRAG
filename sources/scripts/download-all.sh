@@ -73,13 +73,13 @@ download_file() {
     if curl --retry 3 --retry-delay 5 -fSL --connect-timeout 30 --max-time 600 -o "$dest" "$primary_url" 2>/dev/null; then
         local filesize
         filesize=$(wc -c < "$dest" | tr -d ' ')
-        if [ "$filesize" -gt 1024 ]; then
+        if [ "$filesize" -gt 1024 ] && head -c 5 "$dest" | grep -q "%PDF"; then
             echo -e "  ${GREEN}OK${NC}: $filename (${filesize} bytes)"
             log_report "OK: $filename (${filesize} bytes) from primary URL"
             DOWNLOADED=$((DOWNLOADED + 1))
             return 0
         else
-            echo -e "  ${YELLOW}WARNING${NC}: File too small (${filesize} bytes), likely error page"
+            echo -e "  ${YELLOW}WARNING${NC}: File invalid (${filesize} bytes, may not be PDF)"
             rm -f "$dest"
         fi
     else
@@ -92,13 +92,13 @@ download_file() {
         if curl --retry 3 --retry-delay 5 -fSL --connect-timeout 30 --max-time 600 -o "$dest" "$fallback_url" 2>/dev/null; then
             local filesize
             filesize=$(wc -c < "$dest" | tr -d ' ')
-            if [ "$filesize" -gt 1024 ]; then
+            if [ "$filesize" -gt 1024 ] && head -c 5 "$dest" | grep -q "%PDF"; then
                 echo -e "  ${GREEN}OK${NC}: $filename (${filesize} bytes) [fallback]"
                 log_report "OK: $filename (${filesize} bytes) from fallback URL"
                 DOWNLOADED=$((DOWNLOADED + 1))
                 return 0
             else
-                echo -e "  ${YELLOW}WARNING${NC}: Fallback file too small (${filesize} bytes)"
+                echo -e "  ${YELLOW}WARNING${NC}: Fallback file invalid (${filesize} bytes, may not be PDF)"
                 rm -f "$dest"
             fi
         else
@@ -106,19 +106,20 @@ download_file() {
         fi
     fi
 
-    # Try Wayback Machine as last resort
-    local wayback_url="https://web.archive.org/web/latest/${primary_url}"
+    # Try Wayback Machine as last resort (use id_ modifier for raw file, not HTML wrapper)
+    local wayback_url="https://web.archive.org/web/2024id_/${primary_url}"
     echo -e "  Trying Wayback Machine: $wayback_url"
     if curl --retry 2 --retry-delay 5 -fSL --connect-timeout 30 --max-time 600 -o "$dest" "$wayback_url" 2>/dev/null; then
         local filesize
         filesize=$(wc -c < "$dest" | tr -d ' ')
-        if [ "$filesize" -gt 1024 ]; then
+        # Verify it is actually a PDF (not HTML wrapper)
+        if [ "$filesize" -gt 1024 ] && head -c 5 "$dest" | grep -q "%PDF"; then
             echo -e "  ${GREEN}OK${NC}: $filename (${filesize} bytes) [wayback]"
             log_report "OK: $filename (${filesize} bytes) from Wayback Machine"
             DOWNLOADED=$((DOWNLOADED + 1))
             return 0
         else
-            echo -e "  ${YELLOW}WARNING${NC}: Wayback file too small (${filesize} bytes)"
+            echo -e "  ${YELLOW}WARNING${NC}: Wayback file invalid (${filesize} bytes, not a PDF)"
             rm -f "$dest"
         fi
     else
@@ -155,7 +156,7 @@ download_file \
 download_file \
     "$ORIGINALS_DIR/military/FM-21-76-1.pdf" \
     "https://irp.fas.org/doddir/army/fm21-76-1.pdf" \
-    ""
+    "https://trueprepper.com/wp-content/uploads/2023/03/FM-21-76-1-Survival-Evasion-and-Recovery-Multiservice-Procedures.pdf"
 
 # FM 21-10 / MCRP 4-11.1D: Field Hygiene and Sanitation (2000)
 download_file \
@@ -193,7 +194,7 @@ echo ""
 download_file \
     "$ORIGINALS_DIR/fema/are-you-ready.pdf" \
     "https://www.fema.gov/pdf/areyouready/areyouready_full.pdf" \
-    "https://cnreurafcent.cnic.navy.mil/Portals/78/NSA_Naples/Documents/Emergency%20Management/References/Are%20You%20Ready%20...pdf"
+    "https://web.archive.org/web/2020id_/https://www.fema.gov/pdf/areyouready/areyouready_full.pdf"
 
 # Food and Water in an Emergency
 download_file \
@@ -252,7 +253,6 @@ echo -e "  Attempting to download HTML and noting for manual PDF capture..."
 if command -v wkhtmltopdf &>/dev/null; then
     echo -e "  wkhtmltopdf found, attempting conversion..."
     if wkhtmltopdf "https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html" "$ORIGINALS_DIR/cdc/keep-food-safe-disaster.pdf" 2>/dev/null; then
-        local filesize
         filesize=$(wc -c < "$ORIGINALS_DIR/cdc/keep-food-safe-disaster.pdf" | tr -d ' ')
         echo -e "  ${GREEN}OK${NC}: keep-food-safe-disaster.pdf (${filesize} bytes) [web capture]"
         log_report "OK: keep-food-safe-disaster.pdf (${filesize} bytes) from web capture via wkhtmltopdf"

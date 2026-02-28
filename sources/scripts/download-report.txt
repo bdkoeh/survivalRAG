@@ -1,0 +1,46 @@
+Download Report - 2026-02-28T21:53:14Z (updated after manual fixes)
+========================================
+
+MILITARY DOCUMENTS:
+OK: FM-21-76.pdf (52401363 bytes) from primary URL (bits.de)
+OK: FM-21-76-1.pdf (1271059 bytes) from fallback URL (trueprepper.com)
+  Note: Primary URL (irp.fas.org) returned empty file. Wayback returned HTML wrapper.
+  Fixed by downloading from trueprepper.com fallback. PDF verified: 107 pages, version 1.4.
+OK: FM-21-10.pdf (2913453 bytes) from fallback URL (archive.org)
+  Note: Primary URL (marines.mil) returned 404.
+OK: FM-4-25-11.pdf (2621944 bytes) from primary URL (globalsecurity.org)
+OK: TC-4-02-3.pdf (362339 bytes) from primary URL (armypubs.army.mil)
+OK: TC-4-02-1.pdf (1627734 bytes) from primary URL (rdl.train.army.mil)
+
+FEMA DOCUMENTS:
+OK: are-you-ready.pdf (22098772 bytes) from Wayback Machine (id_ raw download)
+  Note: Primary FEMA.gov URL returned 404. Navy CNIC fallback returned 403.
+  Standard Wayback returned HTML wrapper. Fixed using id_ modifier for raw download.
+  PDF verified: ~204 pages, 22 MB, version 1.4.
+OK: food-and-water-in-emergency.pdf (602820 bytes) from primary URL (fema.gov)
+OK: how-to-build-emergency-kit.pdf (36512 bytes) from primary URL (fema.gov)
+OK: basic-preparedness.pdf (1205866 bytes) from primary URL (fema.gov)
+
+CDC DOCUMENTS:
+OK: emergency-wound-care.pdf (352891 bytes) from primary URL (cdc.gov)
+OK: make-water-safe-emergency.pdf (730926 bytes) from primary URL (cdc.gov)
+OK: use-safe-water-emergency.pdf (141092 bytes) from primary URL (cdc.gov)
+OK: keep-food-water-safe.pdf (97908 bytes) from primary URL (stacks.cdc.gov)
+OK: all-hazards-preparedness-guide.pdf (19823650 bytes) from primary URL (stacks.cdc.gov)
+OK: public-health-emergency-response.pdf (2574042 bytes) from primary URL (stacks.cdc.gov)
+
+MISSING (acceptable):
+NOTE: keep-food-safe-disaster.pdf - wkhtmltopdf not installed. Manual PDF capture needed.
+  Source: https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html
+  Instructions: Open URL in browser, Print -> Save as PDF -> save to sources/originals/cdc/keep-food-safe-disaster.pdf
+
+ISSUES FOUND AND FIXED:
+1. FM-21-76-1.pdf: Wayback Machine returned HTML wrapper page instead of PDF.
+   Fix: Downloaded from trueprepper.com (third-party, Distribution Statement A verified
+   against FAS, GlobalSecurity, and EverySpec.com independent of download source).
+2. are-you-ready.pdf: FEMA.gov URL no longer accessible. Wayback standard URL returned HTML.
+   Fix: Used Wayback Machine id_ modifier (web.archive.org/web/2020id_/URL) for raw PDF.
+
+Summary: 16 of 17 target documents downloaded. All 16 are valid PDFs (verified with file command).
+CDC "Keep Food Safe" web page requires manual capture (wkhtmltopdf not available).
+All files pass SHA-256 checksum verification.
