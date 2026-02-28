@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 1: Content Sourcing & Licensing
+**Current focus:** Phase 1 complete. Ready for Phase 2: Document Processing
 
 ## Current Position
 
-Phase: 1 of 8 (Content Sourcing & Licensing)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-02-28 -- Completed 01-01-PLAN.md (Download Tier 1 source documents)
+Phase: 1 of 8 (Content Sourcing & Licensing) -- COMPLETE
+Plan: 2 of 2 in current phase (all plans complete)
+Status: Phase complete
+Last activity: 2026-02-28 -- Completed 01-02-PLAN.md (Create provenance manifests and validate)
 
-Progress: [█░░░░░░░░░] 6%
+Progress: [█░░░░░░░░░] 12%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 8min
-- Total execution time: 0.13 hours
+- Total plans completed: 2
+- Average duration: 6.5min
+- Total execution time: 0.22 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Content Sourcing | 1 | 8min | 8min |
+| 1. Content Sourcing | 2 | 13min | 6.5min |
 
 **Recent Trend:**
-- Last 5 plans: 8min
-- Trend: Starting
+- Last 5 plans: 8min, 5min
+- Trend: Improving
 
 *Updated after each plan completion*
 
@@ -49,10 +49,14 @@ Recent decisions affecting current work:
 - [01-01]: FEMA.gov has restructured URLs -- Are You Ready? no longer at original path
 - [01-01]: PDF format validation (%PDF magic bytes) essential to catch HTML error pages
 - [01-01]: CDC "Keep Food Safe" web page needs manual browser PDF capture (wkhtmltopdf not available)
+- [01-02]: Manifest schema v1.0 established with 5 top-level sections (document, source, licensing, content, processing)
+- [01-02]: Military docs verified via Distribution Statement A; civilian docs via 17 U.S.C. 105
+- [01-02]: Bash validation script created alongside Python script (Python not available on build system)
 
 ### Pending Todos
 
 - Manual PDF capture needed: CDC "Keep Food Safe After a Disaster" (https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html) -> sources/originals/cdc/keep-food-safe-disaster.pdf
+- Install Python/PyYAML for native validate-manifests.py execution (bash alternative works in the meantime)
 
 ### Blockers/Concerns
 
@@ -63,5 +67,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 01-01-PLAN.md (Download Tier 1 source documents)
-Resume file: .planning/phases/01-content-sourcing-licensing/01-01-SUMMARY.md
+Stopped at: Completed 01-02-PLAN.md (Create provenance manifests and validate) -- Phase 1 complete
+Resume file: .planning/phases/01-content-sourcing-licensing/01-02-SUMMARY.md

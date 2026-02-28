@@ -12,7 +12,7 @@ SurvivalRAG delivers a pre-built, source-cited survival/medical RAG knowledge ba
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Content Sourcing & Licensing** - Acquire Tier 1 public domain documents with verified licensing and provenance manifests
+- [x] **Phase 1: Content Sourcing & Licensing** - Acquire Tier 1 public domain documents with verified licensing and provenance manifests
 - [ ] **Phase 2: Document Processing** - Extract, clean, classify, and tag text from source PDFs
 - [ ] **Phase 3: Chunking & Embedding** - Content-type-aware chunking with safety warning preservation, embedding model validation, and corpus embedding
 - [ ] **Phase 4: Retrieval Pipeline** - Vector similarity search with category filtering and hybrid search for medical terminology
@@ -36,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md -- Download all Tier 1 source documents with automated scripts and integrity verification
-- [ ] 01-02-PLAN.md -- Create YAML provenance manifests, exclusion documentation, and final validation
+- [x] 01-02-PLAN.md -- Create YAML provenance manifests, exclusion documentation, and final validation
 
 ### Phase 2: Document Processing
 **Goal**: Raw source PDFs are transformed into clean, classified, categorized text ready for chunking -- with zero corrupted medical dosages, measurements, or safety warnings
@@ -163,7 +163,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Content Sourcing & Licensing | 1/2 | In progress | - |
+| 1. Content Sourcing & Licensing | 2/2 | Complete | 2026-02-28 |
 | 2. Document Processing | 0/2 | Not started | - |
 | 3. Chunking & Embedding | 0/TBD | Not started | - |
 | 4. Retrieval Pipeline | 0/TBD | Not started | - |

@@ -8,9 +8,9 @@
 ### Content Sourcing & Licensing
 
 - [x] **CONT-01**: All Tier 1 source documents are downloaded from official or verified sources
-- [ ] **CONT-02**: Every document has verified Distribution Statement A ("Approved for public release; distribution is unlimited") from an official source (armypubs.army.mil, FEMA.gov, CDC.gov)
-- [ ] **CONT-03**: Every document has a YAML provenance manifest recording: source URL, license type, distribution statement text, verification date, and processing notes
-- [ ] **CONT-04**: No document with ambiguous or restricted distribution status is included
+- [x] **CONT-02**: Every document has verified Distribution Statement A ("Approved for public release; distribution is unlimited") from an official source (armypubs.army.mil, FEMA.gov, CDC.gov)
+- [x] **CONT-03**: Every document has a YAML provenance manifest recording: source URL, license type, distribution statement text, verification date, and processing notes
+- [x] **CONT-04**: No document with ambiguous or restricted distribution status is included
 - [x] **CONT-05**: Source PDFs are retained alongside processed text for audit and re-processing
 
 ### Document Processing
@@ -136,9 +136,9 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | CONT-01 | Phase 1 | Complete (01-01) |
-| CONT-02 | Phase 1 | Pending |
-| CONT-03 | Phase 1 | Pending |
-| CONT-04 | Phase 1 | Pending |
+| CONT-02 | Phase 1 | Complete (01-02) |
+| CONT-03 | Phase 1 | Complete (01-02) |
+| CONT-04 | Phase 1 | Complete (01-02) |
 | CONT-05 | Phase 1 | Complete (01-01) |
 | PROC-01 | Phase 2 | Pending |
 | PROC-02 | Phase 2 | Pending |
