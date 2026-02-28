@@ -1,7 +1,7 @@
 # Requirements: SurvivalRAG
 
 **Defined:** 2026-02-28
-**Core Value:** Every survival/medical answer is grounded in cited public domain source documents — when context is insufficient, the system says so rather than guessing.
+**Core Value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
 
 ## v1 Requirements
 
@@ -16,14 +16,14 @@
 ### Document Processing
 
 - [ ] **PROC-01**: PDF text extraction handles both born-digital and scanned documents
-- [ ] **PROC-02**: OCR output for scanned documents is human-reviewed for Tier 1 medical content — zero corrupted dosages, measurements, or safety warnings
+- [ ] **PROC-02**: OCR output for scanned documents is human-reviewed for Tier 1 medical content -- zero corrupted dosages, measurements, or safety warnings
 - [ ] **PROC-03**: Extracted text is cleaned of headers/footers, page numbers, watermarks, and OCR artifacts
 - [ ] **PROC-04**: Each text section is classified by content type: procedure, reference_table, safety_warning, or general
 - [ ] **PROC-05**: Each text section is tagged with a content category (medical, water, shelter, fire, food, navigation, signaling, tools, first_aid)
 
 ### Chunking & Embedding
 
-- [ ] **CHNK-01**: Procedures are chunked at procedure boundaries — never split mid-step
+- [ ] **CHNK-01**: Procedures are chunked at procedure boundaries -- never split mid-step
 - [ ] **CHNK-02**: Reference tables are kept as single chunks with headers preserved
 - [ ] **CHNK-03**: Safety warnings are never stripped, summarized, or separated from their associated procedure
 - [ ] **CHNK-04**: Safety warnings are duplicated as metadata on related chunks so they surface even when the warning chunk itself is not retrieved
@@ -35,7 +35,7 @@
 
 - [ ] **RETR-01**: User query is embedded and matched against the knowledge base via vector similarity search
 - [ ] **RETR-02**: User can optionally filter retrieval by content category
-- [ ] **RETR-03**: Chunks below a relevance threshold are discarded — if no chunks pass, the system returns "insufficient context" without calling the LLM
+- [ ] **RETR-03**: Chunks below a relevance threshold are discarded -- if no chunks pass, the system returns "insufficient context" without calling the LLM
 - [ ] **RETR-04**: Hybrid search (BM25 keyword + vector similarity) is available for medical terminology accuracy
 - [ ] **RETR-05**: Retrieved context is assembled into a prompt with source metadata for citation
 
@@ -44,8 +44,8 @@
 - [ ] **RESP-01**: Every response cites which source document and section the information came from
 - [ ] **RESP-02**: Safety warnings from source material are preserved and surfaced in responses
 - [ ] **RESP-03**: When retrieved context is insufficient, the system explicitly refuses rather than generating from LLM parametric knowledge
-- [ ] **RESP-04**: Responses are formatted as concise, actionable steps (field-manual style) — numbered steps for procedures, bullets for lists, bold for warnings
-- [ ] **RESP-05**: The system never provides medical diagnoses — it is a reference tool only
+- [ ] **RESP-04**: Responses are formatted as concise, actionable steps (field-manual style) -- numbered steps for procedures, bullets for lists, bold for warnings
+- [ ] **RESP-05**: The system never provides medical diagnoses -- it is a reference tool only
 - [ ] **RESP-06**: Responses are streamed token-by-token to reduce perceived latency
 - [ ] **RESP-07**: Post-generation verification checks that cited sources match retrieved chunks
 
@@ -120,30 +120,79 @@
 
 | Feature | Reason |
 |---------|--------|
-| Meshtastic mesh radio integration | Separate future milestone — depends on compact response modes |
-| Medical diagnosis or triage | Reference tool only — diagnosis creates liability and potential harm |
+| Meshtastic mesh radio integration | Separate future milestone -- depends on compact response modes |
+| Medical diagnosis or triage | Reference tool only -- diagnosis creates liability and potential harm |
 | Multi-model orchestration / agentic RAG | Agent loops are slow and unreliable on small local LLMs |
 | Real-time document updates | Safety-critical content needs versioned releases, not live updates |
-| User accounts / authentication | Local tool — auth adds friction for zero benefit |
-| Telemetry / analytics | Privacy-first, offline tool — any telemetry undermines trust |
+| User accounts / authentication | Local tool -- auth adds friction for zero benefit |
+| Telemetry / analytics | Privacy-first, offline tool -- any telemetry undermines trust |
 | Knowledge graph / GraphRAG | Overkill for curated document collection at this scale |
 | Voice interface | Adds heavy dependencies without proportional value |
 | Fine-tuned custom LLM | RAG grounding > parametric medical knowledge for this use case |
-| Non-English content (v1) | Doubles QA effort per language — English-only for v1 |
+| Non-English content (v1) | Doubles QA effort per language -- English-only for v1 |
 
 ## Traceability
 
-Populated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| — | — | — |
+| CONT-01 | Phase 1 | Pending |
+| CONT-02 | Phase 1 | Pending |
+| CONT-03 | Phase 1 | Pending |
+| CONT-04 | Phase 1 | Pending |
+| CONT-05 | Phase 1 | Pending |
+| PROC-01 | Phase 2 | Pending |
+| PROC-02 | Phase 2 | Pending |
+| PROC-03 | Phase 2 | Pending |
+| PROC-04 | Phase 2 | Pending |
+| PROC-05 | Phase 2 | Pending |
+| CHNK-01 | Phase 3 | Pending |
+| CHNK-02 | Phase 3 | Pending |
+| CHNK-03 | Phase 3 | Pending |
+| CHNK-04 | Phase 3 | Pending |
+| CHNK-05 | Phase 3 | Pending |
+| CHNK-06 | Phase 3 | Pending |
+| CHNK-07 | Phase 3 | Pending |
+| RETR-01 | Phase 4 | Pending |
+| RETR-02 | Phase 4 | Pending |
+| RETR-03 | Phase 4 | Pending |
+| RETR-04 | Phase 4 | Pending |
+| RETR-05 | Phase 4 | Pending |
+| RESP-01 | Phase 5 | Pending |
+| RESP-02 | Phase 5 | Pending |
+| RESP-03 | Phase 5 | Pending |
+| RESP-04 | Phase 5 | Pending |
+| RESP-05 | Phase 5 | Pending |
+| RESP-06 | Phase 5 | Pending |
+| RESP-07 | Phase 5 | Pending |
+| EVAL-01 | Phase 6 | Pending |
+| EVAL-02 | Phase 6 | Pending |
+| EVAL-03 | Phase 6 | Pending |
+| EVAL-04 | Phase 6 | Pending |
+| EVAL-05 | Phase 6 | Pending |
+| EVAL-06 | Phase 6 | Pending |
+| WEBUI-01 | Phase 7 | Pending |
+| WEBUI-02 | Phase 7 | Pending |
+| WEBUI-03 | Phase 7 | Pending |
+| WEBUI-04 | Phase 7 | Pending |
+| WEBUI-05 | Phase 7 | Pending |
+| WEBUI-06 | Phase 7 | Pending |
+| CLI-01 | Phase 7 | Pending |
+| CLI-02 | Phase 7 | Pending |
+| CLI-03 | Phase 7 | Pending |
+| DEPL-01 | Phase 8 | Pending |
+| DEPL-02 | Phase 8 | Pending |
+| DEPL-03 | Phase 8 | Pending |
+| DEPL-04 | Phase 8 | Pending |
+| DEPL-05 | Phase 8 | Pending |
+| DEPL-06 | Phase 8 | Pending |
+| DEPL-07 | Phase 8 | Pending |
+| DEPL-08 | Phase 8 | Pending |
 
 **Coverage:**
-- v1 requirements: 42 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 42
+- v1 requirements: 52 total
+- Mapped to phases: 52
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-28*
-*Last updated: 2026-02-28 after initial definition*
+*Last updated: 2026-02-28 after roadmap creation*
