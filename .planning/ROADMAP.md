@@ -47,11 +47,11 @@ Plans:
   2. OCR output for scanned Tier 1 medical content has been human-reviewed -- dosages, measurements, and safety warnings are verified correct
   3. Extracted text is free of headers, footers, page numbers, watermarks, and OCR artifacts
   4. Every text section is classified by content type (procedure, reference_table, safety_warning, general) and tagged with a content category (medical, water, shelter, fire, food, navigation, signaling, tools, first_aid)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md -- Build PDF extraction pipeline (Docling extraction, section splitting, text cleaning, Markdown output with metadata)
+- [ ] 02-02-PLAN.md -- Build classification pipeline (Ollama-based content type and category tagging, dosage validation, verification reports, human review)
 
 ### Phase 3: Chunking & Embedding
 **Goal**: Processed text is chunked with content-type awareness (procedures never split mid-step, tables kept whole, safety warnings co-located) and embedded with a validated model -- producing the ready-to-query knowledge base
@@ -164,7 +164,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Content Sourcing & Licensing | 1/2 | In progress | - |
-| 2. Document Processing | 0/TBD | Not started | - |
+| 2. Document Processing | 0/2 | Not started | - |
 | 3. Chunking & Embedding | 0/TBD | Not started | - |
 | 4. Retrieval Pipeline | 0/TBD | Not started | - |
 | 5. Response Generation | 0/TBD | Not started | - |
