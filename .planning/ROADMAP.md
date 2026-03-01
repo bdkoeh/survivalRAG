@@ -28,15 +28,18 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Depends on**: Nothing (first phase)
 **Requirements**: CONT-01, CONT-02, CONT-03, CONT-04, CONT-05
 **Success Criteria** (what must be TRUE):
-  1. All Tier 1 documents (US Army survival manuals, SF Medical Handbook, FEMA guides, CDC guidelines) are downloaded and stored locally
+  1. All Tier 1 documents (71 documents from 11 agencies: military, USAF, FEMA, CDC, EPA, USDA, NOAA, USCG, NPS, DHS, HHS) are downloaded and stored locally
   2. Every document has a YAML provenance manifest with source URL, license type, distribution statement text, verification date, and processing notes
-  3. Every document's Distribution Statement A is verified against an official source (armypubs.army.mil, FEMA.gov, CDC.gov) -- no document with ambiguous status is included
+  3. Every document's Distribution Statement A (military) or US Government Work status (civilian) is verified -- no document with ambiguous status is included
   4. Original source PDFs are retained alongside any processed outputs for audit and re-processing
-**Plans**: 2 plans
+**Plans**: 5 plans
 
 Plans:
-- [x] 01-01-PLAN.md -- Download all Tier 1 source documents with automated scripts and integrity verification
+- [x] 01-01-PLAN.md -- Download initial Tier 1 source documents (16 initial docs, 3 agencies) with automated scripts and integrity verification
 - [x] 01-02-PLAN.md -- Create YAML provenance manifests, exclusion documentation, and final validation
+- [x] 01-03-PLAN.md -- Download expanded Tier 1 documents (55 additional docs, 11 agencies) with new agency directories
+- [x] 01-04-PLAN.md -- Create manifests for expanded documents, update validation scripts for dynamic subdirectory and publisher support
+- [x] 01-05-PLAN.md -- Update planning artifacts and create WikiMed extraction plan for future Tier 2 content
 
 ### Phase 2: Document Processing
 **Goal**: Raw source PDFs are transformed into clean, classified, categorized text ready for chunking -- with zero corrupted medical dosages, measurements, or safety warnings
@@ -63,12 +66,12 @@ Plans:
   3. Safety warnings are never stripped, summarized, or separated from their procedures -- and are duplicated as metadata on related chunks
   4. Every chunk carries full metadata: source_document, page_number, section_header, content_type, category, source_url, license, distribution_statement, verification_date
   5. The embedding model (nomic-embed-text or validated alternative) is benchmarked against 50+ domain-specific query-document pairs before full corpus processing, and all chunks use the same model version recorded in metadata
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
-- [ ] 03-03: TBD
+- [ ] 03-01-PLAN.md -- Build chunk data models, content-type-aware chunker, and batch-safe Ollama embedding wrapper
+- [ ] 03-02-PLAN.md -- Auto-generate 50+ benchmark query-document pairs and evaluate nomic-embed-text Recall@5
+- [ ] 03-03-PLAN.md -- Run full corpus chunking and embedding, produce per-document JSONL output files
 
 ### Phase 4: Retrieval Pipeline
 **Goal**: Users can query the knowledge base and get relevant, category-filtered results via vector similarity and hybrid search -- with automatic refusal when no chunks meet the relevance threshold
@@ -163,7 +166,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Content Sourcing & Licensing | 2/2 | Complete | 2026-02-28 |
+| 1. Content Sourcing & Licensing | 5/5 | Complete | 2026-02-28 |
 | 2. Document Processing | 0/2 | Not started | - |
 | 3. Chunking & Embedding | 0/TBD | Not started | - |
 | 4. Retrieval Pipeline | 0/TBD | Not started | - |
