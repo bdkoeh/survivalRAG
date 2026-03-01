@@ -16,10 +16,10 @@
 ### Document Processing
 
 - [x] **PROC-01**: PDF text extraction handles both born-digital and scanned documents
-- [ ] **PROC-02**: OCR output for scanned documents is human-reviewed for Tier 1 medical content -- zero corrupted dosages, measurements, or safety warnings
+- [x] **PROC-02**: OCR output for scanned documents is human-reviewed for Tier 1 medical content -- zero corrupted dosages, measurements, or safety warnings
 - [x] **PROC-03**: Extracted text is cleaned of headers/footers, page numbers, watermarks, and OCR artifacts
-- [ ] **PROC-04**: Each text section is classified by content type: procedure, reference_table, safety_warning, or general
-- [ ] **PROC-05**: Each text section is tagged with a content category (medical, water, shelter, fire, food, navigation, signaling, tools, first_aid)
+- [x] **PROC-04**: Each text section is classified by content type: procedure, reference_table, safety_warning, or general
+- [x] **PROC-05**: Each text section is tagged with a content category (medical, water, shelter, fire, food, navigation, signaling, tools, first_aid)
 
 ### Chunking & Embedding
 
@@ -141,10 +141,10 @@
 | CONT-04 | Phase 1 | Complete (01-02, expanded 01-04) |
 | CONT-05 | Phase 1 | Complete (01-01, expanded 01-03) |
 | PROC-01 | Phase 2 | Complete |
-| PROC-02 | Phase 2 | Pending |
+| PROC-02 | Phase 2 | Complete |
 | PROC-03 | Phase 2 | Complete |
-| PROC-04 | Phase 2 | Pending |
-| PROC-05 | Phase 2 | Pending |
+| PROC-04 | Phase 2 | Complete |
+| PROC-05 | Phase 2 | Complete |
 | CHNK-01 | Phase 3 | Complete |
 | CHNK-02 | Phase 3 | Complete |
 | CHNK-03 | Phase 3 | Complete |

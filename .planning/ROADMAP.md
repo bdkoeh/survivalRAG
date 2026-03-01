@@ -13,7 +13,7 @@ SurvivalRAG delivers a pre-built, source-cited survival/medical RAG knowledge ba
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Content Sourcing & Licensing** - Acquire Tier 1 public domain documents with verified licensing and provenance manifests
-- [ ] **Phase 2: Document Processing** - Extract, clean, classify, and tag text from source PDFs
+- [x] **Phase 2: Document Processing** - Extract, clean, classify, and tag text from source PDFs (completed 2026-03-01)
 - [ ] **Phase 3: Chunking & Embedding** - Content-type-aware chunking with safety warning preservation, embedding model validation, and corpus embedding
 - [ ] **Phase 4: Retrieval Pipeline** - Vector similarity search with category filtering and hybrid search for medical terminology
 - [ ] **Phase 5: Response Generation** - Safety-first, source-cited, field-manual-style response generation with hallucination refusal
@@ -53,8 +53,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Build PDF extraction pipeline (Docling extraction, section splitting, text cleaning, Markdown output with metadata)
-- [ ] 02-02-PLAN.md -- Build classification pipeline (Ollama-based content type and category tagging, dosage validation, verification reports, human review)
+- [x] 02-01-PLAN.md -- Build PDF extraction pipeline (Docling extraction, section splitting, text cleaning, Markdown output with metadata)
+- [x] 02-02-PLAN.md -- Build classification pipeline (Ollama-based content type and category tagging, dosage validation, verification reports, human review)
 
 ### Phase 3: Chunking & Embedding
 **Goal**: Processed text is chunked with content-type awareness (procedures never split mid-step, tables kept whole, safety warnings co-located) and embedded with a validated model -- producing the ready-to-query knowledge base
@@ -83,11 +83,11 @@ Plans:
   3. When no chunks pass the relevance threshold, the system returns "insufficient context" without calling the LLM
   4. Hybrid search (BM25 keyword + vector similarity) is available and improves medical terminology retrieval accuracy over vector-only search
   5. Retrieved context is assembled into a structured prompt that includes source metadata for downstream citation
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md -- Build ChromaDB ingestion, hybrid retrieval engine (vector + BM25), RRF fusion, threshold filtering, and category pre-filtering
+- [ ] 04-02-PLAN.md -- Build prompt assembly module with safety warning injection, refusal handling, and end-to-end query interface
 
 ### Phase 5: Response Generation
 **Goal**: The system generates safety-first, source-cited, field-manual-style responses that refuse to guess when context is insufficient and never hallucinate medical procedures
@@ -167,7 +167,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Content Sourcing & Licensing | 5/5 | Complete | 2026-02-28 |
-| 2. Document Processing | 0/2 | Not started | - |
+| 2. Document Processing | 2/2 | Complete   | 2026-03-01 |
 | 3. Chunking & Embedding | 0/TBD | Not started | - |
 | 4. Retrieval Pipeline | 0/TBD | Not started | - |
 | 5. Response Generation | 0/TBD | Not started | - |
