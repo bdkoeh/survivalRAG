@@ -23,11 +23,11 @@
 
 ### Chunking & Embedding
 
-- [ ] **CHNK-01**: Procedures are chunked at procedure boundaries -- never split mid-step
-- [ ] **CHNK-02**: Reference tables are kept as single chunks with headers preserved
-- [ ] **CHNK-03**: Safety warnings are never stripped, summarized, or separated from their associated procedure
-- [ ] **CHNK-04**: Safety warnings are duplicated as metadata on related chunks so they surface even when the warning chunk itself is not retrieved
-- [ ] **CHNK-05**: Every chunk has metadata: source_document, page_number, section_header, content_type, category, source_url, license, distribution_statement, verification_date
+- [x] **CHNK-01**: Procedures are chunked at procedure boundaries -- never split mid-step
+- [x] **CHNK-02**: Reference tables are kept as single chunks with headers preserved
+- [x] **CHNK-03**: Safety warnings are never stripped, summarized, or separated from their associated procedure
+- [x] **CHNK-04**: Safety warnings are duplicated as metadata on related chunks so they surface even when the warning chunk itself is not retrieved
+- [x] **CHNK-05**: Every chunk has metadata: source_document, page_number, section_header, content_type, category, source_url, license, distribution_statement, verification_date
 - [ ] **CHNK-06**: Embedding model is benchmarked against 50+ domain-specific query-document pairs before full corpus processing
 - [ ] **CHNK-07**: All chunks are embedded using the same model version, recorded in metadata
 
@@ -145,11 +145,11 @@
 | PROC-03 | Phase 2 | Complete |
 | PROC-04 | Phase 2 | Pending |
 | PROC-05 | Phase 2 | Pending |
-| CHNK-01 | Phase 3 | Pending |
-| CHNK-02 | Phase 3 | Pending |
-| CHNK-03 | Phase 3 | Pending |
-| CHNK-04 | Phase 3 | Pending |
-| CHNK-05 | Phase 3 | Pending |
+| CHNK-01 | Phase 3 | Complete |
+| CHNK-02 | Phase 3 | Complete |
+| CHNK-03 | Phase 3 | Complete |
+| CHNK-04 | Phase 3 | Complete |
+| CHNK-05 | Phase 3 | Complete |
 | CHNK-06 | Phase 3 | Pending |
 | CHNK-07 | Phase 3 | Pending |
 | RETR-01 | Phase 4 | Pending |
