@@ -162,3 +162,54 @@ class DocumentCorrections(BaseModel):
     corrections: list[CorrectionEntry] = Field(
         default_factory=list, description="List of corrections"
     )
+
+
+class ChunkMetadata(BaseModel):
+    """Metadata for a single text chunk, carrying full provenance and context.
+
+    Every chunk carries enough metadata to trace back to its source document,
+    section, and page -- plus embedding model info and safety warning context.
+    """
+
+    source_document: str = Field(description="Document identifier (e.g., FM-21-76)")
+    source_title: str = Field(description="Full document title")
+    section_header: str = Field(description="Section heading text")
+    page_number: int = Field(description="Starting page number from source")
+    content_type: str = Field(
+        description="Primary content type (procedure, reference_table, safety_warning, general)"
+    )
+    categories: list[str] = Field(
+        default_factory=list, description="Content categories"
+    )
+    source_url: str = Field(description="Provenance source URL")
+    license: str = Field(description="License type")
+    distribution_statement: str = Field(description="Distribution statement text")
+    verification_date: str = Field(description="Processing/verification date")
+    chunk_index: int = Field(description="0-based index within the section")
+    chunk_total: int = Field(description="Total chunks produced from this section")
+    embedding_model: str = Field(
+        default="", description="Embedding model name (e.g., nomic-embed-text)"
+    )
+    embedding_model_version: str = Field(
+        default="", description="Embedding model version string"
+    )
+    warning_level: Optional[str] = Field(
+        default=None, description="Safety warning level if present"
+    )
+    warning_text: Optional[str] = Field(
+        default=None, description="Exact safety warning text if present"
+    )
+
+
+class ChunkRecord(BaseModel):
+    """A single chunk of text with its embedding vector and full metadata.
+
+    The embedding field starts empty and is populated by embed.py during
+    the embedding step. The metadata carries full provenance for citation.
+    """
+
+    text: str = Field(description="The chunked text content")
+    embedding: list[float] = Field(
+        default_factory=list, description="768-dim embedding vector (populated by embed.py)"
+    )
+    metadata: ChunkMetadata = Field(description="Full chunk metadata")
