@@ -1,0 +1,43 @@
+# Provenance Manifest for Complete Guide to Home Canning: Guide 3 - Canning Tomatoes and Tomato Products
+# Schema version: 1.0
+
+document:
+  title: "Complete Guide to Home Canning: Guide 3 - Canning Tomatoes and Tomato Products"
+  designation: "Agriculture Information Bulletin No. 539"
+  edition_date: "2015"
+  pages: "unknown"
+  file_name: "home-canning-guide3.pdf"
+  file_sha256: "6f8d166be89c7260964bfa4746fae72e79164f19a712672b0c1aa3bb902d18ff"
+
+source:
+  primary_url: "https://nchfp.uga.edu/papers/guide/GUIDE03_HomeCan_rev0715.pdf"
+  official_listing_url: "https://nchfp.uga.edu/resources/category/usda-guide"
+  fallback_urls: []
+  publisher: "USDA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by USDA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by USDA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - food
+    - food_preservation
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Part of USDA Complete Guide to Home Canning (Agriculture Information Bulletin No. 539). Section: Guide 3 - Canning Tomatoes and Tomato Products. Hosted by NCHFP at University of Georgia."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

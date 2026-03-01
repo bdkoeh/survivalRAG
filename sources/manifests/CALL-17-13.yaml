@@ -1,0 +1,44 @@
+# Provenance Manifest for Tactical Combat Casualty Care Handbook Version 5
+# Schema version: 1.0
+
+document:
+  title: "Tactical Combat Casualty Care Handbook Version 5"
+  designation: "CALL 17-13"
+  edition_date: "2017"
+  pages: "unknown"
+  file_name: "CALL-17-13.pdf"
+  file_sha256: "4c58b9fc2e70b08dde2bb05fa33a70dc6cfe7f02f540b4db4905624cb48ee064"
+
+source:
+  primary_url: "https://api.army.mil/e2/c/downloads/2023/01/19/31e03488/17-13-tactical-casualty-combat-care-handbook-v5-may-17-distro-a.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - medical
+    - first_aid
+    - tactical_medicine
+  tier: 1
+  content_type: "handbook"
+  language: "en"
+
+processing:
+  notes: "TCCC handbook covering tactical combat casualty care procedures and protocols."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

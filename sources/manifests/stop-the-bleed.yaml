@@ -1,0 +1,44 @@
+# Provenance Manifest for Stop the Bleed: Applying a Tourniquet
+# Schema version: 1.0
+
+document:
+  title: "Stop the Bleed: Applying a Tourniquet"
+  designation: "DHS Stop the Bleed"
+  edition_date: "2018"
+  pages: "unknown"
+  file_name: "stop-the-bleed.pdf"
+  file_sha256: "c6bbb09f04fd020f64baa66c235a59e501faabaa25c6af81c88d966a1cdd67dc"
+
+source:
+  primary_url: "https://www.dhs.gov/sites/default/files/publications/STB_Applying_Tourniquet_08-06-2018_0.pdf"
+  official_listing_url: "https://www.dhs.gov/publication/stop-bleed-tourniquet"
+  fallback_urls: []
+  publisher: "DHS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by DHS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by DHS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - medical
+    - first_aid
+    - bleeding_control
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "DHS Stop the Bleed guide on applying a tourniquet for life-threatening bleeding"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

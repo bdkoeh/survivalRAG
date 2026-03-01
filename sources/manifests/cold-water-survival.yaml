@@ -1,0 +1,46 @@
+# Provenance Manifest for Cold Water Survival and Hypothermia
+# Schema version: 1.0
+
+document:
+  title: "Cold Water Survival and Hypothermia"
+  designation: "USCG Cold Water Safety"
+  edition_date: "2012"
+  pages: "unknown"
+  file_name: "cold-water-survival.pdf"
+  file_sha256: "f2afeba35d96704b9605f06f16076ba848b87447e6b80b9a1c486cb2e2fbf129"
+
+source:
+  primary_url: "https://www.dco.uscg.mil/Portals/9/DCO%20Documents/5p/CG-5PC/CG-CVC/CVC3/notice/flyers/Cold_Water_Survival_Hypothermia.pdf"
+  official_listing_url: "https://www.dco.uscg.mil/CG-CVC/"
+  fallback_urls:
+    - "https://www.dco.uscg.mil/Portals/9/CG-5R/nsarc/MSC1Circ1185a%20-%20Guide%20to%20Cold%20Water%20Survival%20(113012).pdf"
+  publisher: "USCG"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by USCG, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by USCG (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - water
+    - cold_weather
+    - survival
+    - medical
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "USCG guide on cold water survival, hypothermia recognition, prevention, and treatment"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

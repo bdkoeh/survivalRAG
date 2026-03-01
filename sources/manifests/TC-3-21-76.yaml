@@ -1,0 +1,46 @@
+# Provenance Manifest for Ranger Handbook
+# Schema version: 1.0
+
+document:
+  title: "Ranger Handbook"
+  designation: "TC 3-21.76"
+  edition_date: "2017"
+  pages: "unknown"
+  file_name: "TC-3-21-76.pdf"
+  file_sha256: "90a46458783d4782c08407d2dda2ecddc0c270918b15ea3368c86811fe1dd91c"
+
+source:
+  primary_url: "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN3039-TC_3-21.76-000-WEB-1.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - survival
+    - tactics
+    - navigation
+    - first_aid
+    - leadership
+  tier: 1
+  content_type: "training_circular"
+  language: "en"
+
+processing:
+  notes: "Ranger Handbook covering small-unit tactics, survival skills, navigation, and leadership fundamentals."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

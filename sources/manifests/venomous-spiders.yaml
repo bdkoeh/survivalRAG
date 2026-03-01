@@ -1,0 +1,45 @@
+# Provenance Manifest for Venomous Spiders
+# Schema version: 1.0
+
+document:
+  title: "Venomous Spiders"
+  designation: "CDC/NIOSH Publication"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "venomous-spiders.pdf"
+  file_sha256: "8c11a96449ad663dd3e325677ebfc8fd523a5e3a18207035829f3d459a2a908e"
+
+source:
+  primary_url: "https://www.cdc.gov/niosh/outdoor-workers/about/venomous-spiders.html"
+  official_listing_url: "https://www.cdc.gov/niosh/outdoor-workers/about/index.html"
+  fallback_urls: []
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - medical
+    - wildlife
+    - first_aid
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  content_type: "web_capture"
+  notes: "Web page captured as PDF. Source: https://www.cdc.gov/niosh/outdoor-workers/about/venomous-spiders.html"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "browser-print-to-pdf"
+
+superseded_by: null
+supersedes: null

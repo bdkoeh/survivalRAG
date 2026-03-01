@@ -1,0 +1,44 @@
+# Provenance Manifest for Soldier's Handbook for Individual Operations and Survival in Cold-Weather Areas
+# Schema version: 1.0
+
+document:
+  title: "Soldier's Handbook for Individual Operations and Survival in Cold-Weather Areas"
+  designation: "TC 21-3"
+  edition_date: "1986"
+  pages: "unknown"
+  file_name: "TC-21-3.pdf"
+  file_sha256: "458c88420fd3036664461e49e03ebb33241e4b93e6a0724d530dc57ad0bfac11"
+
+source:
+  primary_url: "https://armypubs.army.mil/epubs/DR_pubs/DR_a/NOCASE-TC_21-3-000-WEB-0.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - survival
+    - cold_weather
+    - shelter
+  tier: 1
+  content_type: "training_circular"
+  language: "en"
+
+processing:
+  notes: "Cold-weather survival handbook covering clothing, shelter, fire, food, water, and movement in arctic/subarctic conditions."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

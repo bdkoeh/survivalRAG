@@ -7,7 +7,7 @@ tags: [curl, sha256, bash, pdf, government-documents, public-domain]
 # Dependency graph
 requires: []
 provides:
-  - 16 Tier 1 public domain PDFs downloaded and verified (6 military, 4 FEMA, 6 CDC)
+  - 16 initial Tier 1 public domain PDFs downloaded and verified (6 military, 4 FEMA, 6 CDC) — expanded to 71 PDFs / 11 agencies in Plans 01-03/01-04
   - Idempotent download script with fallback URLs and PDF format validation
   - SHA-256 checksums for all downloaded documents
   - Checksum verification script
@@ -150,8 +150,8 @@ Each task was committed atomically:
 None - no external service configuration required. To re-download documents, run `bash sources/scripts/download-all.sh` from the project root.
 
 ## Next Phase Readiness
-- All 16 Tier 1 PDFs are available for Plan 02 (provenance manifests and exclusion documentation)
-- Directory structure is established: sources/originals/{military,fema,cdc}/
+- All 16 initial Tier 1 PDFs are available for Plan 02 (expanded to 71 PDFs / 11 agencies in Plans 01-03/01-04)
+- Directory structure is established: sources/originals/ with 11 agency subdirectories
 - Checksums recorded for integrity verification during processing phases
 - 1 document (CDC "Keep Food Safe" web page) needs manual PDF capture before Phase 2
 

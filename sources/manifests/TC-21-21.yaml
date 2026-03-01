@@ -1,0 +1,45 @@
+# Provenance Manifest for Water Survival Training
+# Schema version: 1.0
+
+document:
+  title: "Water Survival Training"
+  designation: "TC 21-21"
+  edition_date: "1991"
+  pages: "unknown"
+  file_name: "TC-21-21.pdf"
+  file_sha256: "914de997f4ff0fe251965738d8b59396624416c0ffa2e94d116e2cb976639b8d"
+
+source:
+  primary_url: "https://ia601500.us.archive.org/28/items/MManuals/WaterSurvivalTraining.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls:
+    - "https://www.elon.edu/assets/docs/rotc/TC%2021-21%20Water%20Survial%20Training.pdf"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - water
+    - survival
+    - swimming
+  tier: 1
+  content_type: "training_circular"
+  language: "en"
+
+processing:
+  notes: "Training circular covering water survival techniques including swimming, flotation, and watercraft evacuation procedures."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

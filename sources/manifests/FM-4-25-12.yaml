@@ -1,0 +1,45 @@
+# Provenance Manifest for Unit Field Sanitation Team
+# Schema version: 1.0
+
+document:
+  title: "Unit Field Sanitation Team"
+  designation: "FM 4-25.12"
+  edition_date: "2002"
+  pages: "unknown"
+  file_name: "FM-4-25-12.pdf"
+  file_sha256: "71aff47e5d77128241241162f54cbdb64f32702287206747fe150f3a6d406d93"
+
+source:
+  primary_url: "https://usacac.army.mil/sites/default/files/misc/doctrine/CDG/cdg_resources/manuals/fm/fm4_25x12.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - sanitation
+    - water
+    - hygiene
+    - medical
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Field manual covering field sanitation including water purification, waste disposal, pest management, and hygiene practices."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

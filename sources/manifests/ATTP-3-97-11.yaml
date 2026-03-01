@@ -1,0 +1,44 @@
+# Provenance Manifest for Cold Region Operations
+# Schema version: 1.0
+
+document:
+  title: "Cold Region Operations"
+  designation: "ATTP 3-97.11 / MCRP 3-35.1D"
+  edition_date: "2011"
+  pages: "unknown"
+  file_name: "ATTP-3-97-11.pdf"
+  file_sha256: "fca258568b3b114a887ff74d966d838bd3470af7ea7a7bc9162488be96e7be12"
+
+source:
+  primary_url: "https://www.marines.mil/portals/1/Publications/MCRP%203-35.1D%20Cold%20Region%20Operations.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - cold_weather
+    - survival
+    - operations
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Jointly published as MCRP 3-35.1D. Covers cold region operations including movement, survival, and environmental hazards."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

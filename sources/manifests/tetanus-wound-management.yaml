@@ -1,0 +1,45 @@
+# Provenance Manifest for Clinical Guidance for Wound Management to Prevent Tetanus
+# Schema version: 1.0
+
+document:
+  title: "Clinical Guidance for Wound Management to Prevent Tetanus"
+  designation: "CDC Publication"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "tetanus-wound-management.pdf"
+  file_sha256: "794e519ee47d91dd6539e8ba3e220b474e7019099cc294f66ea83779cb1f80ad"
+
+source:
+  primary_url: "https://www.cdc.gov/tetanus/hcp/clinical-guidance/index.html"
+  official_listing_url: "https://www.cdc.gov/tetanus/hcp/clinical-guidance/index.html"
+  fallback_urls: []
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - medical
+    - first_aid
+    - wound_care
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  content_type: "web_capture"
+  notes: "Web page captured as PDF. Source: https://www.cdc.gov/tetanus/hcp/clinical-guidance/index.html"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "browser-print-to-pdf"
+
+superseded_by: null
+supersedes: null

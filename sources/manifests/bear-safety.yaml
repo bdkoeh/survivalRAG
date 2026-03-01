@@ -1,0 +1,44 @@
+# Provenance Manifest for Bear Safety
+# Schema version: 1.0
+
+document:
+  title: "Bear Safety"
+  designation: "NPS Bear Safety Guide"
+  edition_date: "2024"
+  pages: "unknown"
+  file_name: "bear-safety.pdf"
+  file_sha256: "2ab2b44959d5ede2aa40653fa72322ebe8073c5a4207dd3f8ddc37557fab19de"
+
+source:
+  primary_url: "https://www.nps.gov/subjects/bears/safety.htm"
+  official_listing_url: "https://www.nps.gov/subjects/bears/safety.htm"
+  fallback_urls: []
+  publisher: "NPS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by NPS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by NPS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - wildlife
+    - safety
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "NPS bear safety guidance including encounter response, food storage, and hiking precautions"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  content_type: "web_capture"
+  download_method: "browser-print-to-pdf"
+
+superseded_by: null
+supersedes: null

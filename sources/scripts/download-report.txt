@@ -1,46 +1,78 @@
-Download Report - 2026-02-28T21:53:14Z (updated after manual fixes)
+Download Report - 2026-03-01T00:03:46Z
 ========================================
 
-MILITARY DOCUMENTS:
-OK: FM-21-76.pdf (52401363 bytes) from primary URL (bits.de)
-OK: FM-21-76-1.pdf (1271059 bytes) from fallback URL (trueprepper.com)
-  Note: Primary URL (irp.fas.org) returned empty file. Wayback returned HTML wrapper.
-  Fixed by downloading from trueprepper.com fallback. PDF verified: 107 pages, version 1.4.
-OK: FM-21-10.pdf (2913453 bytes) from fallback URL (archive.org)
-  Note: Primary URL (marines.mil) returned 404.
-OK: FM-4-25-11.pdf (2621944 bytes) from primary URL (globalsecurity.org)
-OK: TC-4-02-3.pdf (362339 bytes) from primary URL (armypubs.army.mil)
-OK: TC-4-02-1.pdf (1627734 bytes) from primary URL (rdl.train.army.mil)
+SKIP: FM-21-76.pdf (exists, 52401363 bytes)
+SKIP: FM-21-76-1.pdf (exists, 11340650 bytes)
+SKIP: FM-21-10.pdf (exists, 2913453 bytes)
+SKIP: FM-4-25-11.pdf (exists, 2621944 bytes)
+SKIP: TC-4-02-3.pdf (exists, 362339 bytes)
+SKIP: TC-4-02-1.pdf (exists, 1627734 bytes)
+SKIP: are-you-ready.pdf (exists, 22098772 bytes)
+SKIP: food-and-water-in-emergency.pdf (exists, 602820 bytes)
+SKIP: how-to-build-emergency-kit.pdf (exists, 36512 bytes)
+SKIP: basic-preparedness.pdf (exists, 1205866 bytes)
+SKIP: emergency-wound-care.pdf (exists, 352891 bytes)
+SKIP: make-water-safe-emergency.pdf (exists, 730926 bytes)
+SKIP: use-safe-water-emergency.pdf (exists, 141092 bytes)
+SKIP: keep-food-water-safe.pdf (exists, 97908 bytes)
+OK: keep-food-safe-disaster.pdf (774857 bytes) from web capture via Chrome headless
+SKIP: all-hazards-preparedness-guide.pdf (exists, 19823650 bytes)
+SKIP: public-health-emergency-response.pdf (exists, 2574042 bytes)
+SKIP: TC-3-21-76.pdf (exists, 15319503 bytes)
+SKIP: CALL-17-13.pdf (exists, 6039933 bytes)
+SKIP: ATP-4-02-5.pdf (exists, 1838374 bytes)
+SKIP: FM-3-25-26.pdf (exists, 872973 bytes)
+SKIP: FM-5-125.pdf (exists, 385616 bytes)
+SKIP: TC-21-3.pdf (exists, 698846 bytes)
+SKIP: ATTP-3-97-11.pdf (exists, 9333170 bytes)
+SKIP: ATP-3-90-97.pdf (exists, 1048576 bytes)
+SKIP: FM-3-97-6.pdf (exists, 1246575 bytes)
+SKIP: FM-3-97-61.pdf (exists, 58753105 bytes)
+SKIP: FM-90-3.pdf (exists, 3545879 bytes)
+SKIP: FM-90-5.pdf (exists, 14817612 bytes)
+SKIP: TC-21-21.pdf (exists, 464778 bytes)
+SKIP: FM-4-25-12.pdf (exists, 2287170 bytes)
+SKIP: FM-3-11-4.pdf (exists, 5884058 bytes)
+SKIP: FM-3-11-5.pdf (exists, 5971950 bytes)
+SKIP: FM-7-22.pdf (exists, 5648046 bytes)
+ERROR: AFH-10-644.pdf - all download sources failed
+SKIP: cert-basic-training.pdf (exists, 5509166 bytes)
+SKIP: nuclear-detonation-planning.pdf (exists, 16470095 bytes)
+SKIP: shelter-in-place-nuclear.pdf (exists, 2410781 bytes)
+SKIP: 72-hour-nuclear-response.pdf (exists, 5894390 bytes)
+SKIP: hazard-info-sheets.pdf (exists, 4376542 bytes)
+SKIP: nuclear-explosion-info.pdf (exists, 200203 bytes)
+SKIP: preparing-disaster-disabilities.pdf (exists, 748923 bytes)
+SKIP: extreme-heat-prevention.pdf (exists, 3291848 bytes)
+OK: preventing-diarrheal-illness.pdf (302786 bytes) from web capture via Chrome headless
+OK: personal-hygiene-emergency.pdf (333416 bytes) from web capture via Chrome headless
+OK: venomous-snakes.pdf (1791720 bytes) from web capture via Chrome headless
+OK: venomous-spiders.pdf (179549 bytes) from web capture via Chrome headless
+OK: hypothermia-prevention.pdf (547813 bytes) from web capture via Chrome headless
+OK: carbon-monoxide-prevention.pdf (367697 bytes) from web capture via Chrome headless
+OK: tetanus-wound-management.pdf (1446154 bytes) from web capture via Chrome headless
+SKIP: emergency-disinfection-drinking-water.pdf (exists, 754723 bytes)
+SKIP: home-canning-intro.pdf (exists, 467339 bytes)
+SKIP: home-canning-guide1.pdf (exists, 3794234 bytes)
+SKIP: home-canning-guide2.pdf (exists, 1098841 bytes)
+SKIP: home-canning-guide3.pdf (exists, 976490 bytes)
+SKIP: home-canning-guide4.pdf (exists, 2013613 bytes)
+SKIP: home-canning-guide5.pdf (exists, 1356485 bytes)
+SKIP: home-canning-guide6.pdf (exists, 3173534 bytes)
+SKIP: home-canning-guide7.pdf (exists, 1300368 bytes)
+SKIP: foraging-wild-plants.pdf (exists, 2746627 bytes)
+OK: keep-food-safe-emergencies.pdf (79444 bytes) from web capture via Chrome headless
+SKIP: tornado-safety.pdf (exists, 1994169 bytes)
+SKIP: thunderstorm-safety.pdf (exists, 1256161 bytes)
+SKIP: wind-chill-chart.pdf (exists, 202817 bytes)
+SKIP: heat-index-chart.pdf (exists, 92630 bytes)
+SKIP: cold-water-survival.pdf (exists, 229818 bytes)
+OK: bear-safety.pdf (2080007 bytes) from web capture via Chrome headless
+OK: mountain-lion-safety.pdf (991319 bytes) from web capture via Chrome headless
+OK: ten-essentials.pdf (444381 bytes) from web capture via Chrome headless
+SKIP: stop-the-bleed.pdf (exists, 2935053 bytes)
+SKIP: psychological-first-aid.pdf (exists, 3412897 bytes)
+OK: remm-radiation-emergency.pdf (402866 bytes) from web capture via Chrome headless
 
-FEMA DOCUMENTS:
-OK: are-you-ready.pdf (22098772 bytes) from Wayback Machine (id_ raw download)
-  Note: Primary FEMA.gov URL returned 404. Navy CNIC fallback returned 403.
-  Standard Wayback returned HTML wrapper. Fixed using id_ modifier for raw download.
-  PDF verified: ~204 pages, 22 MB, version 1.4.
-OK: food-and-water-in-emergency.pdf (602820 bytes) from primary URL (fema.gov)
-OK: how-to-build-emergency-kit.pdf (36512 bytes) from primary URL (fema.gov)
-OK: basic-preparedness.pdf (1205866 bytes) from primary URL (fema.gov)
-
-CDC DOCUMENTS:
-OK: emergency-wound-care.pdf (352891 bytes) from primary URL (cdc.gov)
-OK: make-water-safe-emergency.pdf (730926 bytes) from primary URL (cdc.gov)
-OK: use-safe-water-emergency.pdf (141092 bytes) from primary URL (cdc.gov)
-OK: keep-food-water-safe.pdf (97908 bytes) from primary URL (stacks.cdc.gov)
-OK: all-hazards-preparedness-guide.pdf (19823650 bytes) from primary URL (stacks.cdc.gov)
-OK: public-health-emergency-response.pdf (2574042 bytes) from primary URL (stacks.cdc.gov)
-
-MISSING (acceptable):
-NOTE: keep-food-safe-disaster.pdf - wkhtmltopdf not installed. Manual PDF capture needed.
-  Source: https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html
-  Instructions: Open URL in browser, Print -> Save as PDF -> save to sources/originals/cdc/keep-food-safe-disaster.pdf
-
-ISSUES FOUND AND FIXED:
-1. FM-21-76-1.pdf: Wayback Machine returned HTML wrapper page instead of PDF.
-   Fix: Downloaded from trueprepper.com (third-party, Distribution Statement A verified
-   against FAS, GlobalSecurity, and EverySpec.com independent of download source).
-2. are-you-ready.pdf: FEMA.gov URL no longer accessible. Wayback standard URL returned HTML.
-   Fix: Used Wayback Machine id_ modifier (web.archive.org/web/2020id_/URL) for raw PDF.
-
-Summary: 16 of 17 target documents downloaded. All 16 are valid PDFs (verified with file command).
-CDC "Keep Food Safe" web page requires manual capture (wkhtmltopdf not available).
-All files pass SHA-256 checksum verification.
+Summary: 13 downloaded, 58 skipped, 1 errors out of 72 total
+Files on disk: cdc=15, dhs=1, epa=1, fema=11, hhs=2, military=23, noaa=4, nps=3, usaf=0, uscg=1, usda=10, Total=71

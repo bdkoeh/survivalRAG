@@ -1,0 +1,44 @@
+# Provenance Manifest for Nuclear Detonation Response Guidance: Planning for the First 72 Hours
+# Schema version: 1.0
+
+document:
+  title: "Nuclear Detonation Response Guidance: Planning for the First 72 Hours"
+  designation: "FEMA Publication"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "72-hour-nuclear-response.pdf"
+  file_sha256: "e312a9e0c64b8e4cda0c12677695744abd254cfbdc45c10b14d290a7e7c1ee1f"
+
+source:
+  primary_url: "https://www.fema.gov/sites/default/files/documents/fema_oet-72-hour-nuclear-detonation-response-guidance.pdf"
+  official_listing_url: "https://www.fema.gov/emergency-managers/practitioners/hazardous-response-capabilities/oet-tools"
+  fallback_urls: []
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - nuclear
+    - emergency_response
+    - preparedness
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Response guidance for the first 72 hours following a nuclear detonation."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

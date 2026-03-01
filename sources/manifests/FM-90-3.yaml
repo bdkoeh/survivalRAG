@@ -1,0 +1,45 @@
+# Provenance Manifest for Desert Operations
+# Schema version: 1.0
+
+document:
+  title: "Desert Operations"
+  designation: "FM 90-3"
+  edition_date: "1993"
+  pages: "unknown"
+  file_name: "FM-90-3.pdf"
+  file_sha256: "d70c536af6734ba0ecd4f57efff9cd072f3c059480beb1c669bd555b88d75f48"
+
+source:
+  primary_url: "https://irp.fas.org/doddir/army/fm90-3.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls:
+    - "https://www.bits.de/NRANEU/others/amd-us-archive/FM90-3(93).pdf"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - desert
+    - survival
+    - operations
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Field manual covering desert operations including water procurement, heat injury prevention, and desert navigation."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

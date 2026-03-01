@@ -1,0 +1,43 @@
+# Provenance Manifest for Nuclear Explosion Information Sheet
+# Schema version: 1.0
+
+document:
+  title: "Nuclear Explosion Information Sheet"
+  designation: "FEMA Publication"
+  edition_date: "2020"
+  pages: "unknown"
+  file_name: "nuclear-explosion-info.pdf"
+  file_sha256: "ef63bfec6eef9379f3370508df0e68f44209bca426cd127cffa89045257c1695"
+
+source:
+  primary_url: "https://www.ready.gov/sites/default/files/2020-03/nuclear-explosion-information-sheet.pdf"
+  official_listing_url: "https://www.ready.gov/publications"
+  fallback_urls: []
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - nuclear
+    - preparedness
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "Single-page information sheet on nuclear explosion preparedness and response."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

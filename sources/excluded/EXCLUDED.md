@@ -26,6 +26,14 @@ Documents considered for inclusion but excluded due to restricted or ambiguous d
 - **Notes:** FM 3-50.3 superseded FM 21-76-1 (1999). The publication could not be located on any official .mil source for distribution statement verification. Without verification, the conservative default applies.
 - **Alternative included:** FM 21-76-1 (1999) confirmed Distribution Statement A via GlobalSecurity.org, FAS, and EverySpec.com
 
+## AFH 10-644 - USAF Survival, Evasion, Resistance, and Escape (SERE) (2017)
+
+- **Reason:** Download failure -- all sources unavailable at time of acquisition
+- **Verified at:** e-publishing.af.mil (primary), archive.org (fallback), Wayback Machine (last resort)
+- **Verification date:** 2026-02-28
+- **Notes:** AFH 10-644 is Distribution Statement A and should be public domain. However, the primary URL (static.e-publishing.af.mil), archive.org fallback, and Wayback Machine all failed to return a valid PDF. The document may have been moved or temporarily unavailable. Manifest retained for future re-attempt.
+- **Action:** Re-attempt download in future session; check e-publishing.af.mil for updated URL
+
 ---
 
 *Last updated: 2026-02-28*

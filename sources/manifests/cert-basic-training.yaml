@@ -1,0 +1,45 @@
+# Provenance Manifest for CERT Basic Training Participant Manual
+# Schema version: 1.0
+
+document:
+  title: "CERT Basic Training Participant Manual"
+  designation: "FEMA Publication"
+  edition_date: "2019"
+  pages: "unknown"
+  file_name: "cert-basic-training.pdf"
+  file_sha256: "ca297bbc329c322ccbcb252fae7a1c89fd95f93dbf72b78b165b53cafa664026"
+
+source:
+  primary_url: "https://www.ready.gov/sites/default/files/2019.CERT_.Basic_.PM_FINAL_508c.pdf"
+  official_listing_url: "https://www.ready.gov/cert-basic-training"
+  fallback_urls: []
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - preparedness
+    - emergency_response
+    - first_aid
+    - search_rescue
+  tier: 1
+  content_type: "training_manual"
+  language: "en"
+
+processing:
+  notes: "CERT Basic Training Participant Manual (2019 edition). Community Emergency Response Team training curriculum."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

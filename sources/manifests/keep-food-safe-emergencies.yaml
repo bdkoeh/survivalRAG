@@ -1,0 +1,45 @@
+# Provenance Manifest for Keep Your Food Safe During Emergencies: Power Outages, Floods & Fires
+# Schema version: 1.0
+
+document:
+  title: "Keep Your Food Safe During Emergencies: Power Outages, Floods & Fires"
+  designation: "USDA FSIS Food Safety Factsheet"
+  edition_date: "2024"
+  pages: "unknown"
+  file_name: "keep-food-safe-emergencies.pdf"
+  file_sha256: "6ae47ddfad8951bf290ce193ba79f7a99db9bb46c89b9112402cc0a4c7058c1a"
+
+source:
+  primary_url: "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/emergencies/keep-your-food-safe-during-emergencies"
+  official_listing_url: "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/emergencies/keep-your-food-safe-during-emergencies"
+  fallback_urls: []
+  publisher: "USDA FSIS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by USDA FSIS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by USDA FSIS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - food
+    - food_safety
+    - preparedness
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "Web capture of USDA FSIS emergency food safety guidance covering power outages, floods, and fires"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  content_type: "web_capture"
+  download_method: "browser-print-to-pdf"
+
+superseded_by: null
+supersedes: null

@@ -8,7 +8,7 @@ tags: [yaml, provenance, licensing, validation, distribution-statement, public-d
 requires:
   - 01-01 (downloaded PDFs, checksums)
 provides:
-  - 16 YAML provenance manifests with verified licensing for all Tier 1 documents
+  - 16 initial YAML provenance manifests with verified licensing (expanded to 72 manifests in Plans 01-03/01-04)
   - Exclusion documentation for 3 rejected documents (FM 3-05.70, ST 31-91B, FM 3-50.3)
   - Automated manifest validation script (Python and bash versions)
   - Complete provenance chain linking manifests to PDFs to checksums
@@ -163,9 +163,8 @@ All checks passed:
 
 ## Next Phase Readiness
 
-- Phase 1 is now complete: all 16 Tier 1 documents are downloaded, checksummed, and have provenance manifests
-- 3 excluded documents are formally documented with reasons and alternatives
+- Phase 1 initial set complete: 16 Tier 1 documents downloaded, checksummed, and have provenance manifests (expanded to 71 PDFs / 72 manifests / 11 agencies in Plans 01-03/01-04)
+- 4 excluded documents are formally documented with reasons and alternatives
 - The sources/ directory is a complete, auditable record ready for Phase 2 (Document Processing)
-- 1 document (CDC "Keep Food Safe" web page) still needs manual PDF capture -- documented in STATE.md pending todos
 
 ## Self-Check: PASSED

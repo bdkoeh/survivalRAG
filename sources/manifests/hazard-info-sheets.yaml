@@ -1,0 +1,43 @@
+# Provenance Manifest for Full Suite Hazard Information Sheets
+# Schema version: 1.0
+
+document:
+  title: "Full Suite Hazard Information Sheets"
+  designation: "FEMA Publication"
+  edition_date: "2025"
+  pages: "unknown"
+  file_name: "hazard-info-sheets.pdf"
+  file_sha256: "079108e88643fcc37bbcb4e46ce4aa1336b0f59acb4847c271c0ce930f0c79c2"
+
+source:
+  primary_url: "https://www.ready.gov/sites/default/files/2025-02/fema_full-suite-hazard-info-sheets.pdf"
+  official_listing_url: "https://www.ready.gov/publications"
+  fallback_urls: []
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - preparedness
+    - hazards
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "Comprehensive collection of hazard information sheets covering multiple hazard types."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

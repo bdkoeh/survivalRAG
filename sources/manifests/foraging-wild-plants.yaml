@@ -1,0 +1,44 @@
+# Provenance Manifest for Biology, Ecology, and Social Aspects of Wild Edible Mushrooms in the Forests of the Pacific Northwest
+# Schema version: 1.0
+
+document:
+  title: "Biology, Ecology, and Social Aspects of Wild Edible Mushrooms in the Forests of the Pacific Northwest"
+  designation: "PNW-GTR-309"
+  edition_date: "1992"
+  pages: "unknown"
+  file_name: "foraging-wild-plants.pdf"
+  file_sha256: "fbfadccef76364cf832e9780f938ac755e80e11b71e9b4df414873c9a7d3743b"
+
+source:
+  primary_url: "https://www.fs.usda.gov/pnw/pubs/pnw_gtr309.pdf"
+  official_listing_url: "https://research.fs.usda.gov/treesearch/5632"
+  fallback_urls: []
+  publisher: "USDA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by USDA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by USDA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - food
+    - foraging
+    - plants
+  tier: 1
+  content_type: "technical_report"
+  language: "en"
+
+processing:
+  notes: "USDA Forest Service General Technical Report. Covers wild edible mushrooms in Pacific Northwest forests."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

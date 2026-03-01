@@ -127,10 +127,10 @@ for manifest in "$MANIFESTS_DIR"/*.yaml; do
 
     MANIFEST_FILENAMES+=("$file_name")
 
-    # Cross-reference: file exists on disk
+    # Cross-reference: file exists on disk (dynamic subdirectory scan)
     found_path=""
-    for subdir in military fema cdc; do
-        candidate="$ORIGINALS_DIR/$subdir/$file_name"
+    for subdir_path in "$ORIGINALS_DIR"/*/; do
+        candidate="$subdir_path$file_name"
         if [ -f "$candidate" ]; then
             found_path="$candidate"
             break
@@ -170,13 +170,13 @@ for manifest in "$MANIFESTS_DIR"/*.yaml; do
     license_type=$(grep "  license_type:" "$manifest" | head -1)
 
     case "$publisher" in
-        "Department of the Army")
+        "Department of the Army"|"Department of the Air Force")
             if ! echo "$dist_stmt" | grep -qi "Approved for public release\|Distribution Statement A"; then
                 err "LICENSING: Military doc $basename missing 'Approved for public release' or 'Distribution Statement A'"
                 manifest_ok=false
             fi
             ;;
-        "FEMA"|"FEMA / American Red Cross"|"CDC")
+        "FEMA"|"FEMA / American Red Cross"|"CDC"|"EPA"|"USDA"|"USDA FSIS"|"NOAA"|"NWS"|"USCG"|"NPS"|"DHS"|"HHS"|"SAMHSA")
             if ! echo "$license_type" | grep -qi "US Government Work\|Public Domain"; then
                 err "LICENSING: Civilian doc $basename missing 'US Government Work' or 'Public Domain'"
                 manifest_ok=false
@@ -195,10 +195,9 @@ echo ""
 # --- Orphan check ---
 echo "--- Orphan Check ---"
 
-# Get all PDFs
+# Get all PDFs (dynamic subdirectory scan)
 ALL_PDFS=()
-for subdir in military fema cdc; do
-    subdir_path="$ORIGINALS_DIR/$subdir"
+for subdir_path in "$ORIGINALS_DIR"/*/; do
     if [ -d "$subdir_path" ]; then
         while IFS= read -r pdf; do
             if [ -f "$pdf" ]; then
@@ -277,9 +276,13 @@ if [ $ERRORS -gt 0 ]; then
     echo "RESULT: FAIL ($ERRORS errors)"
     exit 1
 else
+    EXCLUDED_COUNT=0
+    for pattern in FM-3-05-70 ST-31-91B FM-3-50-3; do
+        EXCLUDED_COUNT=$((EXCLUDED_COUNT + 1))
+    done
     echo "RESULT: PASS (all checks passed)"
     echo "  Manifests validated: $CHECKED"
     echo "  PDFs verified: ${#ALL_PDFS[@]}"
-    echo "  Excluded documents: 3"
+    echo "  Excluded documents: $EXCLUDED_COUNT"
     exit 0
 fi

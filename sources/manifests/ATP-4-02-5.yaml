@@ -1,0 +1,45 @@
+# Provenance Manifest for Casualty Care
+# Schema version: 1.0
+
+document:
+  title: "Casualty Care"
+  designation: "ATP 4-02.5"
+  edition_date: "2013"
+  pages: "unknown"
+  file_name: "ATP-4-02-5.pdf"
+  file_sha256: "474d8b0089a8b1810cfe534f1dfa51ed81c7c4d34647c14fdbe1d620b8a1c4d9"
+
+source:
+  primary_url: "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30121-ATP_4-02.5-001-WEB-3.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls:
+    - "https://rdl.train.army.mil/catalog-ws/view/100.ATSC/4A9AE0C8-9AC6-43F6-85FD-492A9F564E65-1368640415826/atp_4-02x5wc1.pdf"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - medical
+    - first_aid
+    - casualty_care
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Army techniques publication covering casualty care procedures and medical treatment protocols."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

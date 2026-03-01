@@ -1,0 +1,44 @@
+# Provenance Manifest for Planning Guidance for Response to a Nuclear Detonation
+# Schema version: 1.0
+
+document:
+  title: "Planning Guidance for Response to a Nuclear Detonation"
+  designation: "FEMA Publication"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "nuclear-detonation-planning.pdf"
+  file_sha256: "d77550685227d652e13d515d717031ca81517eb150b5cb68aa79dbe2ac25aa1a"
+
+source:
+  primary_url: "https://www.fema.gov/sites/default/files/documents/fema_nuc-detonation-planning-guide.pdf"
+  official_listing_url: "https://www.fema.gov/emergency-managers/practitioners/hazardous-response-capabilities/oet-tools"
+  fallback_urls: []
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - nuclear
+    - preparedness
+    - emergency_response
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Planning guidance for emergency managers responding to a nuclear detonation scenario."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

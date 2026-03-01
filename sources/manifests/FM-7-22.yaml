@@ -1,0 +1,45 @@
+# Provenance Manifest for Holistic Health and Fitness
+# Schema version: 1.0
+
+document:
+  title: "Holistic Health and Fitness"
+  designation: "FM 7-22"
+  edition_date: "2020"
+  pages: "unknown"
+  file_name: "FM-7-22.pdf"
+  file_sha256: "6ac216b7159dcb4c84f991813636f7762166a8fcf728c59da6bf871662e7329b"
+
+source:
+  primary_url: "https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN30714-FM_7-22-000-WEB-1.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls:
+    - "https://home.army.mil/cavazos/5517/2115/1094/FM_7-22.pdf"
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - fitness
+    - health
+    - mental_health
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Comprehensive field manual covering physical fitness, nutrition, sleep, mental readiness, and spiritual readiness."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

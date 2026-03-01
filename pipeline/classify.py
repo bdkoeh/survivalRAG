@@ -112,7 +112,7 @@ def classify_section(
             }
         ],
         format=SectionClassification.model_json_schema(),
-        options={"temperature": 0},
+        options={"temperature": 0, "num_ctx": 4096},
     )
     return SectionClassification.model_validate_json(response.message.content)
 

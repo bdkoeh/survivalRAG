@@ -73,7 +73,7 @@ Each task was committed atomically:
 1. **Task 1: Create chunk data models and content-type-aware chunker** - `87def2b` (feat)
 2. **Task 2: Create batch-safe Ollama embedding wrapper** - `0fd9f03` (feat)
 
-**Plan metadata:** (pending)
+**Plan metadata:** `44edded` (docs: complete plan)
 
 ## Files Created/Modified
 - `pipeline/models.py` - Extended with ChunkMetadata (16 fields) and ChunkRecord Pydantic models

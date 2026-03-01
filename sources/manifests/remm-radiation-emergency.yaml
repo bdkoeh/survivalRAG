@@ -1,0 +1,45 @@
+# Provenance Manifest for Radiation Emergency Medical Management (REMM)
+# Schema version: 1.0
+
+document:
+  title: "Radiation Emergency Medical Management (REMM)"
+  designation: "HHS REMM"
+  edition_date: "2024"
+  pages: "unknown"
+  file_name: "remm-radiation-emergency.pdf"
+  file_sha256: "a0045639e587a1bef0628e8e56410eac9f5768c5395706576f3895f18a5da94a"
+
+source:
+  primary_url: "https://remm.hhs.gov/"
+  official_listing_url: "https://remm.hhs.gov/"
+  fallback_urls: []
+  publisher: "HHS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by HHS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by HHS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - nuclear
+    - medical
+    - radiation
+  tier: 1
+  content_type: "reference"
+  language: "en"
+
+processing:
+  notes: "REMM is an extensive web-based resource. Captured overview page; full resource includes diagnosis, treatment, and tools across multiple pages."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  content_type: "web_capture"
+  download_method: "browser-print-to-pdf"
+
+superseded_by: null
+supersedes: null

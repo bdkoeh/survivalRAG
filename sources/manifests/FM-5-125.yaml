@@ -1,0 +1,44 @@
+# Provenance Manifest for Rigging Techniques, Procedures, and Applications
+# Schema version: 1.0
+
+document:
+  title: "Rigging Techniques, Procedures, and Applications"
+  designation: "FM 5-125"
+  edition_date: "2001"
+  pages: "unknown"
+  file_name: "FM-5-125.pdf"
+  file_sha256: "dd1d0f1e89dc291ffa39c43756ad5219ba0dbfe4fd16ce35ee05f6aab90395d4"
+
+source:
+  primary_url: "https://www.globalsecurity.org/military/library/policy/army/fm/5-125/fm5-125_c1.pdf"
+  official_listing_url: "https://armypubs.army.mil"
+  fallback_urls: []
+  publisher: "Department of the Army"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "Distribution Statement A: Approved for public release; distribution is unlimited."
+  distribution_statement_source: "Document front matter; cross-referenced with armypubs.army.mil listing"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Confirmed Distribution Statement A on document front matter; cross-referenced with armypubs.army.mil listing"
+  verified_by: "automated"
+
+content:
+  categories:
+    - tools
+    - rigging
+    - engineering
+  tier: 1
+  content_type: "field_manual"
+  language: "en"
+
+processing:
+  notes: "Field manual covering knots, hitches, rigging techniques, and load calculations for field operations."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

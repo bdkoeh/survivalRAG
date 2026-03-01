@@ -1,0 +1,44 @@
+# Provenance Manifest for Preparing for Disaster for People with Disabilities and Other Special Needs
+# Schema version: 1.0
+
+document:
+  title: "Preparing for Disaster for People with Disabilities and Other Special Needs"
+  designation: "FEMA Publication"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "preparing-disaster-disabilities.pdf"
+  file_sha256: "68aba75e4ee9d34cb28630afe96e8d4890e8b3c8a90242889615a9cb0399d482"
+
+source:
+  primary_url: "https://www.fema.gov/pdf/library/pfd_all.pdf"
+  official_listing_url: "https://www.fema.gov/emergency-managers/individuals-communities/preparing-disability"
+  fallback_urls:
+    - "https://www.fema.gov/pdf/library/pfd.pdf"
+  publisher: "FEMA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by FEMA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by FEMA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - preparedness
+    - special_needs
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Guide for disaster preparedness tailored to people with disabilities and other special needs."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

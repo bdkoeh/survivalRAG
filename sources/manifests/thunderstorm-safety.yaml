@@ -1,0 +1,45 @@
+# Provenance Manifest for Thunderstorm Safety Brochure
+# Schema version: 1.0
+
+document:
+  title: "Thunderstorm Safety Brochure"
+  designation: "NOAA/NWS Thunderstorm Safety"
+  edition_date: "2017"
+  pages: "unknown"
+  file_name: "thunderstorm-safety.pdf"
+  file_sha256: "744d3628c5479dc8a8a44e7b596659eb8bf95f16306c947d250ddaf15d0d3470"
+
+source:
+  primary_url: "https://www.weather.gov/media/safety/Thunderstorm-brochure17.pdf"
+  official_listing_url: "https://www.weather.gov/safety/thunderstorm"
+  fallback_urls:
+    - "https://www.weather.gov/media/owlie/3-fold-Brochure-Thunderstorm-Safety-08-07-18-FINAL.pdf"
+  publisher: "NOAA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by NOAA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by NOAA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - weather
+    - lightning
+    - safety
+  tier: 1
+  content_type: "brochure"
+  language: "en"
+
+processing:
+  notes: "NOAA/NWS thunderstorm and lightning safety brochure"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

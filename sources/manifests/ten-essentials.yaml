@@ -1,0 +1,45 @@
+# Provenance Manifest for Ten Essentials
+# Schema version: 1.0
+
+document:
+  title: "Ten Essentials"
+  designation: "NPS Ten Essentials Guide"
+  edition_date: "2024"
+  pages: "unknown"
+  file_name: "ten-essentials.pdf"
+  file_sha256: "4fa04c57ffd7097a02206de69c3ea2e9d266b6ccf3c4f5806017a43f04f16a2b"
+
+source:
+  primary_url: "https://www.nps.gov/articles/10essentials.htm"
+  official_listing_url: "https://www.nps.gov/articles/10essentials.htm"
+  fallback_urls: []
+  publisher: "NPS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by NPS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by NPS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - preparedness
+    - hiking
+    - survival
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  notes: "NPS guide to the ten essential items for hiking and outdoor preparedness"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  content_type: "web_capture"
+  download_method: "browser-print-to-pdf"
+
+superseded_by: null
+supersedes: null

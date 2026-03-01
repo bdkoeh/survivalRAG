@@ -741,7 +741,7 @@ def _slugify(text: str) -> str:
 
 4. **Processing time for full Tier 1 corpus**
    - What we know: Docling processes born-digital pages at ~0.5-3s per page. OCR adds 1.6-13s per page depending on hardware. Ollama classification adds ~1-2s per section.
-   - What's unclear: Total wall-clock time for all ~15-17 Tier 1 documents (estimated 1500-2500 pages total).
+   - What's unclear: Total wall-clock time for all 71 Tier 1 documents (estimated 6000-10000 pages total).
    - Recommendation: Process in two waves: (1) extraction + cleaning for all documents, (2) classification + tagging. This allows extraction issues to be caught and fixed before the slower classification step.
 
 ## Sources

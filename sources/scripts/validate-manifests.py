@@ -47,8 +47,12 @@ REQUIRED_CONTENT = ["categories", "tier"]
 REQUIRED_PROCESSING = ["download_date"]
 
 # Publisher-to-type mapping for licensing checks
-MILITARY_PUBLISHERS = ["Department of the Army"]
-CIVILIAN_PUBLISHERS = ["FEMA", "FEMA / American Red Cross", "CDC"]
+MILITARY_PUBLISHERS = ["Department of the Army", "Department of the Air Force"]
+CIVILIAN_PUBLISHERS = [
+    "FEMA", "FEMA / American Red Cross", "CDC",
+    "EPA", "USDA", "USDA FSIS", "NOAA", "NWS",
+    "USCG", "NPS", "DHS", "HHS", "SAMHSA",
+]
 
 
 def load_checksums(checksums_file):
@@ -79,9 +83,20 @@ def compute_sha256(filepath):
     return sha256.hexdigest()
 
 
+def get_subdirectories(originals_dir):
+    """Dynamically discover all subdirectories under originals/."""
+    subdirs = []
+    if os.path.isdir(originals_dir):
+        for entry in sorted(os.listdir(originals_dir)):
+            entry_path = os.path.join(originals_dir, entry)
+            if os.path.isdir(entry_path):
+                subdirs.append(entry)
+    return subdirs
+
+
 def find_pdf(file_name, originals_dir):
     """Find a PDF file across subdirectories of originals/."""
-    for subdir in ["military", "fema", "cdc"]:
+    for subdir in get_subdirectories(originals_dir):
         candidate = os.path.join(originals_dir, subdir, file_name)
         if os.path.exists(candidate):
             return candidate
@@ -91,7 +106,7 @@ def find_pdf(file_name, originals_dir):
 def get_all_pdfs(originals_dir):
     """Get all PDF files in originals/ subdirectories."""
     pdfs = set()
-    for subdir in ["military", "fema", "cdc"]:
+    for subdir in get_subdirectories(originals_dir):
         subdir_path = os.path.join(originals_dir, subdir)
         if os.path.isdir(subdir_path):
             for f in os.listdir(subdir_path):

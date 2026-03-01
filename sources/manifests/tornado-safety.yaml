@@ -1,0 +1,44 @@
+# Provenance Manifest for Tornado Safety Brochure
+# Schema version: 1.0
+
+document:
+  title: "Tornado Safety Brochure"
+  designation: "NOAA/NWS Tornado Safety"
+  edition_date: "2017"
+  pages: "unknown"
+  file_name: "tornado-safety.pdf"
+  file_sha256: "8fd1525bf060771443af3e8191b01e62aed343801bad920abb0e55644e8257ef"
+
+source:
+  primary_url: "https://www.weather.gov/media/owlie/Tornado-Brochure-062717.pdf"
+  official_listing_url: "https://www.weather.gov/safety/tornado"
+  fallback_urls: []
+  publisher: "NOAA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by NOAA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by NOAA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - weather
+    - tornado
+    - safety
+  tier: 1
+  content_type: "brochure"
+  language: "en"
+
+processing:
+  notes: "NOAA/NWS tornado safety brochure covering preparedness, shelter, and response"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

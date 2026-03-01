@@ -1,0 +1,44 @@
+# Provenance Manifest for Extreme Heat: A Prevention Guide to Promote Your Personal Health and Safety
+# Schema version: 1.0
+
+document:
+  title: "Extreme Heat: A Prevention Guide to Promote Your Personal Health and Safety"
+  designation: "CDC Publication"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "extreme-heat-prevention.pdf"
+  file_sha256: "79d9370351119dba0e68e7f2ba92f2aa761b590d0529e252652d5240a5c14654"
+
+source:
+  primary_url: "https://stacks.cdc.gov/view/cdc/7023/cdc_7023_DS1.pdf"
+  official_listing_url: "https://stacks.cdc.gov/view/cdc/7023"
+  fallback_urls: []
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - heat
+    - medical
+    - prevention
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "CDC guide on preventing heat-related illness and promoting safety during extreme heat events."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

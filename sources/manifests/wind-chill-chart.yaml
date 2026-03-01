@@ -1,0 +1,44 @@
+# Provenance Manifest for Wind Chill Chart
+# Schema version: 1.0
+
+document:
+  title: "Wind Chill Chart"
+  designation: "NWS Wind Chill Chart"
+  edition_date: "2001"
+  pages: "unknown"
+  file_name: "wind-chill-chart.pdf"
+  file_sha256: "3d8816c3d0bc696abd019412676d20ec04cd5bdfce4dd7b07b3fd54b82ee3dcb"
+
+source:
+  primary_url: "https://www.weather.gov/media/safety/windchillchart3.pdf"
+  official_listing_url: "https://www.weather.gov/safety/cold-wind-chill-chart"
+  fallback_urls: []
+  publisher: "NWS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by NWS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by NWS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - cold_weather
+    - weather
+    - reference
+  tier: 1
+  content_type: "reference_chart"
+  language: "en"
+
+processing:
+  notes: "NWS wind chill temperature index chart showing frostbite times at various wind speeds and temperatures"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

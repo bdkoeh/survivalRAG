@@ -1,0 +1,45 @@
+# Provenance Manifest for Heat Index Chart
+# Schema version: 1.0
+
+document:
+  title: "Heat Index Chart"
+  designation: "NWS Heat Index Chart"
+  edition_date: "2022"
+  pages: "unknown"
+  file_name: "heat-index-chart.pdf"
+  file_sha256: "ec30db19c146634513666829b96dcd241459d783f9611c42eb33ff4ff338ab5c"
+
+source:
+  primary_url: "https://www.weather.gov/media/unr/heatindex.pdf"
+  official_listing_url: "https://www.weather.gov/safety/heat-index"
+  fallback_urls:
+    - "https://www.noaa.gov/sites/default/files/2022-05/heatindex_chart_rh.pdf"
+  publisher: "NWS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by NWS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by NWS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - heat
+    - weather
+    - reference
+  tier: 1
+  content_type: "reference_chart"
+  language: "en"
+
+processing:
+  notes: "NWS heat index chart showing apparent temperature at various humidity and temperature combinations"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

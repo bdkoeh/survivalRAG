@@ -1,0 +1,43 @@
+# Provenance Manifest for Emergency Disinfection of Drinking Water
+# Schema version: 1.0
+
+document:
+  title: "Emergency Disinfection of Drinking Water"
+  designation: "EPA 816-F-17-003"
+  edition_date: "2017"
+  pages: "unknown"
+  file_name: "emergency-disinfection-drinking-water.pdf"
+  file_sha256: "f404083d00decedc267bf4265eda776bb250ccfe18c1f7b19152aa006ff727c5"
+
+source:
+  primary_url: "https://www.epa.gov/sites/default/files/2017-09/documents/emergency_disinfection_of_drinking_water_sept2017.pdf"
+  official_listing_url: "https://www.epa.gov/ground-water-and-drinking-water/emergency-disinfection-drinking-water-0"
+  fallback_urls: []
+  publisher: "EPA"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by EPA, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by EPA (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - water
+    - disinfection
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "EPA guide on emergency water disinfection methods including boiling and chemical treatment"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null

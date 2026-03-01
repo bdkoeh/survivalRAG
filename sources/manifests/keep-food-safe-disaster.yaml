@@ -1,0 +1,44 @@
+# Provenance Manifest for Keep Food Safe After a Disaster or Emergency
+# Schema version: 1.0
+
+document:
+  title: "Keep Food Safe After a Disaster or Emergency"
+  designation: "CDC Food Safety Publication"
+  edition_date: "unknown"
+  pages: "unknown"
+  file_name: "keep-food-safe-disaster.pdf"
+  file_sha256: "c860bd16392ec14f6adf9cb9975c62618106afa08ea3b3b81ebf4ce7a932e57f"
+
+source:
+  primary_url: "https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html"
+  official_listing_url: "https://www.cdc.gov/food-safety/"
+  fallback_urls: []
+  publisher: "CDC"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by CDC, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by CDC (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - food
+    - food_safety
+  tier: 1
+  content_type: "factsheet"
+  language: "en"
+
+processing:
+  content_type: "web_capture"
+  notes: "Web page captured as PDF via Chrome headless."
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "browser-print-to-pdf"
+
+superseded_by: null
+supersedes: null

@@ -1,0 +1,44 @@
+# Provenance Manifest for Psychological First Aid: Field Operations Guide (2nd Edition)
+# Schema version: 1.0
+
+document:
+  title: "Psychological First Aid: Field Operations Guide (2nd Edition)"
+  designation: "PFA Field Operations Guide"
+  edition_date: "2006"
+  pages: "unknown"
+  file_name: "psychological-first-aid.pdf"
+  file_sha256: "7cf989b26fa87f97bd85163caf4c72c7672856ca70a0064f65e92a8c9b33f0d5"
+
+source:
+  primary_url: "https://www.ptsd.va.gov/disaster_events/for_providers/PFA/PFA_2ndEditionwithappendices.pdf"
+  official_listing_url: "https://www.samhsa.gov/resource/dbhis/psychological-first-aid-pfa-field-operations-guide-2nd-ed-english"
+  fallback_urls: []
+  publisher: "HHS"
+  country: "United States"
+
+licensing:
+  license_type: "US Government Work - Public Domain"
+  distribution_statement: "US Government publication - inherently public domain under 17 U.S.C. 105"
+  distribution_statement_source: "US Government work published by HHS, a federal agency"
+  copyright_status: "No copyright (17 U.S.C. 105)"
+  verification_date: "2026-02-28"
+  verification_method: "Published by HHS (federal agency); US Government works are public domain under 17 U.S.C. 105"
+  verified_by: "automated"
+
+content:
+  categories:
+    - mental_health
+    - first_aid
+    - emergency_response
+  tier: 1
+  content_type: "guide"
+  language: "en"
+
+processing:
+  notes: "Published jointly by NCTSN and NCPTSD, distributed by SAMHSA"
+  ocr_needed: false
+  download_date: "2026-02-28"
+  download_method: "curl"
+
+superseded_by: null
+supersedes: null
