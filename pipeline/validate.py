@@ -45,24 +45,26 @@ DOSAGE_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
-# Patterns that suggest OCR corruption near numbers
+# Patterns that suggest OCR corruption near numbers.
+# Use multi-char units (mg, mL, cc, mcg) for ambiguous-character patterns
+# to avoid false positives in regular words (e.g., "llig" in "intelligence").
+# Bare single-char units like 'g' are excluded from character-confusion patterns.
 OCR_CORRUPTION_PATTERNS = [
-    # Ambiguous 1/I/l/| sequences adjacent to units (e.g., "Il mg", "ll mg")
-    re.compile(r"[Il1|]{2,}\s*(mg|mL|ml|cc|g|mcg|units?|IU)", re.IGNORECASE),
+    # Ambiguous 1/I/l/| sequences adjacent to multi-char units (e.g., "Il mg")
+    # Requires whitespace or start-of-word before the match to avoid mid-word matches
+    re.compile(r"(?:^|(?<=\s))[Il1|]{2,}\s*(mg|mL|ml|cc|mcg|units?|IU)\b", re.IGNORECASE),
     # Letter-digit confusion adjacent to units (e.g., "I0 mL" = OCR for "10 mL")
-    re.compile(r"[IlO]\d\s*(mg|mL|ml|cc|g|mcg|units?|IU)", re.IGNORECASE),
+    re.compile(r"(?:^|(?<=\s))[IlO]\d\s*(mg|mL|ml|cc|mcg|units?|IU)\b", re.IGNORECASE),
     # Digit-letter confusion adjacent to units (e.g., "1O mL" = OCR for "10 mL")
-    re.compile(r"\d[IlO]\s*(mg|mL|ml|cc|g|mcg|units?|IU)", re.IGNORECASE),
+    re.compile(r"\d[IlO]\s*(mg|mL|ml|cc|mcg|units?|IU)\b", re.IGNORECASE),
     # 'mg' misread as 'rng' (m -> rn OCR error)
     re.compile(r"\d+\s*rng\b", re.IGNORECASE),
-    # 'mg' misread as 'ng' (m dropped)
-    re.compile(r"\d+\s*ng\b(?!\s*(/|per|tube))", re.IGNORECASE),
-    # Ambiguous 0/O sequences adjacent to units
-    re.compile(r"[0O]{2,}\s*(mg|mL|ml|cc|g|mcg|units?)", re.IGNORECASE),
+    # Ambiguous 0/O sequences adjacent to multi-char units
+    re.compile(r"(?:^|(?<=\s))[0O]{2,}\s*(mg|mL|ml|cc|mcg|units?)\b", re.IGNORECASE),
     # Implausible decimal precision (4+ decimal places before unit)
-    re.compile(r"\d+\.\d{4,}\s*(mg|mL|ml|cc|g|mcg|units?|IU)", re.IGNORECASE),
+    re.compile(r"\d+\.\d{4,}\s*(mg|mL|ml|cc|g|mcg|units?|IU)\b", re.IGNORECASE),
     # Implausibly large values (5+ digits before mg/mL)
-    re.compile(r"(?<!\d)\d{5,}\s*(mg|mL|ml|cc|g|mcg)", re.IGNORECASE),
+    re.compile(r"(?<!\d)\d{5,}\s*(mg|mL|ml|cc|g|mcg)\b", re.IGNORECASE),
 ]
 
 
