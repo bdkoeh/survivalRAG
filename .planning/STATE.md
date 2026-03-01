@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 1 complete. Ready for Phase 2: Document Processing
+**Current focus:** Phase 1 complete (expanded). Ready for Phase 2: Document Processing
 
 ## Current Position
 
 Phase: 1 of 8 (Content Sourcing & Licensing) -- COMPLETE
-Plan: 2 of 2 in current phase (all plans complete)
-Status: Phase complete
-Last activity: 2026-02-28 -- Completed 01-02-PLAN.md (Create provenance manifests and validate)
+Plan: 5 of 5 in current phase (all plans complete)
+Status: Phase complete (expanded corpus)
+Last activity: 2026-02-28 -- Completed 01-05-PLAN.md (Planning artifacts + WikiMed plan)
 
 Progress: [█░░░░░░░░░] 12%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 6.5min
-- Total execution time: 0.22 hours
+- Total plans completed: 5
+- Average duration: ~6min
+- Total execution time: ~0.5 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 1. Content Sourcing | 2 | 13min | 6.5min |
+| 1. Content Sourcing | 5 | ~30min | ~6min |
 
 **Recent Trend:**
-- Last 5 plans: 8min, 5min
-- Trend: Improving
+- Last 5 plans: 8min, 5min, 6min, 5min, 6min
+- Trend: Stable
 
 *Updated after each plan completion*
 
@@ -52,11 +52,17 @@ Recent decisions affecting current work:
 - [01-02]: Manifest schema v1.0 established with 5 top-level sections (document, source, licensing, content, processing)
 - [01-02]: Military docs verified via Distribution Statement A; civilian docs via 17 U.S.C. 105
 - [01-02]: Bash validation script created alongside Python script (Python not available on build system)
+- [01-03]: Expanded corpus from 16 docs / 3 agencies to 71 docs / 11 agencies
+- [01-03]: Added web_capture() helper function in download script for non-PDF sources
+- [01-03]: Dynamic subdirectory scanning replaces hardcoded agency lists in download summary
+- [01-04]: Validation scripts updated with dynamic subdirectory discovery (no more hardcoded lists)
+- [01-04]: Added Department of the Air Force and 10 civilian publishers to validation
+- [01-04]: USDA canning guide split into 8 individual manifests (one per section)
+- [01-05]: WikiMed extraction deferred to future phase; CC BY-SA 4.0 requires separate handling from public domain
 
 ### Pending Todos
 
-- Manual PDF capture needed: CDC "Keep Food Safe After a Disaster" (https://www.cdc.gov/food-safety/foods/keep-food-safe-after-emergency.html) -> sources/originals/cdc/keep-food-safe-disaster.pdf
-- Install Python/PyYAML for native validate-manifests.py execution (bash alternative works in the meantime)
+- Download AFH-10-644.pdf (USAF SERE Handbook) and update its manifest hash -- only document not yet acquired (all 3 download sources failed; Distribution Statement A confirmed)
 
 ### Blockers/Concerns
 
@@ -67,5 +73,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 01-02-PLAN.md (Create provenance manifests and validate) -- Phase 1 complete
-Resume file: .planning/phases/01-content-sourcing-licensing/01-02-SUMMARY.md
+Stopped at: Phase 1 re-verified against expanded corpus (71 PDFs, 72 manifests, 11 agencies). All artifacts aligned. Ready for Phase 2.
+Resume file: none
