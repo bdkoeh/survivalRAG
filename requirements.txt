@@ -1,0 +1,13 @@
+# Core pipeline dependencies
+# For OCR support on scanned PDFs, also install:
+#   pip install "docling[tesserocr,easyocr]"
+#   System: tesseract-ocr (apt-get install tesseract-ocr tesseract-ocr-eng)
+#   macOS: brew install tesseract leptonica pkg-config
+#   Windows: https://github.com/UB-Mannheim/tesseract/wiki
+# For CPU-only PyTorch (saves ~2GB disk):
+#   pip install docling --extra-index-url https://download.pytorch.org/whl/cpu
+
+docling>=2.75.0
+pyyaml>=6.0
+ollama>=0.6.1
+pydantic>=2.0
