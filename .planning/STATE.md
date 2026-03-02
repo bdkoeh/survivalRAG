@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T01:44:47.215Z"
+last_updated: "2026-03-02T01:49:50Z"
 progress:
   total_phases: 5
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 15
-  completed_plans: 13
+  completed_plans: 14
 ---
 
 # Project State
@@ -18,22 +18,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 5 in progress. Core LLM generation engine complete (init, streaming, mode prompts). Plan 05-02 next: citation verification and pipeline integration.
+**Current focus:** Phase 5 complete. Full response generation pipeline with citation verification, post-processing, and answer()/answer_stream() entry points. Ready for Phase 6 (Evaluation).
 
 ## Current Position
 
-Phase: 5 of 8 (Response Generation) -- IN PROGRESS
-Plan: 1 of 2 in current phase (1 complete)
-Status: Plan 05-01 complete; proceeding to Plan 05-02 (Citation Verification & Pipeline Integration)
-Last activity: 2026-03-02 -- Completed 05-01-PLAN.md (LLM Generation Engine)
+Phase: 5 of 8 (Response Generation) -- COMPLETE
+Plan: 2 of 2 in current phase (2 complete)
+Status: Phase 5 complete; ready for Phase 6 (Evaluation)
+Last activity: 2026-03-02 -- Completed 05-02-PLAN.md (Citation Verification & Pipeline Integration)
 
-Progress: [██████████░] 50%
+Progress: [██████████████░] 56%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
-- Average duration: ~37min (skewed by 6h classification run)
+- Total plans completed: 14
+- Average duration: ~34min (skewed by 6h classification run)
 - Total execution time: ~7.9 hours
 
 **By Phase:**
@@ -44,14 +44,15 @@ Progress: [██████████░] 50%
 | 2. Document Processing | 2 | ~7h | ~3.5h |
 | 3. Chunking & Embedding | 3 | ~22min | ~7min |
 | 4. Retrieval Pipeline | 2 | ~8min | ~4min |
-| 5. Response Generation | 1 | ~2min | ~2min |
+| 5. Response Generation | 2 | ~5min | ~2.5min |
 
 **Recent Trend:**
-- Last 5 plans: 15min, 3min, 5min, 3min, 2min
+- Last 5 plans: 3min, 5min, 3min, 2min, 3min
 - Trend: Pipeline module plans fast with well-defined interfaces from planning
 
 *Updated after each plan completion*
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
+| Phase 05 P02 | 3min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,12 @@ Recent decisions affecting current work:
 - [05-01]: System prompts are per-mode constants, not runtime-constructed -- single LLM call per query
 - [05-01]: Generation parameters locked (temperature 0.2, top_p 0.85, num_ctx 8192) to minimize hallucination on medical content
 - [05-01]: Ultra mode: 200-char telegram style, no citations (no room), critical safety warnings only
+- [05-02]: Post-generation citation verification runs AFTER full response, not during streaming
+- [05-02]: Fuzzy matching with SequenceMatcher at 0.6 threshold handles abbreviations and partial document titles
+- [05-02]: On verification failure: keep response, append visible warning -- never silently discard
+- [05-02]: Ultra mode skips citation verification (no room for citations in 200-char responses)
+- [05-02]: Function-level import of pipeline.prompt.query avoids circular dependency
+- [05-02]: Refusal path short-circuits without LLM call on answer() and answer_stream()
 
 ### Pending Todos
 
@@ -114,10 +121,10 @@ Recent decisions affecting current work:
 
 - [RESOLVED]: Docling is newer than PyMuPDF -- validated in Phase 2: works well with military PDFs, all 70 born-digital docs extracted successfully
 - [RESOLVED]: nomic-embed-text medical terminology performance validated in Phase 3 -- 80% Recall@5 on medical queries, 88.14% overall
-- [Research]: Small LLM hallucination risk on medical content -- mitigated in Phase 5 via locked low-temperature defaults and mode-specific system prompts
+- [RESOLVED]: Small LLM hallucination risk on medical content -- mitigated in Phase 5 via locked low-temperature defaults, mode-specific system prompts, and post-generation citation verification with fuzzy matching
 
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 05-01-PLAN.md (LLM Generation Engine). Core generation module created: init(), generate_stream(), generate() with three response modes. Ready for Plan 05-02 (Citation Verification & Pipeline Integration).
+Stopped at: Completed 05-02-PLAN.md (Citation Verification & Pipeline Integration). Phase 5 complete. pipeline/generate.py has all 7 exports: init, generate_stream, generate, answer, answer_stream, verify_citations, extract_citations. Ready for Phase 6 (Evaluation).
 Resume file: none
