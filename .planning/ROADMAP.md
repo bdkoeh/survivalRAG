@@ -117,12 +117,11 @@ Plans:
   4. Citation faithfulness rate exceeds 90% on the evaluation set -- cited sources actually match retrieved chunks
   5. Medical procedure queries return associated safety warnings in the evaluation set
   6. The evaluation dataset includes realistic user queries (lay language, typos, emotional phrasing), not just developer-crafted queries
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
-- [ ] 06-03: TBD
+- [ ] 06-01-PLAN.md -- Create golden query dataset (50+ in-scope queries) and refusal query dataset (20 out-of-scope queries) in JSONL format
+- [ ] 06-02-PLAN.md -- Build evaluation runner with 4 dimensions (retrieval recall, refusal, citation faithfulness, safety warnings), terminal reporting, JSON output, and CLI
 
 ### Phase 7: User Interfaces
 **Goal**: Non-technical users can interact with the knowledge base through a browser-based chat UI, and power users can query from the command line -- both with category filtering, citation display, and clear disclaimers
