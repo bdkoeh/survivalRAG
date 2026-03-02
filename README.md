@@ -1,12 +1,20 @@
 # SurvivalRAG
 
-A pre-built survival and medical knowledge base for local LLMs.
+An offline survival and medical knowledge base for local LLMs — designed to be queryable over Meshtastic mesh radio when the grid is down.
 
 ---
 
-Every person building an offline survival AI repeats the same work: finding public domain documents, verifying licenses, cleaning scanned PDFs, chunking, embedding, evaluating. Meanwhile, products like SurvivalNet and Doom Box just drop PDFs next to a generic LLM with no retrieval pipeline — the model has no awareness of the documents and falls back on training data, which for medical content can be dangerously wrong.
+When Hurricane Helene hit in September 2024, it knocked out 4,562 cell sites across five states — the worst outage ever recorded. Communities in western North Carolina were isolated for weeks with no cell service, no internet, no way to call for help. After Hurricane Maria in 2017, Puerto Rico averaged 41 days without cell service. A third of the estimated 2,975 excess deaths were attributed to disrupted medical care. Twenty-six people died from drinking contaminated stream water — a preventable outcome if they'd had access to basic water safety information.
 
-SurvivalRAG is the missing data layer. Curated public domain survival and medical content, already processed and structured for RAG retrieval, so you can plug it into your local LLM and get source-cited answers instead of hallucinated ones.
+This pattern repeats in every major disaster. Infrastructure fails, information channels go dark, and people are left making life-or-death decisions — wound treatment, water purification, shelter, navigation — with no way to look anything up. The 72-hour self-sufficiency window that FEMA recommends turns out to be wildly optimistic.
+
+[Meshtastic](https://meshtastic.org) is changing the communication side of this problem. It's an open-source mesh networking protocol that runs on cheap LoRa radios ($20–$50), requires no license, no cell towers, no internet — just devices talking to each other. It was deployed during Helene, the 2025 LA wildfires, and the Berlin blackout. Communities are building permanent mesh networks so they're not caught off guard again.
+
+But Meshtastic only moves messages. It doesn't know anything. If you send a question over the mesh today, there's nothing on the other end to answer it.
+
+**SurvivalRAG is building that other end.** A curated, public domain knowledge base of survival and medical content — sourced from US military field manuals, FEMA guides, CDC guidelines, and other government publications — processed and structured for RAG retrieval against a local LLM. The goal is a plug-and-play system: connect it to your local model, connect it to your mesh node, and anyone on the network can send a survival or medical question and get a grounded, source-cited answer back.
+
+No internet required. No subscriptions. No cloud. Just a knowledge base, a local model, and a radio.
 
 ## Current Status
 
@@ -74,13 +82,9 @@ The system is LLM-agnostic (works with whatever local model you run via Ollama) 
 - **Not a replacement for training.** It can recite the steps but it cannot teach the skill.
 - **Not guaranteed accurate.** Small local LLMs can misinterpret context. That's why every answer includes citations — so you can verify against the source.
 
-## Future Goal: Meshtastic Mesh Radio
+## Meshtastic Integration
 
-The longer-term goal is to make SurvivalRAG queryable over Meshtastic mesh radio — send a survival or medical question from a handheld radio and get a grounded, cited answer back from a node on the mesh network.
-
-The people who need survival knowledge most urgently are often the ones with the least connectivity.
-
-This is a separate effort from the core knowledge base and won't be tackled until the base system is solid.
+The mesh radio layer is a separate effort from the core knowledge base — it won't be tackled until the base system is solid. The main constraints are LoRa's 228-character message limit and ~1 kbps throughput, which means responses need to be compressed into a single message or split across a few. Projects like [MESH-API](https://github.com/mr-tbot/mesh-api) and [Radio-LLM](https://github.com/pham-tuan-binh/radio-llm) have already proven that bridging Meshtastic to a local LLM works — the missing piece is a knowledge base worth querying.
 
 ## Contributing
 
