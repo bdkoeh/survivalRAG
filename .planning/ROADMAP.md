@@ -71,7 +71,7 @@ Plans:
 Plans:
 - [x] 03-01-PLAN.md -- Build chunk data models, content-type-aware chunker, and batch-safe Ollama embedding wrapper
 - [x] 03-02-PLAN.md -- Auto-generate 50+ benchmark query-document pairs and evaluate nomic-embed-text Recall@5
-- [ ] 03-03-PLAN.md -- Run full corpus chunking and embedding, produce per-document JSONL output files
+- [x] 03-03-PLAN.md -- Run full corpus chunking and embedding, produce per-document JSONL output files
 
 ### Phase 4: Retrieval Pipeline
 **Goal**: Users can query the knowledge base and get relevant, category-filtered results via vector similarity and hybrid search -- with automatic refusal when no chunks meet the relevance threshold

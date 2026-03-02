@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T00:34:27Z"
+last_updated: "2026-03-02T00:42:14.256Z"
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 13
-  completed_plans: 9
+  completed_plans: 10
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 3 Plan 02 complete. nomic-embed-text validated at 88.14% Recall@5. Ready for Plan 03: full corpus chunking and embedding.
+**Current focus:** Phase 3 complete. Full corpus orchestrator and verification scripts created. Awaiting Ollama for live corpus processing. Ready for Phase 4: Retrieval Pipeline.
 
 ## Current Position
 
-Phase: 3 of 8 (Chunking & Embedding)
-Plan: 2 of 3 in current phase
-Status: Plan 02 complete -- nomic-embed-text validated at 88.14% Recall@5
-Last activity: 2026-03-02 -- Completed 03-02-PLAN.md (Embedding Benchmark)
+Phase: 3 of 8 (Chunking & Embedding) -- COMPLETE
+Plan: 3 of 3 in current phase (all complete)
+Status: Phase 3 complete -- orchestrator and verification scripts created, awaiting Ollama for corpus run
+Last activity: 2026-03-02 -- Completed 03-03-PLAN.md (Full Corpus Chunking & Embedding)
 
-Progress: [████░░░░░░] 31%
+Progress: [████████░░] 38%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: ~51min (skewed by 6h classification run)
-- Total execution time: ~7.75 hours
+- Total plans completed: 10
+- Average duration: ~47min (skewed by 6h classification run)
+- Total execution time: ~7.8 hours
 
 **By Phase:**
 
@@ -42,11 +42,11 @@ Progress: [████░░░░░░] 31%
 |-------|-------|-------|----------|
 | 1. Content Sourcing | 5 | ~30min | ~6min |
 | 2. Document Processing | 2 | ~7h | ~3.5h |
-| 3. Chunking & Embedding | 2 | ~19min | ~10min |
+| 3. Chunking & Embedding | 3 | ~22min | ~7min |
 
 **Recent Trend:**
-- Last 5 plans: 6min, 56min, ~6h, 4min, 15min
-- Trend: Phase 3 plans are fast; benchmark required LLM query generation + embedding evaluation
+- Last 5 plans: 56min, ~6h, 4min, 15min, 3min
+- Trend: Phase 3 plans are fast; corpus orchestrator is code-only (no live LLM required)
 
 *Updated after each plan completion*
 
@@ -87,11 +87,14 @@ Recent decisions affecting current work:
 - [03-02]: nomic-embed-text validated at 88.14% Recall@5 on 59 auto-generated query-document pairs -- approved for full corpus embedding
 - [03-02]: Per-type recall: lay language 90%, medical terminology 80%, typo variants 94.7% -- medical terminology lowest but acceptable
 - [03-02]: Mean Reciprocal Rank 0.85 provides additional quality signal alongside Recall@5
+- [03-03]: Full corpus orchestrator created with pre-flight benchmark check, per-document JSONL output, and error isolation
+- [03-03]: Ollama not available on build machine -- orchestrator and verification scripts created, live run deferred
 
 ### Pending Todos
 
 - Download AFH-10-644.pdf (USAF SERE Handbook) and update its manifest hash -- only document not yet acquired (all 3 download sources failed; Distribution Statement A confirmed)
 - Re-download ATP-3-90-97.pdf -- current file is corrupt/truncated (exactly 1MB, PDFium data format error)
+- Run full corpus through pipeline/chunk_all.py when Ollama is available (requires: `ollama pull nomic-embed-text` + `python -m pipeline.chunk_all`)
 
 ### Blockers/Concerns
 
@@ -102,5 +105,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 03-02-PLAN.md (Embedding Benchmark). nomic-embed-text validated at 88.14% Recall@5. Ready for Plan 03: full corpus chunking and embedding.
+Stopped at: Completed 03-03-PLAN.md (Full Corpus Chunking & Embedding). Phase 3 complete. Orchestrator and verification scripts ready. Full corpus run requires Ollama with nomic-embed-text. Ready for Phase 4: Retrieval Pipeline.
 Resume file: none
