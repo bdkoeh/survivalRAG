@@ -133,11 +133,11 @@ Plans:
   3. A category filter selector in the web UI allows users to scope queries to specific topics (medical, water, shelter, etc.)
   4. A visible disclaimer on the web UI states this is a reference tool, not medical advice, and a system status indicator shows whether the system is ready
   5. Power users can query from the command line (e.g., `survivalrag ask "how to purify water"`) with terminal-formatted markdown output and category filtering via CLI flag
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
+- [ ] 07-01-PLAN.md -- Build Gradio + FastAPI web chat UI with terminal-style dark theme, streaming responses, clickable citation links to source PDFs, category filter pills, response mode toggle, disclaimer banner, and system status bar
+- [ ] 07-02-PLAN.md -- Build Click CLI with ask subcommand, interactive REPL, Rich markdown rendering, safety warning panels, --category and --mode flags
 
 ### Phase 8: Docker Packaging & Deployment
 **Goal**: Anyone can `docker compose up` and have a fully functional, offline-capable survival knowledge base -- zero configuration, zero external dependencies after initial pull
