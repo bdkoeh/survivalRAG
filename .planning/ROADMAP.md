@@ -100,12 +100,11 @@ Plans:
   4. Responses are formatted as concise, actionable steps (field-manual style): numbered steps for procedures, bullets for lists, bold for warnings
   5. The system never provides medical diagnoses -- it identifies itself as a reference tool only
   6. Responses stream token-by-token to reduce perceived latency, and post-generation verification checks that cited sources match retrieved chunks
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
-- [ ] 05-03: TBD
+- [ ] 05-01-PLAN.md -- Core LLM generation engine: init, streaming, mode-specific system prompts, safe parameter defaults
+- [ ] 05-02-PLAN.md -- Citation verification, post-processing, and full pipeline integration (answer/answer_stream)
 
 ### Phase 6: Evaluation Framework
 **Goal**: Retrieval quality, citation faithfulness, hallucination refusal, and safety warning surfacing are quantitatively validated against a golden query dataset -- proving the system works, not just demos well
