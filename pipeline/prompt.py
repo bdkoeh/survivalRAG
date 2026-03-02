@@ -211,13 +211,12 @@ def query(query_text: str, categories: Optional[list[str]] = None) -> dict:
     Raises:
         RuntimeError: If the retrieval engine is not initialized.
     """
-    from pipeline.retrieve import retrieve as _retrieve
-
     try:
+        from pipeline.retrieve import retrieve as _retrieve
         retrieved_chunks = _retrieve(query_text, categories=categories)
-    except RuntimeError as e:
-        # Handle uninitialized retrieval engine gracefully
-        logger.error("Retrieval engine not initialized: %s", e)
+    except (RuntimeError, ImportError) as e:
+        # Handle uninitialized retrieval engine or missing dependencies gracefully
+        logger.error("Retrieval engine error: %s", e)
         return {
             "status": "refused",
             "message": (
