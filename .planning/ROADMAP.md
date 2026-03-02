@@ -86,7 +86,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md -- Build ChromaDB ingestion, hybrid retrieval engine (vector + BM25), RRF fusion, threshold filtering, and category pre-filtering
+- [x] 04-01-PLAN.md -- Build ChromaDB ingestion, hybrid retrieval engine (vector + BM25), RRF fusion, threshold filtering, and category pre-filtering
 - [ ] 04-02-PLAN.md -- Build prompt assembly module with safety warning injection, refusal handling, and end-to-end query interface
 
 ### Phase 5: Response Generation

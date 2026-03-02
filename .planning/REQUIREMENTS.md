@@ -33,10 +33,10 @@
 
 ### Retrieval Pipeline
 
-- [ ] **RETR-01**: User query is embedded and matched against the knowledge base via vector similarity search
-- [ ] **RETR-02**: User can optionally filter retrieval by content category
-- [ ] **RETR-03**: Chunks below a relevance threshold are discarded -- if no chunks pass, the system returns "insufficient context" without calling the LLM
-- [ ] **RETR-04**: Hybrid search (BM25 keyword + vector similarity) is available for medical terminology accuracy
+- [x] **RETR-01**: User query is embedded and matched against the knowledge base via vector similarity search
+- [x] **RETR-02**: User can optionally filter retrieval by content category
+- [x] **RETR-03**: Chunks below a relevance threshold are discarded -- if no chunks pass, the system returns "insufficient context" without calling the LLM
+- [x] **RETR-04**: Hybrid search (BM25 keyword + vector similarity) is available for medical terminology accuracy
 - [ ] **RETR-05**: Retrieved context is assembled into a prompt with source metadata for citation
 
 ### Response Generation
@@ -152,10 +152,10 @@
 | CHNK-05 | Phase 3 | Complete |
 | CHNK-06 | Phase 3 | Complete |
 | CHNK-07 | Phase 3 | Complete |
-| RETR-01 | Phase 4 | Pending |
-| RETR-02 | Phase 4 | Pending |
-| RETR-03 | Phase 4 | Pending |
-| RETR-04 | Phase 4 | Pending |
+| RETR-01 | Phase 4 | Complete |
+| RETR-02 | Phase 4 | Complete |
+| RETR-03 | Phase 4 | Complete |
+| RETR-04 | Phase 4 | Complete |
 | RETR-05 | Phase 4 | Pending |
 | RESP-01 | Phase 5 | Pending |
 | RESP-02 | Phase 5 | Pending |

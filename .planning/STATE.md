@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-03-02T00:47:27.841Z"
+status: in-progress
+last_updated: "2026-03-02T01:03:00Z"
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 13
-  completed_plans: 10
+  completed_plans: 11
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 3 complete. Full corpus orchestrator and verification scripts created. Awaiting Ollama for live corpus processing. Ready for Phase 4: Retrieval Pipeline.
+**Current focus:** Phase 4 in progress. Ingestion and hybrid retrieval engine complete (04-01). Prompt assembly module next (04-02).
 
 ## Current Position
 
-Phase: 3 of 8 (Chunking & Embedding) -- COMPLETE
-Plan: 3 of 3 in current phase (all complete)
-Status: Phase 3 complete -- orchestrator and verification scripts created, awaiting Ollama for corpus run
-Last activity: 2026-03-02 -- Completed 03-03-PLAN.md (Full Corpus Chunking & Embedding)
+Phase: 4 of 8 (Retrieval Pipeline) -- IN PROGRESS
+Plan: 1 of 2 in current phase (04-01 complete)
+Status: Ingestion and hybrid retrieval engine complete; prompt assembly next
+Last activity: 2026-03-02 -- Completed 04-01-PLAN.md (Ingestion & Hybrid Retrieval)
 
-Progress: [████████░░] 38%
+Progress: [████████░░] 42%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: ~47min (skewed by 6h classification run)
-- Total execution time: ~7.8 hours
+- Total plans completed: 11
+- Average duration: ~43min (skewed by 6h classification run)
+- Total execution time: ~7.9 hours
 
 **By Phase:**
 
@@ -43,10 +43,11 @@ Progress: [████████░░] 38%
 | 1. Content Sourcing | 5 | ~30min | ~6min |
 | 2. Document Processing | 2 | ~7h | ~3.5h |
 | 3. Chunking & Embedding | 3 | ~22min | ~7min |
+| 4. Retrieval Pipeline | 1 | ~5min | ~5min |
 
 **Recent Trend:**
-- Last 5 plans: 56min, ~6h, 4min, 15min, 3min
-- Trend: Phase 3 plans are fast; corpus orchestrator is code-only (no live LLM required)
+- Last 5 plans: ~6h, 4min, 15min, 3min, 5min
+- Trend: Retrieval pipeline plans fast; integration code with well-defined interfaces
 
 *Updated after each plan completion*
 
@@ -89,6 +90,10 @@ Recent decisions affecting current work:
 - [03-02]: Mean Reciprocal Rank 0.85 provides additional quality signal alongside Recall@5
 - [03-03]: Full corpus orchestrator created with pre-flight benchmark check, per-document JSONL output, and error isolation
 - [03-03]: Ollama not available on build machine -- orchestrator and verification scripts created, live run deferred
+- [04-01]: Python 3.14 pydantic v1 compat shim created for ChromaDB -- patches type inference to avoid ConfigError on import
+- [04-01]: Cosine similarity threshold set to 0.25 (configurable via SURVIVALRAG_RELEVANCE_THRESHOLD) -- favors recall for safety content
+- [04-01]: Default max results set to 5 chunks (configurable via SURVIVALRAG_MAX_CHUNKS) -- fits 4K-8K context windows
+- [04-01]: BM25 results category-filtered post-hoc BEFORE RRF fusion to prevent wrong-category leakage (Pitfall 2)
 
 ### Pending Todos
 
@@ -105,5 +110,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 03-03-PLAN.md (Full Corpus Chunking & Embedding). Phase 3 complete. Orchestrator and verification scripts ready. Full corpus run requires Ollama with nomic-embed-text. Ready for Phase 4: Retrieval Pipeline.
+Stopped at: Completed 04-01-PLAN.md (Ingestion & Hybrid Retrieval). ChromaDB ingestion pipeline and hybrid retrieval engine with BM25 + vector search, RRF fusion, category filtering, and threshold refusal. Ready for 04-02 (prompt assembly).
 Resume file: none
