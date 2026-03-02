@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-03-02T01:03:00Z"
+last_updated: "2026-03-02T01:08:47Z"
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 13
-  completed_plans: 11
+  completed_plans: 12
 ---
 
 # Project State
@@ -18,22 +18,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 4 in progress. Ingestion and hybrid retrieval engine complete (04-01). Prompt assembly module next (04-02).
+**Current focus:** Phase 4 complete. Full retrieval pipeline operational: ingestion, hybrid search, and prompt assembly. Ready for Phase 5 (Response Generation).
 
 ## Current Position
 
-Phase: 4 of 8 (Retrieval Pipeline) -- IN PROGRESS
-Plan: 1 of 2 in current phase (04-01 complete)
-Status: Ingestion and hybrid retrieval engine complete; prompt assembly next
-Last activity: 2026-03-02 -- Completed 04-01-PLAN.md (Ingestion & Hybrid Retrieval)
+Phase: 4 of 8 (Retrieval Pipeline) -- COMPLETE
+Plan: 2 of 2 in current phase (all complete)
+Status: Phase 4 complete; ready for Phase 5 (Response Generation)
+Last activity: 2026-03-02 -- Completed 04-02-PLAN.md (Prompt Assembly)
 
-Progress: [████████░░] 42%
+Progress: [█████████░] 46%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: ~43min (skewed by 6h classification run)
+- Total plans completed: 12
+- Average duration: ~40min (skewed by 6h classification run)
 - Total execution time: ~7.9 hours
 
 **By Phase:**
@@ -43,10 +43,10 @@ Progress: [████████░░] 42%
 | 1. Content Sourcing | 5 | ~30min | ~6min |
 | 2. Document Processing | 2 | ~7h | ~3.5h |
 | 3. Chunking & Embedding | 3 | ~22min | ~7min |
-| 4. Retrieval Pipeline | 1 | ~5min | ~5min |
+| 4. Retrieval Pipeline | 2 | ~8min | ~4min |
 
 **Recent Trend:**
-- Last 5 plans: ~6h, 4min, 15min, 3min, 5min
+- Last 5 plans: 4min, 15min, 3min, 5min, 3min
 - Trend: Retrieval pipeline plans fast; integration code with well-defined interfaces
 
 *Updated after each plan completion*
@@ -94,6 +94,9 @@ Recent decisions affecting current work:
 - [04-01]: Cosine similarity threshold set to 0.25 (configurable via SURVIVALRAG_RELEVANCE_THRESHOLD) -- favors recall for safety content
 - [04-01]: Default max results set to 5 chunks (configurable via SURVIVALRAG_MAX_CHUNKS) -- fits 4K-8K context windows
 - [04-01]: BM25 results category-filtered post-hoc BEFORE RRF fusion to prevent wrong-category leakage (Pitfall 2)
+- [04-02]: Safety warnings appear BEFORE reference context in assembled prompt (safety-first principle from CLAUDE.md)
+- [04-02]: Refusal uses hard canned message, not LLM-generated, for deterministic behavior
+- [04-02]: query() catches both RuntimeError and ImportError for graceful degradation when retrieval engine unavailable
 
 ### Pending Todos
 
@@ -110,5 +113,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 04-01-PLAN.md (Ingestion & Hybrid Retrieval). ChromaDB ingestion pipeline and hybrid retrieval engine with BM25 + vector search, RRF fusion, category filtering, and threshold refusal. Ready for 04-02 (prompt assembly).
+Stopped at: Completed 04-02-PLAN.md (Prompt Assembly). Phase 4 complete. Full retrieval pipeline operational: query() -> retrieve() -> hybrid search + RRF -> prompt assembly -> structured result dict. Ready for Phase 5 (Response Generation).
 Resume file: none
