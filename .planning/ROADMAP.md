@@ -69,8 +69,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- Build chunk data models, content-type-aware chunker, and batch-safe Ollama embedding wrapper
-- [ ] 03-02-PLAN.md -- Auto-generate 50+ benchmark query-document pairs and evaluate nomic-embed-text Recall@5
+- [x] 03-01-PLAN.md -- Build chunk data models, content-type-aware chunker, and batch-safe Ollama embedding wrapper
+- [x] 03-02-PLAN.md -- Auto-generate 50+ benchmark query-document pairs and evaluate nomic-embed-text Recall@5
 - [ ] 03-03-PLAN.md -- Run full corpus chunking and embedding, produce per-document JSONL output files
 
 ### Phase 4: Retrieval Pipeline
@@ -168,7 +168,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 |-------|----------------|--------|-----------|
 | 1. Content Sourcing & Licensing | 5/5 | Complete | 2026-02-28 |
 | 2. Document Processing | 2/2 | Complete   | 2026-03-01 |
-| 3. Chunking & Embedding | 0/TBD | Not started | - |
+| 3. Chunking & Embedding | 2/3 | In Progress | - |
 | 4. Retrieval Pipeline | 0/TBD | Not started | - |
 | 5. Response Generation | 0/TBD | Not started | - |
 | 6. Evaluation Framework | 0/TBD | Not started | - |
