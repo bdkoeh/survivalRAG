@@ -507,16 +507,17 @@ def print_summary(aggregates: list[dict], overall_passed: bool) -> None:
     print("EVALUATION RESULTS")
     print("=" * 70)
     print()
-    print(f"  {'Dimension':<28s}  {'Score':>8s}  {'Threshold':>9s}  {'Status':>6s}")
-    print(f"  {'-' * 28}  {'-' * 8}  {'-' * 9}  {'-' * 6}")
+    print(f"  {'Dimension':<28s}  {'Score':>8s}  {'Threshold':>9s}  {'Count':>5s}  {'Status':>6s}")
+    print(f"  {'-' * 28}  {'-' * 8}  {'-' * 9}  {'-' * 5}  {'-' * 6}")
 
     for agg in aggregates:
         label = agg.get("label", agg["dimension"])
         score_str = f"{agg['score']:.1%}"
         threshold = agg.get("threshold")
         threshold_str = f"{threshold:.1%}" if threshold is not None else "--"
+        count_str = str(agg.get("count", 0))
         status = agg["status"]
-        print(f"  {label:<28s}  {score_str:>8s}  {threshold_str:>9s}  {status:>6s}")
+        print(f"  {label:<28s}  {score_str:>8s}  {threshold_str:>9s}  {count_str:>5s}  {status:>6s}")
 
     print()
     verdict = "PASSED" if overall_passed else "FAILED"
@@ -768,8 +769,10 @@ def main():
     # Print terminal summary
     print_summary(aggregates, overall_passed)
 
-    # Print failure details if any threshold failed
-    if not overall_passed:
+    # Print failure details for any queries scoring below 1.0
+    # (even when overall thresholds pass, individual failures are useful for debugging)
+    has_failures = any(r.get("score", 1.0) < 1.0 for r in all_results)
+    if has_failures:
         print_failures(all_results)
 
     # Write JSON results
