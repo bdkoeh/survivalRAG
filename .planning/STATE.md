@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T01:14:41.701Z"
+last_updated: "2026-03-02T01:44:47.215Z"
 progress:
-  total_phases: 4
+  total_phases: 5
   completed_phases: 3
-  total_plans: 13
-  completed_plans: 12
+  total_plans: 15
+  completed_plans: 13
 ---
 
 # Project State
@@ -18,22 +18,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 4 complete. Full retrieval pipeline operational: ingestion, hybrid search, and prompt assembly. Ready for Phase 5 (Response Generation).
+**Current focus:** Phase 5 in progress. Core LLM generation engine complete (init, streaming, mode prompts). Plan 05-02 next: citation verification and pipeline integration.
 
 ## Current Position
 
-Phase: 4 of 8 (Retrieval Pipeline) -- COMPLETE
-Plan: 2 of 2 in current phase (all complete)
-Status: Phase 4 complete; ready for Phase 5 (Response Generation)
-Last activity: 2026-03-02 -- Completed 04-02-PLAN.md (Prompt Assembly)
+Phase: 5 of 8 (Response Generation) -- IN PROGRESS
+Plan: 1 of 2 in current phase (1 complete)
+Status: Plan 05-01 complete; proceeding to Plan 05-02 (Citation Verification & Pipeline Integration)
+Last activity: 2026-03-02 -- Completed 05-01-PLAN.md (LLM Generation Engine)
 
-Progress: [█████████░] 46%
+Progress: [██████████░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: ~40min (skewed by 6h classification run)
+- Total plans completed: 13
+- Average duration: ~37min (skewed by 6h classification run)
 - Total execution time: ~7.9 hours
 
 **By Phase:**
@@ -44,12 +44,14 @@ Progress: [█████████░] 46%
 | 2. Document Processing | 2 | ~7h | ~3.5h |
 | 3. Chunking & Embedding | 3 | ~22min | ~7min |
 | 4. Retrieval Pipeline | 2 | ~8min | ~4min |
+| 5. Response Generation | 1 | ~2min | ~2min |
 
 **Recent Trend:**
-- Last 5 plans: 4min, 15min, 3min, 5min, 3min
-- Trend: Retrieval pipeline plans fast; integration code with well-defined interfaces
+- Last 5 plans: 15min, 3min, 5min, 3min, 2min
+- Trend: Pipeline module plans fast with well-defined interfaces from planning
 
 *Updated after each plan completion*
+| Phase 05 P01 | 2min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -97,6 +99,10 @@ Recent decisions affecting current work:
 - [04-02]: Safety warnings appear BEFORE reference context in assembled prompt (safety-first principle from CLAUDE.md)
 - [04-02]: Refusal uses hard canned message, not LLM-generated, for deterministic behavior
 - [04-02]: query() catches both RuntimeError and ImportError for graceful degradation when retrieval engine unavailable
+- [05-01]: Used ollama.generate() not ollama.chat() -- prompt from assemble_prompt() is pre-assembled string
+- [05-01]: System prompts are per-mode constants, not runtime-constructed -- single LLM call per query
+- [05-01]: Generation parameters locked (temperature 0.2, top_p 0.85, num_ctx 8192) to minimize hallucination on medical content
+- [05-01]: Ultra mode: 200-char telegram style, no citations (no room), critical safety warnings only
 
 ### Pending Todos
 
@@ -108,10 +114,10 @@ Recent decisions affecting current work:
 
 - [RESOLVED]: Docling is newer than PyMuPDF -- validated in Phase 2: works well with military PDFs, all 70 born-digital docs extracted successfully
 - [RESOLVED]: nomic-embed-text medical terminology performance validated in Phase 3 -- 80% Recall@5 on medical queries, 88.14% overall
-- [Research]: Small LLM hallucination risk on medical content -- prompt engineering critical in Phase 5
+- [Research]: Small LLM hallucination risk on medical content -- mitigated in Phase 5 via locked low-temperature defaults and mode-specific system prompts
 
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 04-02-PLAN.md (Prompt Assembly). Phase 4 complete. Full retrieval pipeline operational: query() -> retrieve() -> hybrid search + RRF -> prompt assembly -> structured result dict. Ready for Phase 5 (Response Generation).
+Stopped at: Completed 05-01-PLAN.md (LLM Generation Engine). Core generation module created: init(), generate_stream(), generate() with three response modes. Ready for Plan 05-02 (Citation Verification & Pipeline Integration).
 Resume file: none

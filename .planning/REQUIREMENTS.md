@@ -43,10 +43,10 @@
 
 - [ ] **RESP-01**: Every response cites which source document and section the information came from
 - [ ] **RESP-02**: Safety warnings from source material are preserved and surfaced in responses
-- [ ] **RESP-03**: When retrieved context is insufficient, the system explicitly refuses rather than generating from LLM parametric knowledge
-- [ ] **RESP-04**: Responses are formatted as concise, actionable steps (field-manual style) -- numbered steps for procedures, bullets for lists, bold for warnings
-- [ ] **RESP-05**: The system never provides medical diagnoses -- it is a reference tool only
-- [ ] **RESP-06**: Responses are streamed token-by-token to reduce perceived latency
+- [x] **RESP-03**: When retrieved context is insufficient, the system explicitly refuses rather than generating from LLM parametric knowledge
+- [x] **RESP-04**: Responses are formatted as concise, actionable steps (field-manual style) -- numbered steps for procedures, bullets for lists, bold for warnings
+- [x] **RESP-05**: The system never provides medical diagnoses -- it is a reference tool only
+- [x] **RESP-06**: Responses are streamed token-by-token to reduce perceived latency
 - [ ] **RESP-07**: Post-generation verification checks that cited sources match retrieved chunks
 
 ### Web Interface
@@ -159,10 +159,10 @@
 | RETR-05 | Phase 4 | Complete |
 | RESP-01 | Phase 5 | Pending |
 | RESP-02 | Phase 5 | Pending |
-| RESP-03 | Phase 5 | Pending |
-| RESP-04 | Phase 5 | Pending |
-| RESP-05 | Phase 5 | Pending |
-| RESP-06 | Phase 5 | Pending |
+| RESP-03 | Phase 5 | Complete |
+| RESP-04 | Phase 5 | Complete |
+| RESP-05 | Phase 5 | Complete |
+| RESP-06 | Phase 5 | Complete |
 | RESP-07 | Phase 5 | Pending |
 | EVAL-01 | Phase 6 | Pending |
 | EVAL-02 | Phase 6 | Pending |
