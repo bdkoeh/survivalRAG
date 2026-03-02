@@ -128,6 +128,27 @@ def embed_documents(
                     "Ollama is not running or nomic-embed-text is not pulled. "
                     "Run: ollama pull nomic-embed-text"
                 )
+            # Context length exceeded -- fall back to embedding one at a time
+            # so only the oversized chunk(s) are skipped, not the whole batch.
+            if "context length" in str(e).lower() or "input length" in str(e).lower():
+                logger.warning(
+                    "Batch %d/%d failed (likely oversized chunk) -- retrying individually",
+                    batch_num, total_batches,
+                )
+                for j, single in enumerate(prefixed):
+                    try:
+                        resp = ollama.embed(model=model, input=single)
+                        emb = resp["embeddings"][0] if isinstance(resp, dict) else resp.embeddings[0]
+                        if len(emb) != EMBEDDING_DIM:
+                            raise ValueError(f"Dimension mismatch: {len(emb)}")
+                        all_embeddings.append(emb)
+                    except Exception as inner_e:
+                        logger.warning(
+                            "Skipping oversized chunk at index %d (%d chars): %s",
+                            batch_idx + j, len(batch[j]), inner_e,
+                        )
+                        all_embeddings.append([])  # placeholder for skipped chunk
+                continue
             raise
 
         # Access embeddings -- try dict access first, fall back to attribute

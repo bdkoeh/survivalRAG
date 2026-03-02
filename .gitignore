@@ -34,7 +34,11 @@ build/
 
 # Vector store data (regenerable)
 chroma_db/
+data/chroma/
 faiss_index/
+
+# Embedded chunk files (regenerable from processed/sections/)
+processed/chunks/*.jsonl
 
 # Logs
 *.log
