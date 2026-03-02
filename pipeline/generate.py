@@ -1,18 +1,34 @@
-"""LLM response generation via Ollama with streaming and mode-specific prompts.
+"""LLM response generation with citation verification and full pipeline integration.
 
-Provides the core generation engine for SurvivalRAG: model validation at startup,
-streaming token-by-token generation via Python generator, and three response modes
-(full, compact, ultra) with distinct system prompts and safe parameter defaults
-locked for medical/survival content.
+Provides the complete generation engine for SurvivalRAG: model validation at startup,
+streaming token-by-token generation via Python generator, three response modes
+(full, compact, ultra) with distinct system prompts, citation verification via
+fuzzy matching against source documents, and full pipeline entry points that wire
+query -> retrieve -> prompt -> generate -> verify into a single call.
 
 Temperature and generation parameters are locked to safe defaults and are NOT
 user-configurable -- this prevents hallucination-prone high-temperature settings
 on medical/safety content.
 
+Exports:
+    init            - Validate and set generation model
+    generate_stream - Stream LLM tokens (Python generator)
+    generate        - Generate complete response with verification
+    answer          - Full pipeline entry point (query -> response)
+    answer_stream   - Streaming pipeline entry point
+    extract_citations - Extract citations from response text
+    verify_citations  - Verify citations against source documents
+
 Usage:
     import pipeline.generate as gen
     gen.init()  # validates model is available
-    for token in gen.generate_stream(prompt, mode="full"):
+
+    # Full pipeline (preferred):
+    result = gen.answer("how to purify water")
+
+    # Streaming:
+    status, tokens = gen.answer_stream("how to purify water")
+    for token in tokens:
         print(token, end="", flush=True)
 """
 
@@ -486,3 +502,96 @@ def generate(prompt: str, chunks: list[dict], mode: str = "full") -> dict:
         "model": _model,
         "verification": verification,
     }
+
+
+# ---------------------------------------------------------------------------
+# Full pipeline integration entry points
+# ---------------------------------------------------------------------------
+
+def answer(
+    query_text: str,
+    categories: list[str] = None,
+    mode: str = "full",
+) -> dict:
+    """Full pipeline: query -> retrieve -> prompt -> generate -> verify.
+
+    Main entry point for Phase 7 CLI and web UI. Wires all pipeline stages
+    together in a single call. Handles the refusal path (no relevant chunks)
+    WITHOUT calling the LLM -- the canned refusal message is returned directly.
+
+    Args:
+        query_text: The user's natural language query.
+        categories: Optional list of categories to filter retrieval (OR logic).
+        mode: Response mode ("full", "compact", "ultra").
+
+    Returns:
+        Dict with keys:
+        - response: The response text (or refusal message).
+        - mode: The response mode used.
+        - model: The model name used.
+        - status: "ok" or "refused".
+        - verification: Citation verification dict (None if refused).
+        - warnings: List of safety warning dicts from retrieved chunks.
+    """
+    # Function-level import to avoid circular dependency
+    from pipeline.prompt import query as pipeline_query
+
+    result = pipeline_query(query_text, categories=categories)
+
+    # Refusal path: short-circuit WITHOUT calling the LLM
+    if result["status"] == "refused":
+        return {
+            "response": result["message"],
+            "mode": mode,
+            "model": _model,
+            "status": "refused",
+            "verification": None,
+        }
+
+    # Success path: generate response with verification
+    gen_result = generate(
+        prompt=result["prompt"],
+        chunks=result["chunks"],
+        mode=mode,
+    )
+    gen_result["status"] = "ok"
+    gen_result["warnings"] = result["warnings"]
+
+    return gen_result
+
+
+def answer_stream(
+    query_text: str,
+    categories: list[str] = None,
+    mode: str = "full",
+) -> tuple[str, Iterator[str]]:
+    """Streaming variant: returns (status, token_generator).
+
+    For CLI: ``for token in gen: print(token, end='', flush=True)``
+    For web UI: wrap the generator in SSE.
+
+    The refusal path yields the refusal message as a single token (no LLM call).
+    For the ok path, the caller is responsible for collecting full text and
+    running verify_citations() post-collection if verification is needed.
+
+    Args:
+        query_text: The user's natural language query.
+        categories: Optional list of categories to filter retrieval (OR logic).
+        mode: Response mode ("full", "compact", "ultra").
+
+    Returns:
+        Tuple of (status, generator) where:
+        - status: "ok" or "refused"
+        - generator: Iterator yielding response tokens (or single refusal message)
+    """
+    # Function-level import to avoid circular dependency
+    from pipeline.prompt import query as pipeline_query
+
+    result = pipeline_query(query_text, categories=categories)
+
+    # Refusal path: yield canned message as single token, no LLM call
+    if result["status"] == "refused":
+        return ("refused", iter([result["message"]]))
+
+    # Success path: stream tokens from LLM
+    return ("ok", generate_stream(result["prompt"], mode=mode))
