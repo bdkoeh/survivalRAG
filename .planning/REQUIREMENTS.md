@@ -78,10 +78,10 @@
 ### Evaluation & Quality
 
 - [x] **EVAL-01**: Golden query dataset of 50+ survival/medical queries with expected results
-- [ ] **EVAL-02**: Retrieval quality measured: recall >85% on medical terminology queries
-- [ ] **EVAL-03**: Hallucination test suite: system refuses 100% of out-of-scope queries
-- [ ] **EVAL-04**: Citation faithfulness rate >90% on evaluation set
-- [ ] **EVAL-05**: Safety warning surfacing verified: medical procedure queries return associated warnings
+- [x] **EVAL-02**: Retrieval quality measured: recall >85% on medical terminology queries
+- [x] **EVAL-03**: Hallucination test suite: system refuses 100% of out-of-scope queries
+- [x] **EVAL-04**: Citation faithfulness rate >90% on evaluation set
+- [x] **EVAL-05**: Safety warning surfacing verified: medical procedure queries return associated warnings
 - [x] **EVAL-06**: Evaluation includes realistic user queries (lay language, typos, emotional phrasing), not just developer-crafted queries
 
 ## v2 Requirements
@@ -165,10 +165,10 @@
 | RESP-06 | Phase 5 | Complete |
 | RESP-07 | Phase 5 | Complete |
 | EVAL-01 | Phase 6 | Complete |
-| EVAL-02 | Phase 6 | Pending |
-| EVAL-03 | Phase 6 | Pending |
-| EVAL-04 | Phase 6 | Pending |
-| EVAL-05 | Phase 6 | Pending |
+| EVAL-02 | Phase 6 | Complete |
+| EVAL-03 | Phase 6 | Complete |
+| EVAL-04 | Phase 6 | Complete |
+| EVAL-05 | Phase 6 | Complete |
 | EVAL-06 | Phase 6 | Complete |
 | WEBUI-01 | Phase 7 | Pending |
 | WEBUI-02 | Phase 7 | Pending |

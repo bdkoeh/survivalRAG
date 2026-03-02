@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T17:33:45.000Z"
+last_updated: "2026-03-02T17:41:07.000Z"
 progress:
   total_phases: 6
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 16
-  completed_plans: 15
+  completed_plans: 16
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 6 in progress. Evaluation test data complete (golden + refusal datasets). Building evaluation runner next.
+**Current focus:** Phase 6 complete. Evaluation framework (golden dataset + evaluation runner) ready. Next: Phase 7 User Interfaces.
 
 ## Current Position
 
-Phase: 6 of 8 (Evaluation Framework)
-Plan: 1 of 2 in current phase (1 complete)
-Status: Phase 6 in progress; evaluation test data complete, evaluation runner next
-Last activity: 2026-03-02 -- Completed 06-01-PLAN.md (Evaluation Test Data)
+Phase: 6 of 8 (Evaluation Framework) -- COMPLETE
+Plan: 2 of 2 in current phase (2 complete)
+Status: Phase 6 complete; evaluation framework ready (golden datasets + evaluation runner)
+Last activity: 2026-03-02 -- Completed 06-02-PLAN.md (Evaluation Runner)
 
-Progress: [███████████████░] 60%
+Progress: [████████████████] 66%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
-- Average duration: ~32min (skewed by 6h classification run)
-- Total execution time: ~7.9 hours
+- Total plans completed: 16
+- Average duration: ~30min (skewed by 6h classification run)
+- Total execution time: ~8.0 hours
 
 **By Phase:**
 
@@ -45,16 +45,17 @@ Progress: [███████████████░] 60%
 | 3. Chunking & Embedding | 3 | ~22min | ~7min |
 | 4. Retrieval Pipeline | 2 | ~8min | ~4min |
 | 5. Response Generation | 2 | ~5min | ~2.5min |
-| 6. Evaluation Framework | 1 (of 2) | ~2min | ~2min |
+| 6. Evaluation Framework | 2 (of 2) | ~5min | ~2.5min |
 
 **Recent Trend:**
-- Last 5 plans: 5min, 3min, 2min, 3min, 2min
-- Trend: Data-only plans (no code) execute fastest
+- Last 5 plans: 3min, 2min, 3min, 2min, 3min
+- Trend: Data-only plans (no code) execute fastest; evaluation code plans remain fast
 
 *Updated after each plan completion*
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
 | Phase 05 P02 | 3min | 2 tasks | 1 files |
 | Phase 06 P01 | 2min | 2 tasks | 2 files |
+| Phase 06 P02 | 3min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,10 @@ Recent decisions affecting current work:
 - [06-01]: Expected chunk IDs constructed from deterministic format using actual corpus documents -- evaluation runner validates existence
 - [06-01]: Emotional queries reflect realistic distress: incomplete sentences, all lowercase, no punctuation, urgent tone
 - [06-01]: Refusal queries crafted to avoid semantic overlap with corpus per Pitfall 2 from RESEARCH.md
+- [06-02]: Retrieval recall overall is INFO-only; 85% threshold applies to medical_terminology subset per roadmap spec
+- [06-02]: Safety warnings dimension is informational (no numeric threshold) -- any surfacing percentage above 0% is acceptable
+- [06-02]: Failure details always shown when any query scores below 1.0, not just when overall thresholds fail
+- [06-02]: Suite selection (--suite flag) enables fast dev iteration: retrieval-only skips LLM generation entirely
 
 ### Pending Todos
 
@@ -132,5 +137,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 06-01-PLAN.md (Evaluation Test Data). Phase 6 plan 1 of 2 complete. data/eval/golden_queries.jsonl (58 queries) and data/eval/refusal_queries.jsonl (20 queries) ready for evaluation runner in Plan 02.
+Stopped at: Completed 06-02-PLAN.md (Evaluation Runner). Phase 6 complete (2 of 2 plans). pipeline/evaluate.py ready with 4-dimension evaluation runner. Next: Phase 7 User Interfaces.
 Resume file: none
