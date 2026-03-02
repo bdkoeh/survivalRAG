@@ -15,6 +15,7 @@ from typing import Optional
 import ollama
 
 from pipeline.models import ChunkRecord
+from pipeline.spellcheck import correct_query
 
 logger = logging.getLogger(__name__)
 
@@ -151,7 +152,9 @@ def embed_documents(
     return all_embeddings
 
 
-def embed_query(query: str, model: str = DEFAULT_MODEL) -> list[float]:
+def embed_query(
+    query: str, model: str = DEFAULT_MODEL, spell_correct: bool = True
+) -> list[float]:
     """Embed a search query with the required search_query: prefix.
 
     Uses the search_query: prefix (different from search_document: used
@@ -160,6 +163,8 @@ def embed_query(query: str, model: str = DEFAULT_MODEL) -> list[float]:
     Args:
         query: The search query text.
         model: Embedding model name. Defaults to nomic-embed-text.
+        spell_correct: If True, apply domain-aware spell correction before
+            embedding. Helps recover typo queries like "diareah" -> "diarrhea".
 
     Returns:
         Single embedding vector (768 floats for nomic-embed-text).
@@ -167,6 +172,10 @@ def embed_query(query: str, model: str = DEFAULT_MODEL) -> list[float]:
     Raises:
         ConnectionError: If Ollama is not running.
     """
+    # Apply spell correction before prefixing
+    if spell_correct:
+        query = correct_query(query)
+
     # Prepend search_query: prefix (CRITICAL: different from document prefix)
     prefixed = f"search_query: {query}"
 

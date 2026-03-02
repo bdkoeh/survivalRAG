@@ -1,0 +1,117 @@
+{
+  "model": "nomic-embed-text",
+  "model_version": "nomic-bert 137M F16 unknown",
+  "timestamp": "2026-03-02T00:24:52.070195+00:00",
+  "num_pairs": 59,
+  "recall_at_5": 0.8813559322033898,
+  "pass_threshold": 0.85,
+  "passed": true,
+  "mean_reciprocal_rank": 0.8533521970080897,
+  "per_query_type_recall": {
+    "lay_language": 0.9,
+    "medical_terminology": 0.8,
+    "typo_variant": 0.9473684210526315
+  },
+  "worst_performers": [
+    {
+      "query": "forse reconstuction",
+      "query_type": "typo_variant",
+      "source_document": "FM-3-11.5",
+      "section_header": "CAUTION",
+      "expected_rank": 56,
+      "similarity_score": 0.3826073408126831,
+      "top_similarity": 0.5772011876106262,
+      "hit": false
+    },
+    {
+      "query": "what to do in case of nuclear emergency",
+      "query_type": "lay_language",
+      "source_document": "remm-radiation-emergency",
+      "section_header": "What Kind of Emergency?",
+      "expected_rank": 43,
+      "similarity_score": 0.48335766792297363,
+      "top_similarity": 0.7202436923980713,
+      "hit": false
+    },
+    {
+      "query": "Russian military tactics and strategies during World War II, improvisations, and combat methods in forest environments.",
+      "query_type": "medical_terminology",
+      "source_document": "TC-21-3",
+      "section_header": "Suggested Readings",
+      "expected_rank": 25,
+      "similarity_score": 0.5706012845039368,
+      "top_similarity": 0.6573969125747681,
+      "hit": false
+    },
+    {
+      "query": "Emergency Alert System (EAS) participation and comparison with National Oceanic Atmospheric Administration (NOAA) Weather Radio (NWR)",
+      "query_type": "medical_terminology",
+      "source_document": "are-you-ready",
+      "section_header": "Warning Systems and Signals",
+      "expected_rank": 10,
+      "similarity_score": 0.541656494140625,
+      "top_similarity": 0.6009603142738342,
+      "hit": false
+    },
+    {
+      "query": "what is NBC protection for military personnel",
+      "query_type": "lay_language",
+      "source_document": "FM-3-11.4",
+      "section_header": "N",
+      "expected_rank": 8,
+      "similarity_score": 0.5514041185379028,
+      "top_similarity": 0.629098117351532,
+      "hit": false
+    },
+    {
+      "query": "Pressure canning guidelines for home preservation of leafy greens such as spinach and other similar vegetables in a dial gauge pressure canner.",
+      "query_type": "medical_terminology",
+      "source_document": "home-canning-guide4",
+      "section_header": "SPINACH AND OTHER GREENS",
+      "expected_rank": 8,
+      "similarity_score": 0.5773625373840332,
+      "top_similarity": 0.6472112536430359,
+      "hit": false
+    },
+    {
+      "query": "multistory building emergency evacuation procedures",
+      "query_type": "medical_terminology",
+      "source_document": "shelter-in-place-nuclear",
+      "section_header": "If you are in a Multistory Building :",
+      "expected_rank": 6,
+      "similarity_score": 0.5496125221252441,
+      "top_similarity": 0.5776380300521851,
+      "hit": false
+    },
+    {
+      "query": "Distinguishing characteristics of Ursus americanus vs. Ursus arctos in wilderness navigation",
+      "query_type": "medical_terminology",
+      "source_document": "bear-safety",
+      "section_header": "(https://www.nps.gov/articles/bear-identification.htm)",
+      "expected_rank": 4,
+      "similarity_score": 0.5621333122253418,
+      "top_similarity": 0.6176705360412598,
+      "hit": true
+    },
+    {
+      "query": "how to treat cut on leg from flood water",
+      "query_type": "typo_variant",
+      "source_document": "emergency-wound-care",
+      "section_header": "Emergency Wound Care After a Natural Disaster",
+      "expected_rank": 2,
+      "similarity_score": 0.6436243057250977,
+      "top_similarity": 0.6559772491455078,
+      "hit": true
+    },
+    {
+      "query": "carbon moine poisening symptons",
+      "query_type": "typo_variant",
+      "source_document": "carbon-monoxide-prevention",
+      "section_header": "AT A GLANCE",
+      "expected_rank": 2,
+      "similarity_score": 0.5790015459060669,
+      "top_similarity": 0.5865659713745117,
+      "hit": true
+    }
+  ]
+}

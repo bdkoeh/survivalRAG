@@ -117,6 +117,38 @@ def _find_available_llm() -> str:
     )
 
 
+_WEAK_SECTION_PATTERNS = [
+    "untitled",
+    "glossary",
+    "references",
+    "index",
+    "bibliography",
+    "table of contents",
+    "resources",
+    "distribution",
+    "preface",
+]
+
+
+def _is_weak_section(metadata: dict) -> bool:
+    """Return True if a section header indicates low-quality benchmark content.
+
+    Sections like "Untitled", "References-2", "Glossary" tend to produce
+    chunks that are generic boilerplate, yielding bad benchmark pairs.
+    """
+    header = (metadata.get("section_heading") or "").strip().lower()
+
+    # Empty header is weak
+    if not header:
+        return True
+
+    for pattern in _WEAK_SECTION_PATTERNS:
+        if header == pattern or header.startswith(pattern):
+            return True
+
+    return False
+
+
 def _sample_chunks_from_corpus(n: int = TARGET_PAIRS) -> list[dict]:
     """Sample chunks from the actual corpus for benchmark pair generation.
 
@@ -161,6 +193,8 @@ def _sample_chunks_from_corpus(n: int = TARGET_PAIRS) -> list[dict]:
             try:
                 metadata, content = read_section_file(filepath)
                 if len(content.strip()) < 100:
+                    continue
+                if _is_weak_section(metadata):
                     continue
                 all_sections.append({
                     "filepath": filepath,
@@ -218,6 +252,10 @@ def _sample_chunks_from_corpus(n: int = TARGET_PAIRS) -> list[dict]:
     for sec in sampled:
         try:
             chunks = chunk_section(sec["content"], sec["metadata"])
+            if not chunks:
+                continue
+            # Filter out oversized chunks that exceed embedding context window
+            chunks = [c for c in chunks if len(c.text) <= 6000]
             if not chunks:
                 continue
             # Pick a random chunk if multiple, otherwise take the first
