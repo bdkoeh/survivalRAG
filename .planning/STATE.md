@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T01:55:05.042Z"
+last_updated: "2026-03-02T17:33:45.000Z"
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 4
-  total_plans: 15
-  completed_plans: 14
+  total_plans: 16
+  completed_plans: 15
 ---
 
 # Project State
@@ -18,22 +18,22 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 5 complete. Full response generation pipeline with citation verification, post-processing, and answer()/answer_stream() entry points. Ready for Phase 6 (Evaluation).
+**Current focus:** Phase 6 in progress. Evaluation test data complete (golden + refusal datasets). Building evaluation runner next.
 
 ## Current Position
 
-Phase: 5 of 8 (Response Generation) -- COMPLETE
-Plan: 2 of 2 in current phase (2 complete)
-Status: Phase 5 complete; ready for Phase 6 (Evaluation)
-Last activity: 2026-03-02 -- Completed 05-02-PLAN.md (Citation Verification & Pipeline Integration)
+Phase: 6 of 8 (Evaluation Framework)
+Plan: 1 of 2 in current phase (1 complete)
+Status: Phase 6 in progress; evaluation test data complete, evaluation runner next
+Last activity: 2026-03-02 -- Completed 06-01-PLAN.md (Evaluation Test Data)
 
-Progress: [██████████████░] 56%
+Progress: [███████████████░] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: ~34min (skewed by 6h classification run)
+- Total plans completed: 15
+- Average duration: ~32min (skewed by 6h classification run)
 - Total execution time: ~7.9 hours
 
 **By Phase:**
@@ -45,14 +45,16 @@ Progress: [██████████████░] 56%
 | 3. Chunking & Embedding | 3 | ~22min | ~7min |
 | 4. Retrieval Pipeline | 2 | ~8min | ~4min |
 | 5. Response Generation | 2 | ~5min | ~2.5min |
+| 6. Evaluation Framework | 1 (of 2) | ~2min | ~2min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 5min, 3min, 2min, 3min
-- Trend: Pipeline module plans fast with well-defined interfaces from planning
+- Last 5 plans: 5min, 3min, 2min, 3min, 2min
+- Trend: Data-only plans (no code) execute fastest
 
 *Updated after each plan completion*
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
 | Phase 05 P02 | 3min | 2 tasks | 1 files |
+| Phase 06 P01 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -110,6 +112,10 @@ Recent decisions affecting current work:
 - [05-02]: Ultra mode skips citation verification (no room for citations in 200-char responses)
 - [05-02]: Function-level import of pipeline.prompt.query avoids circular dependency
 - [05-02]: Refusal path short-circuits without LLM call on answer() and answer_stream()
+- [06-01]: 58 golden queries hand-curated across 9 categories with 4 query types (lay_language, medical_terminology, typo_variant, emotional)
+- [06-01]: Expected chunk IDs constructed from deterministic format using actual corpus documents -- evaluation runner validates existence
+- [06-01]: Emotional queries reflect realistic distress: incomplete sentences, all lowercase, no punctuation, urgent tone
+- [06-01]: Refusal queries crafted to avoid semantic overlap with corpus per Pitfall 2 from RESEARCH.md
 
 ### Pending Todos
 
@@ -126,5 +132,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 05-02-PLAN.md (Citation Verification & Pipeline Integration). Phase 5 complete. pipeline/generate.py has all 7 exports: init, generate_stream, generate, answer, answer_stream, verify_citations, extract_citations. Ready for Phase 6 (Evaluation).
+Stopped at: Completed 06-01-PLAN.md (Evaluation Test Data). Phase 6 plan 1 of 2 complete. data/eval/golden_queries.jsonl (58 queries) and data/eval/refusal_queries.jsonl (20 queries) ready for evaluation runner in Plan 02.
 Resume file: none

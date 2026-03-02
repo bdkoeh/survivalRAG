@@ -168,7 +168,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | 2. Document Processing | 2/2 | Complete   | 2026-03-01 |
 | 3. Chunking & Embedding | 2/3 | In Progress | - |
 | 4. Retrieval Pipeline | 2/2 | Complete | 2026-03-01 |
-| 5. Response Generation | 1/2 | In Progress | - |
-| 6. Evaluation Framework | 0/TBD | Not started | - |
+| 5. Response Generation | 2/2 | Complete | 2026-03-02 |
+| 6. Evaluation Framework | 1/2 | In Progress | - |
 | 7. User Interfaces | 0/TBD | Not started | - |
 | 8. Docker Packaging & Deployment | 0/TBD | Not started | - |
