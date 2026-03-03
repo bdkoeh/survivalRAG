@@ -32,9 +32,9 @@ Progress: [███████████████████████
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
-- Average duration: ~29min (skewed by 6h classification run)
-- Total execution time: ~8.1 hours
+- Total plans completed: 18
+- Average duration: ~27min (skewed by 6h classification run)
+- Total execution time: ~8.2 hours
 
 **By Phase:**
 
@@ -46,11 +46,11 @@ Progress: [███████████████████████
 | 4. Retrieval Pipeline | 2 | ~8min | ~4min |
 | 5. Response Generation | 2 | ~5min | ~2.5min |
 | 6. Evaluation Framework | 2 (of 2) | ~5min | ~2.5min |
-| 7. User Interfaces | 1 (of 2) | ~3min | ~3min |
+| 7. User Interfaces | 2 (of 2) | ~7min | ~3.5min |
 
 **Recent Trend:**
-- Last 5 plans: 2min, 3min, 2min, 3min, 3min
-- Trend: Code plans execute fast with clear interfaces; UI plan efficient due to single-file architecture
+- Last 5 plans: 3min, 2min, 3min, 3min, 4min
+- Trend: Code plans execute fast with clear interfaces; CLI plan efficient due to pre-existing skeleton
 
 *Updated after each plan completion*
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
@@ -58,6 +58,7 @@ Progress: [███████████████████████
 | Phase 06 P01 | 2min | 2 tasks | 2 files |
 | Phase 06 P02 | 3min | 2 tasks | 1 files |
 | Phase 07 P01 | 3min | 2 tasks | 2 files |
+| Phase 07 P02 | 4min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -128,6 +129,9 @@ Recent decisions affecting current work:
 - [07-01]: Citation-to-link conversion runs AFTER streaming completes as one final yield, avoiding broken links from partial text
 - [07-01]: Publisher-to-directory mapping extended for actual manifest values (Department of the Army, NWS, USDA FSIS, etc.)
 - [07-01]: Text-based status indicators ([OK]/[ERR]) instead of emoji for terminal aesthetic consistency
+- [07-02]: Used gen.answer() (non-streaming) for both single-shot and REPL -- Rich Markdown rendering needs the complete response text
+- [07-02]: Rich auto-detects TTY -- single-shot output remains clean for piping without explicit flag
+- [07-02]: Warning panel border color based on warning_level: red for danger/caution, yellow for standard warnings
 
 ### Pending Todos
 
@@ -144,5 +148,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 07-01-PLAN.md (Web Chat UI). Phase 7 in progress (1 of 2 plans). web.py ready with Gradio + FastAPI chat UI. Next: 07-02 CLI tool.
+Stopped at: Completed 07-02-PLAN.md (CLI Interface). Phase 7 complete (2 of 2 plans). cli.py ready with Click + Rich CLI. Next: Phase 8 Deployment.
 Resume file: none

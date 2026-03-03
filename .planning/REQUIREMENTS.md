@@ -60,9 +60,9 @@
 
 ### CLI Interface
 
-- [ ] **CLI-01**: User can query from the command line (e.g., `survivalrag ask "how to purify water"`)
-- [ ] **CLI-02**: Responses are formatted for terminal output with markdown rendering
-- [ ] **CLI-03**: Category filtering is available via CLI flag
+- [x] **CLI-01**: User can query from the command line (e.g., `survivalrag ask "how to purify water"`)
+- [x] **CLI-02**: Responses are formatted for terminal output with markdown rendering
+- [x] **CLI-03**: Category filtering is available via CLI flag
 
 ### Deployment
 
@@ -176,9 +176,9 @@
 | WEBUI-04 | Phase 7 | Complete |
 | WEBUI-05 | Phase 7 | Complete |
 | WEBUI-06 | Phase 7 | Complete |
-| CLI-01 | Phase 7 | Pending |
-| CLI-02 | Phase 7 | Pending |
-| CLI-03 | Phase 7 | Pending |
+| CLI-01 | Phase 7 | Complete |
+| CLI-02 | Phase 7 | Complete |
+| CLI-03 | Phase 7 | Complete |
 | DEPL-01 | Phase 8 | Pending |
 | DEPL-02 | Phase 8 | Pending |
 | DEPL-03 | Phase 8 | Pending |
