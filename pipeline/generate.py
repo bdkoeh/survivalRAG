@@ -52,8 +52,8 @@ _validated: bool = False
 # Constants
 # ---------------------------------------------------------------------------
 
-# Default generation model -- 2GB, 128K context, good instruction-following
-DEFAULT_MODEL = "llama3.2:3b"
+# Default generation model -- 4.7GB, 128K context, consistent instruction-following
+DEFAULT_MODEL = "llama3.1:8b"
 
 # Locked medical/safety generation defaults -- NOT user-configurable.
 # Low temperature + tight top-p/top-k to minimize hallucination on medical content.
@@ -161,6 +161,42 @@ def init(model: Optional[str] = None) -> None:
 # ---------------------------------------------------------------------------
 # Internal helpers
 # ---------------------------------------------------------------------------
+
+_REFUSAL_PATTERNS: list[str] = [
+    "i can't provide",
+    "i cannot provide",
+    "i'm unable to provide",
+    "i don't have enough",
+    "i do not have enough",
+    "there is no information",
+    "does not fall under",
+    "does not contain",
+    "i'm sorry, but i don't have",
+    "i'm sorry, but i cannot",
+    "i don't have information",
+    "i do not have information",
+    "no relevant information",
+    "outside the scope",
+    "beyond the scope",
+    "not covered in",
+]
+
+
+def _is_refusal(response_text: str) -> bool:
+    """Check if an LLM response is a refusal based on opening text patterns.
+
+    Scans the first ~200 characters for common refusal phrases produced by
+    small LLMs when context is insufficient to answer the query.
+
+    Args:
+        response_text: The LLM response text.
+
+    Returns:
+        True if the response appears to be a refusal.
+    """
+    opening = response_text[:200].lower()
+    return any(pattern in opening for pattern in _REFUSAL_PATTERNS)
+
 
 def _get_system_prompt(mode: str) -> str:
     """Return the system prompt for the given response mode.
@@ -554,7 +590,7 @@ def answer(
         chunks=result["chunks"],
         mode=mode,
     )
-    gen_result["status"] = "ok"
+    gen_result["status"] = "refused" if _is_refusal(gen_result["response"]) else "ok"
     gen_result["warnings"] = result["warnings"]
 
     return gen_result

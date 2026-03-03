@@ -33,6 +33,7 @@ from starlette.staticfiles import StaticFiles
 
 import pipeline.generate as gen
 import pipeline.retrieve as retrieve
+from pipeline.rewrite import rewrite_with_context
 
 logger = logging.getLogger(__name__)
 
@@ -319,8 +320,6 @@ def check_system_status() -> str:
 def chat_respond(
     message: str,
     history: list[dict],
-    selected_categories: list[str],
-    mode: str,
 ) -> Iterator[list[dict]]:
     """Stream response tokens to Gradio chatbot with citation links and warnings.
 
@@ -332,8 +331,7 @@ def chat_respond(
     Args:
         message: The user's query text.
         history: Chat history as list of OpenAI-style message dicts.
-        selected_categories: List of selected category strings from CheckboxGroup.
-        mode: Response mode ("full", "compact", "ultra").
+        (categories and mode parameters removed — defaults to all categories, full mode.)
 
     Yields:
         Updated history list with streaming assistant response.
@@ -345,11 +343,11 @@ def chat_respond(
     history = history + [{"role": "user", "content": message}]
 
     try:
-        categories = selected_categories if selected_categories else None
+        query_text = rewrite_with_context(message, history)
         status, tokens = gen.answer_stream(
-            query_text=message,
-            categories=categories,
-            mode=mode,
+            query_text=query_text,
+            categories=None,
+            mode="full",
         )
 
         if status == "refused":
@@ -402,8 +400,6 @@ def chat_respond(
 # ---------------------------------------------------------------------------
 
 demo = gr.Blocks(
-    theme=TerminalTheme(),
-    css=CUSTOM_CSS,
     title="SurvivalRAG",
 )
 
@@ -422,28 +418,10 @@ with demo:
     chatbot = gr.Chatbot(
         height=500,
         elem_id="chatbot",
-        type="messages",
     )
 
-    # Category filter pills
+    # Input row: text input, send button
     with gr.Row():
-        categories = gr.CheckboxGroup(
-            choices=[
-                "medical", "water", "shelter", "fire", "food",
-                "navigation", "signaling", "tools", "first_aid",
-            ],
-            label="Filter by category",
-            elem_id="category-pills",
-        )
-
-    # Input row: mode selector, text input, send button
-    with gr.Row():
-        mode_radio = gr.Radio(
-            choices=["full", "compact", "ultra"],
-            value="full",
-            label="Mode",
-            elem_id="mode-selector",
-        )
         msg_textbox = gr.Textbox(
             placeholder="Ask a survival question...",
             show_label=False,
@@ -454,7 +432,7 @@ with demo:
     # Wire events: submit button click and textbox enter
     submit_btn.click(
         fn=chat_respond,
-        inputs=[msg_textbox, chatbot, categories, mode_radio],
+        inputs=[msg_textbox, chatbot],
         outputs=[chatbot],
     ).then(
         fn=lambda: "",
@@ -463,7 +441,7 @@ with demo:
 
     msg_textbox.submit(
         fn=chat_respond,
-        inputs=[msg_textbox, chatbot, categories, mode_radio],
+        inputs=[msg_textbox, chatbot],
         outputs=[chatbot],
     ).then(
         fn=lambda: "",
@@ -513,7 +491,7 @@ else:
     logger.warning("PDF directory not found: %s -- citation links will not work", _pdf_dir)
 
 # Mount Gradio at root
-app = gr.mount_gradio_app(app, demo, path="/")
+app = gr.mount_gradio_app(app, demo, path="/", theme=TerminalTheme(), css=CUSTOM_CSS)
 
 
 # ---------------------------------------------------------------------------
