@@ -27,8 +27,7 @@ from typing import Iterator
 import gradio as gr
 import yaml
 from fastapi import FastAPI
-from gradio.themes.base import Base
-from gradio.themes.utils import colors, sizes
+from gradio.themes import Soft
 from starlette.staticfiles import StaticFiles
 
 import pipeline.generate as gen
@@ -134,30 +133,10 @@ def build_source_map() -> None:
 # Terminal-style Gradio theme
 # ---------------------------------------------------------------------------
 
-class TerminalTheme(Base):
-    """Dark terminal-style theme with monospace fonts and sharp corners."""
-
-    def __init__(self) -> None:
-        super().__init__(
-            primary_hue=colors.green,
-            secondary_hue=colors.gray,
-            neutral_hue=colors.gray,
-            radius_size=sizes.radius_none,
-            font=("JetBrains Mono", "Cascadia Code", "Fira Code", "monospace"),
-            font_mono=("JetBrains Mono", "Cascadia Code", "Fira Code", "monospace"),
-        )
-        super().set(
-            body_background_fill="#0d1117",
-            body_background_fill_dark="#0d1117",
-            body_text_color="#c9d1d9",
-            body_text_color_dark="#c9d1d9",
-            block_background_fill="#161b22",
-            block_background_fill_dark="#161b22",
-            input_background_fill="#0d1117",
-            input_background_fill_dark="#0d1117",
-            button_primary_background_fill="#238636",
-            button_primary_background_fill_dark="#238636",
-        )
+DARK_THEME = Soft(
+    primary_hue="green",
+    neutral_hue="gray",
+)
 
 
 # ---------------------------------------------------------------------------
@@ -165,23 +144,21 @@ class TerminalTheme(Base):
 # ---------------------------------------------------------------------------
 
 CUSTOM_CSS = """
+#page-title { font-size: 2rem; margin: 0 0 8px 0; font-weight: 700; }
+/* Hide settings gear and footer */
+button[aria-label="Settings"], [id*="settings"] { display: none !important; }
+footer { display: none !important; }
 #disclaimer {
-    background: #1a1200 !important;
-    border: 2px solid #d29922 !important;
-    border-radius: 0 !important;
-    padding: 8px 16px !important;
-    margin-bottom: 4px !important;
+    text-align: center;
+    font-size: 0.8em;
+    opacity: 0.5;
+    margin: 8px 0 0 0;
+    padding: 0;
 }
 #status-bar {
     font-size: 0.85em !important;
     padding: 4px 16px !important;
     opacity: 0.8;
-}
-#category-pills label {
-    border: 1px solid #30363d !important;
-    border-radius: 2px !important;
-    padding: 4px 10px !important;
-    font-size: 0.85em !important;
 }
 /* Safety warning blocks in responses */
 .warning-block {
@@ -317,33 +294,53 @@ def check_system_status() -> str:
 # Streaming chat handler
 # ---------------------------------------------------------------------------
 
-def chat_respond(
+def _extract_text(content) -> str:
+    """Extract plain text from Gradio 6 content (list of dicts or string)."""
+    if isinstance(content, list):
+        return " ".join(p.get("text", "") for p in content if isinstance(p, dict))
+    return content or ""
+
+
+def _history_to_plain(history: list[dict]) -> list[dict]:
+    """Convert Gradio 6 history to plain string dicts for the rewriter."""
+    return [
+        {"role": m.get("role", "user"), "content": _extract_text(m.get("content", ""))}
+        for m in history
+    ]
+
+
+def add_user_message(
     message: str,
+    history: list[dict],
+) -> tuple[str, list[dict]]:
+    """Add user message to chat and clear the input box immediately."""
+    if not message or not message.strip():
+        return "", history
+    history = history + [{"role": "user", "content": message}]
+    return "", history
+
+
+def chat_respond(
     history: list[dict],
 ) -> Iterator[list[dict]]:
     """Stream response tokens to Gradio chatbot with citation links and warnings.
 
-    This is a generator function that yields updated chat history with each new
-    token from the LLM. After streaming completes, a final yield includes
-    post-processed citations (converted to clickable PDF links) and prepended
-    safety warning blocks.
-
     Args:
-        message: The user's query text.
         history: Chat history as list of OpenAI-style message dicts.
-        (categories and mode parameters removed — defaults to all categories, full mode.)
 
     Yields:
         Updated history list with streaming assistant response.
     """
+    if not history:
+        return
+
+    # Extract plain text from Gradio 6 content format
+    message = _extract_text(history[-1].get("content", ""))
     if not message or not message.strip():
         return
 
-    # Add user message to history
-    history = history + [{"role": "user", "content": message}]
-
     try:
-        query_text = rewrite_with_context(message, history)
+        query_text = rewrite_with_context(message, _history_to_plain(history))
         status, tokens = gen.answer_stream(
             query_text=query_text,
             categories=None,
@@ -351,26 +348,24 @@ def chat_respond(
         )
 
         if status == "refused":
-            # Refusal: yield the single refusal message
             refusal_text = "".join(tokens)
             yield history + [{"role": "assistant", "content": refusal_text}]
             return
 
-        # Stream tokens -- yield raw partial text during streaming
+        # Stream tokens
         partial = ""
         for token in tokens:
             partial += token
             yield history + [{"role": "assistant", "content": partial}]
 
-        # After streaming completes: post-process the final response
-        # 1. Convert citations to clickable PDF links
+        # Post-process: convert citations to clickable PDF links
         final_text = citations_to_links(partial)
 
-        # 2. Prepend safety warnings if available
+        # Prepend safety warnings if available
         try:
             from pipeline.prompt import collect_safety_warnings
 
-            chunks = retrieve.retrieve(message, categories=categories)
+            chunks = retrieve.retrieve(message, categories=None)
             warnings = collect_safety_warnings(chunks)
             warning_html = format_warnings_html(warnings)
             if warning_html:
@@ -378,21 +373,15 @@ def chat_respond(
         except Exception:
             logger.debug("Could not collect safety warnings", exc_info=True)
 
-        # Final yield with fully post-processed response
         yield history + [{"role": "assistant", "content": final_text}]
 
     except ConnectionError:
-        error_msg = (
-            "Ollama is not running. Please start Ollama and refresh the page."
-        )
-        yield history + [{"role": "assistant", "content": error_msg}]
+        yield history + [{"role": "assistant", "content": "Ollama is not running. Please start Ollama and refresh the page."}]
     except RuntimeError as e:
         yield history + [{"role": "assistant", "content": f"Error: {e}"}]
     except Exception:
         logger.error("Unexpected error in chat handler", exc_info=True)
-        yield history + [
-            {"role": "assistant", "content": "An unexpected error occurred. Check the server logs for details."}
-        ]
+        yield history + [{"role": "assistant", "content": "An unexpected error occurred. Check the server logs for details."}]
 
 
 # ---------------------------------------------------------------------------
@@ -404,12 +393,8 @@ demo = gr.Blocks(
 )
 
 with demo:
-    # Persistent disclaimer banner
-    gr.Markdown(
-        "**DISCLAIMER:** This is a reference tool, not medical advice. "
-        "Never use as a substitute for professional medical care.",
-        elem_id="disclaimer",
-    )
+    # Page title
+    gr.HTML('<h1 id="page-title">survival<span style="color:#22c55e">RAG</span></h1>')
 
     # Status bar (updated on page load)
     status_bar = gr.Markdown("Checking system...", elem_id="status-bar")
@@ -429,24 +414,28 @@ with demo:
         )
         submit_btn = gr.Button("Send", variant="primary", scale=1)
 
-    # Wire events: submit button click and textbox enter
+    # Wire events: clear input + show user message, then stream response
     submit_btn.click(
-        fn=chat_respond,
+        fn=add_user_message,
         inputs=[msg_textbox, chatbot],
-        outputs=[chatbot],
+        outputs=[msg_textbox, chatbot],
     ).then(
-        fn=lambda: "",
-        outputs=[msg_textbox],
+        fn=chat_respond,
+        inputs=[chatbot],
+        outputs=[chatbot],
     )
 
     msg_textbox.submit(
-        fn=chat_respond,
+        fn=add_user_message,
         inputs=[msg_textbox, chatbot],
-        outputs=[chatbot],
+        outputs=[msg_textbox, chatbot],
     ).then(
-        fn=lambda: "",
-        outputs=[msg_textbox],
+        fn=chat_respond,
+        inputs=[chatbot],
+        outputs=[chatbot],
     )
+
+    gr.HTML('<p id="disclaimer">This is a reference tool, not a substitute for professional medical care.</p>')
 
     # Update status bar on page load
     demo.load(
@@ -491,7 +480,12 @@ else:
     logger.warning("PDF directory not found: %s -- citation links will not work", _pdf_dir)
 
 # Mount Gradio at root
-app = gr.mount_gradio_app(app, demo, path="/", theme=TerminalTheme(), css=CUSTOM_CSS)
+app = gr.mount_gradio_app(
+    app, demo, path="/",
+    theme=DARK_THEME,
+    css=CUSTOM_CSS,
+    app_kwargs={"default_config": {"theme_mode": "dark"}},
+)
 
 
 # ---------------------------------------------------------------------------
