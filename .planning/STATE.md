@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T17:47:30.750Z"
+last_updated: "2026-03-03T00:02:12Z"
 progress:
-  total_phases: 6
-  completed_phases: 5
-  total_plans: 17
-  completed_plans: 16
+  total_phases: 8
+  completed_phases: 7
+  total_plans: 19
+  completed_plans: 18
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 6 complete. Evaluation framework (golden dataset + evaluation runner) ready. Next: Phase 7 User Interfaces.
+**Current focus:** Phase 7 complete. Both user interfaces (web chat UI + CLI) ready. Next: Phase 8 Deployment.
 
 ## Current Position
 
-Phase: 6 of 8 (Evaluation Framework) -- COMPLETE
+Phase: 7 of 8 (User Interfaces) -- COMPLETE
 Plan: 2 of 2 in current phase (2 complete)
-Status: Phase 6 complete; evaluation framework ready (golden datasets + evaluation runner)
-Last activity: 2026-03-02 -- Completed 06-02-PLAN.md (Evaluation Runner)
+Status: Phase 7 complete; web chat UI and CLI tool ready
+Last activity: 2026-03-02 -- Completed 07-02-PLAN.md (CLI Interface)
 
-Progress: [████████████████] 66%
+Progress: [████████████████████████████] 95%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
-- Average duration: ~30min (skewed by 6h classification run)
-- Total execution time: ~8.0 hours
+- Total plans completed: 17
+- Average duration: ~29min (skewed by 6h classification run)
+- Total execution time: ~8.1 hours
 
 **By Phase:**
 
@@ -46,16 +46,18 @@ Progress: [████████████████] 66%
 | 4. Retrieval Pipeline | 2 | ~8min | ~4min |
 | 5. Response Generation | 2 | ~5min | ~2.5min |
 | 6. Evaluation Framework | 2 (of 2) | ~5min | ~2.5min |
+| 7. User Interfaces | 1 (of 2) | ~3min | ~3min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 2min, 3min, 2min, 3min
-- Trend: Data-only plans (no code) execute fastest; evaluation code plans remain fast
+- Last 5 plans: 2min, 3min, 2min, 3min, 3min
+- Trend: Code plans execute fast with clear interfaces; UI plan efficient due to single-file architecture
 
 *Updated after each plan completion*
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
 | Phase 05 P02 | 3min | 2 tasks | 1 files |
 | Phase 06 P01 | 2min | 2 tasks | 2 files |
 | Phase 06 P02 | 3min | 2 tasks | 1 files |
+| Phase 07 P01 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -121,6 +123,11 @@ Recent decisions affecting current work:
 - [06-02]: Safety warnings dimension is informational (no numeric threshold) -- any surfacing percentage above 0% is acceptable
 - [06-02]: Failure details always shown when any query scores below 1.0, not just when overall thresholds fail
 - [06-02]: Suite selection (--suite flag) enables fast dev iteration: retrieval-only skips LLM generation entirely
+- [07-01]: Gradio Blocks (not ChatInterface) for full layout control over disclaimer, status bar, category pills, and mode toggle
+- [07-01]: System fonts only (JetBrains Mono, Cascadia Code, Fira Code, monospace) -- no Google Fonts CDN for fully offline operation
+- [07-01]: Citation-to-link conversion runs AFTER streaming completes as one final yield, avoiding broken links from partial text
+- [07-01]: Publisher-to-directory mapping extended for actual manifest values (Department of the Army, NWS, USDA FSIS, etc.)
+- [07-01]: Text-based status indicators ([OK]/[ERR]) instead of emoji for terminal aesthetic consistency
 
 ### Pending Todos
 
@@ -137,5 +144,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 06-02-PLAN.md (Evaluation Runner). Phase 6 complete (2 of 2 plans). pipeline/evaluate.py ready with 4-dimension evaluation runner. Next: Phase 7 User Interfaces.
+Stopped at: Completed 07-01-PLAN.md (Web Chat UI). Phase 7 in progress (1 of 2 plans). web.py ready with Gradio + FastAPI chat UI. Next: 07-02 CLI tool.
 Resume file: none

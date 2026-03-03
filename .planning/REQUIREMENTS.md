@@ -51,12 +51,12 @@
 
 ### Web Interface
 
-- [ ] **WEBUI-01**: Browser-based chat interface accessible at localhost after Docker startup
-- [ ] **WEBUI-02**: User can type a query and receive a streamed response with citations
-- [ ] **WEBUI-03**: Category filter selector allows scoping queries to specific topics
-- [ ] **WEBUI-04**: Citations are displayed with source document name, section, and page number
-- [ ] **WEBUI-05**: A visible disclaimer states this is a reference tool, not medical advice
-- [ ] **WEBUI-06**: System status indicator shows whether the system is ready (model loaded, KB available)
+- [x] **WEBUI-01**: Browser-based chat interface accessible at localhost after Docker startup
+- [x] **WEBUI-02**: User can type a query and receive a streamed response with citations
+- [x] **WEBUI-03**: Category filter selector allows scoping queries to specific topics
+- [x] **WEBUI-04**: Citations are displayed with source document name, section, and page number
+- [x] **WEBUI-05**: A visible disclaimer states this is a reference tool, not medical advice
+- [x] **WEBUI-06**: System status indicator shows whether the system is ready (model loaded, KB available)
 
 ### CLI Interface
 
@@ -170,12 +170,12 @@
 | EVAL-04 | Phase 6 | Complete |
 | EVAL-05 | Phase 6 | Complete |
 | EVAL-06 | Phase 6 | Complete |
-| WEBUI-01 | Phase 7 | Pending |
-| WEBUI-02 | Phase 7 | Pending |
-| WEBUI-03 | Phase 7 | Pending |
-| WEBUI-04 | Phase 7 | Pending |
-| WEBUI-05 | Phase 7 | Pending |
-| WEBUI-06 | Phase 7 | Pending |
+| WEBUI-01 | Phase 7 | Complete |
+| WEBUI-02 | Phase 7 | Complete |
+| WEBUI-03 | Phase 7 | Complete |
+| WEBUI-04 | Phase 7 | Complete |
+| WEBUI-05 | Phase 7 | Complete |
+| WEBUI-06 | Phase 7 | Complete |
 | CLI-01 | Phase 7 | Pending |
 | CLI-02 | Phase 7 | Pending |
 | CLI-03 | Phase 7 | Pending |

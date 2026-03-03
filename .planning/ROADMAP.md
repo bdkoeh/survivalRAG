@@ -136,7 +136,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 07-01-PLAN.md -- Build Gradio + FastAPI web chat UI with terminal-style dark theme, streaming responses, clickable citation links to source PDFs, category filter pills, response mode toggle, disclaimer banner, and system status bar
+- [x] 07-01-PLAN.md -- Build Gradio + FastAPI web chat UI with terminal-style dark theme, streaming responses, clickable citation links to source PDFs, category filter pills, response mode toggle, disclaimer banner, and system status bar
 - [ ] 07-02-PLAN.md -- Build Click CLI with ask subcommand, interactive REPL, Rich markdown rendering, safety warning panels, --category and --mode flags
 
 ### Phase 8: Docker Packaging & Deployment
@@ -170,5 +170,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
 | 4. Retrieval Pipeline | 2/2 | Complete | 2026-03-01 |
 | 5. Response Generation | 2/2 | Complete | 2026-03-02 |
 | 6. Evaluation Framework | 1/2 | In Progress | - |
-| 7. User Interfaces | 0/TBD | Not started | - |
+| 7. User Interfaces | 1/2 | In Progress | - |
 | 8. Docker Packaging & Deployment | 0/TBD | Not started | - |
