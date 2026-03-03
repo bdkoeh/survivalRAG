@@ -6,8 +6,9 @@ Provides two usage modes:
   Single-shot:  python cli.py ask "how to purify water" --mode compact
   Interactive:  python cli.py   (drops into REPL)
 
-Uses Click for argument parsing. Safety warnings from source material are
-displayed before the main response (safety-first principle).
+Uses Click for argument parsing and Rich for terminal-formatted markdown output.
+Safety warnings from source material are rendered as colored panels before the
+main response (safety-first principle).
 
 Exports:
     cli  - Click group entry point
@@ -20,10 +21,20 @@ import logging
 
 import click
 
+from rich.console import Console
+from rich.markdown import Markdown
+from rich.panel import Panel
+from rich.text import Text
+
 import pipeline.retrieve as retrieve
 import pipeline.generate as gen
 
 logger = logging.getLogger(__name__)
+
+# ---------------------------------------------------------------------------
+# Module-level Rich Console
+# ---------------------------------------------------------------------------
+console = Console()
 
 
 # ---------------------------------------------------------------------------
@@ -49,14 +60,14 @@ def _init_pipeline():
 
 
 # ---------------------------------------------------------------------------
-# Response display (plain text -- upgraded to Rich in Task 2)
+# Response display with Rich formatting
 # ---------------------------------------------------------------------------
 
 def display_response(result: dict):
-    """Display a pipeline response dict.
+    """Render a pipeline response dict with Rich formatting.
 
-    Displays safety warnings before the main response, handles refusal
-    responses gracefully.
+    Displays safety warnings as colored panels, then the main response
+    as rendered markdown. Handles refusal responses gracefully.
 
     Args:
         result: Dict from gen.answer() with keys: response, status, warnings,
@@ -64,26 +75,40 @@ def display_response(result: dict):
     """
     # Refusal path
     if result["status"] == "refused":
-        print(f"\n[No Results] {result['response']}\n")
+        console.print(
+            Panel(result["response"], title="No Results", border_style="yellow")
+        )
         return
 
     # Safety warnings FIRST (safety-first principle from CLAUDE.md)
     for warning in result.get("warnings", []):
+        warning_level = warning.get("warning_level", "warning")
+        if warning_level in ("danger", "caution"):
+            border = "red"
+        else:
+            border = "yellow"
+
         source = warning.get("source_document", "Unknown")
         page = warning.get("page_number", 0)
-        print(f"\n!! WARNING -- {source}, p.{page} !!")
-        print(f"   {warning['warning_text']}")
+        title = f"WARNING -- {source}, p.{page}"
 
-    # Main response
-    print()
-    print(result["response"])
+        console.print(
+            Panel(
+                Text(warning["warning_text"], style="bold"),
+                title=title,
+                border_style=border,
+            )
+        )
 
-    # Citation verification note
+    # Main response as Rich Markdown
+    console.print(Markdown(result["response"]))
+
+    # Citation verification note (unobtrusive but visible)
     verification = result.get("verification") or {}
     if verification.get("passed") is False:
-        print(
-            "\nNote: Some citations could not be verified "
-            "against source documents."
+        console.print(
+            "[dim italic]Note: Some citations could not be verified "
+            "against source documents.[/dim italic]"
         )
 
 
@@ -140,22 +165,22 @@ def ask(query, category, response_mode):
 
 def repl():
     """Interactive REPL for querying the knowledge base."""
-    print("SurvivalRAG v1.0")
-    print("Reference tool only -- not medical advice.")
+    console.print("[bold green]SurvivalRAG v1.0[/bold green]")
+    console.print("[dim]Reference tool only -- not medical advice.[/dim]")
 
     _init_pipeline()
 
-    print(
-        f"Ready. Model: {gen._model} "
+    console.print(
+        f"[green]Ready.[/green] Model: {gen._model} "
         f"| Chunks: {retrieve._collection.count():,}"
     )
-    print("Type a question, or 'quit' to exit.\n")
+    console.print("[dim]Type a question, or 'quit' to exit.[/dim]\n")
 
     while True:
         try:
-            raw = input(">> ")
+            raw = console.input("[bold green]>> [/bold green]")
         except (EOFError, KeyboardInterrupt):
-            print()
+            console.print()
             break
 
         query = raw.strip()
@@ -187,7 +212,7 @@ def repl():
                 categories = [c.strip() for c in parts[0].split(",")]
                 query = parts[1]
             else:
-                print("Usage: /category medical,water <query>")
+                console.print("[red]Usage: /category medical,water <query>[/red]")
                 continue
 
         try:
@@ -196,9 +221,9 @@ def repl():
             )
             display_response(result)
         except Exception as e:
-            print(f"Error: {e}")
+            console.print(f"[red]Error: {e}[/red]")
 
-        print()  # blank line separator
+        console.print()  # blank line separator
 
 
 # ---------------------------------------------------------------------------
