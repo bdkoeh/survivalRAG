@@ -14,3 +14,8 @@ pydantic>=2.0
 pyspellchecker>=0.8.0
 chromadb>=1.5.0
 bm25s>=0.3.0
+
+# Phase 7: User interface dependencies
+gradio>=6.8.0
+click>=8.1
+rich>=14.0
