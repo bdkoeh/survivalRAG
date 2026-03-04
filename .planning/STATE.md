@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-03T00:09:30.524Z"
+last_updated: "2026-03-04T00:25:22Z"
 progress:
-  total_phases: 7
-  completed_phases: 6
-  total_plans: 19
-  completed_plans: 18
+  total_phases: 8
+  completed_phases: 7
+  total_plans: 21
+  completed_plans: 19
 ---
 
 # Project State
@@ -18,21 +18,21 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 7 complete. Both user interfaces (web chat UI + CLI) ready. Next: Phase 8 Deployment.
+**Current focus:** Phase 8 in progress. Docker Compose orchestration (08-02) complete. Next: remaining deployment plans.
 
 ## Current Position
 
-Phase: 7 of 8 (User Interfaces) -- COMPLETE
-Plan: 2 of 2 in current phase (2 complete)
-Status: Phase 7 complete; web chat UI and CLI tool ready
-Last activity: 2026-03-02 -- Completed 07-02-PLAN.md (CLI Interface)
+Phase: 8 of 8 (Docker Packaging & Deployment)
+Plan: 2 of 3 in current phase (1 complete: 08-02)
+Status: Executing Phase 8; Docker Compose orchestration complete
+Last activity: 2026-03-03 -- Completed 08-02-PLAN.md (Docker Compose Orchestration)
 
-Progress: [████████████████████████████] 95%
+Progress: [██████████████████████████░░] 90%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 19
 - Average duration: ~27min (skewed by 6h classification run)
 - Total execution time: ~8.2 hours
 
@@ -49,8 +49,8 @@ Progress: [███████████████████████
 | 7. User Interfaces | 2 (of 2) | ~7min | ~3.5min |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 2min, 3min, 3min, 4min
-- Trend: Code plans execute fast with clear interfaces; CLI plan efficient due to pre-existing skeleton
+- Last 5 plans: 2min, 3min, 3min, 4min, 1min
+- Trend: Docker Compose plans execute fastest -- pure config files with clear specs
 
 *Updated after each plan completion*
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
@@ -59,6 +59,7 @@ Progress: [███████████████████████
 | Phase 06 P02 | 3min | 2 tasks | 1 files |
 | Phase 07 P01 | 3min | 2 tasks | 2 files |
 | Phase 07 P02 | 4min | 2 tasks | 1 files |
+| Phase 08 P02 | 1min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -132,6 +133,10 @@ Recent decisions affecting current work:
 - [07-02]: Used gen.answer() (non-streaming) for both single-shot and REPL -- Rich Markdown rendering needs the complete response text
 - [07-02]: Rich auto-detects TTY -- single-shot output remains clean for piping without explicit flag
 - [07-02]: Warning panel border color based on warning_level: red for danger/caution, yellow for standard warnings
+- [08-02]: Two services only (app + ollama); ChromaDB embedded in app process, not a third container
+- [08-02]: Health check gating: Ollama gets 30 retries at 10s intervals (~5min) for slow model loading; app gets 5 retries at 15s
+- [08-02]: No named volumes -- knowledge base is immutable, data lives in container layer
+- [08-02]: GPU support via separate override file (docker-compose.gpu.yml), not conditional logic in main compose
 
 ### Pending Todos
 
@@ -147,6 +152,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-03-02
-Stopped at: Completed 07-02-PLAN.md (CLI Interface). Phase 7 complete (2 of 2 plans). cli.py ready with Click + Rich CLI. Next: Phase 8 Deployment.
+Last session: 2026-03-03
+Stopped at: Completed 08-02-PLAN.md (Docker Compose Orchestration). docker-compose.yml and docker-compose.gpu.yml created. Next: remaining Phase 8 plans.
 Resume file: none
