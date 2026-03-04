@@ -1,0 +1,42 @@
+# SurvivalRAG - Docker Compose Configuration
+# Usage: docker compose up
+# GPU:   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
+
+services:
+  ollama:
+    build:
+      context: .
+      dockerfile: Dockerfile.ollama
+    container_name: survivalrag-ollama
+    ports:
+      - "11434:11434"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: survivalrag-app
+    ports:
+      - "8080:8080"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - SURVIVALRAG_MODEL=${SURVIVALRAG_MODEL:-llama3.1:8b}
+      - SURVIVALRAG_MAX_CHUNKS=${SURVIVALRAG_MAX_CHUNKS:-5}
+      - SURVIVALRAG_RELEVANCE_THRESHOLD=${SURVIVALRAG_RELEVANCE_THRESHOLD:-0.25}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
