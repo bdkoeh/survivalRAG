@@ -16,24 +16,186 @@ But Meshtastic only moves messages. It doesn't know anything. If you send a ques
 
 No internet required. No subscriptions. No cloud. Just a knowledge base, a local model, and a radio.
 
+## Quick Start
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (v4.0+) or Docker Engine with Docker Compose v2
+- 16GB RAM minimum
+- 20GB free disk space
+
+### Launch
+
+```bash
+git clone <repo-url>
+cd survivalRAG
+docker compose up
+```
+
+First build takes 10-20 minutes (downloads base images and bakes LLM models).
+Once ready, open **http://localhost:8080** in your browser.
+
+> The system is fully offline after the initial build -- no internet required at runtime.
+
+## Hardware Requirements
+
+| Resource | Minimum | Recommended |
+|----------|---------|-------------|
+| RAM | 16GB | 32GB |
+| Disk | 20GB free | 30GB free |
+| CPU | 4 cores | 8+ cores |
+| GPU | Not required | NVIDIA GPU (Linux only) |
+
+### Image Sizes
+
+| Container | Size |
+|-----------|------|
+| survivalrag-app | ~1GB |
+| survivalrag-ollama | ~7GB |
+| **Total** | **~8GB** |
+
+The Ollama image is large because it includes the bundled LLM models:
+- **llama3.1:8b** (4.9GB) -- response generation
+- **nomic-embed-text** (274MB) -- query embedding
+
+## Configuration
+
+Copy `.env.example` to `.env` and uncomment variables to override defaults:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SURVIVALRAG_MODEL` | `llama3.1:8b` | LLM model for response generation |
+| `OLLAMA_HOST` | `http://ollama:11434` | Ollama server URL |
+| `SURVIVALRAG_MAX_CHUNKS` | `5` | Maximum chunks retrieved per query |
+| `SURVIVALRAG_RELEVANCE_THRESHOLD` | `0.25` | Cosine similarity threshold |
+
+### Using an External Ollama Instance
+
+To use a GPU-equipped machine on your network instead of the bundled Ollama container:
+
+1. Run Ollama on the GPU machine: `ollama serve`
+2. Ensure the required models are available: `ollama pull llama3.1:8b && ollama pull nomic-embed-text`
+3. Set `OLLAMA_HOST` in your `.env` file:
+   ```
+   OLLAMA_HOST=http://192.168.1.100:11434
+   ```
+4. Start only the app container: `docker compose up app`
+
+### Using a Different Model
+
+Set `SURVIVALRAG_MODEL` in your `.env` file. The model must be available in your Ollama instance:
+
+```
+SURVIVALRAG_MODEL=mistral:7b
+```
+
+## GPU Acceleration
+
+### Linux (NVIDIA)
+
+1. Install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+2. Start with the GPU override:
+   ```bash
+   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
+   ```
+
+### macOS (Apple Silicon)
+
+Docker on macOS cannot access Apple Metal GPUs. For GPU acceleration on Mac:
+
+1. Install Ollama natively: `brew install ollama`
+2. Pull the required models: `ollama pull llama3.1:8b && ollama pull nomic-embed-text`
+3. Start Ollama: `ollama serve`
+4. Set `OLLAMA_HOST` in your `.env` file:
+   ```
+   OLLAMA_HOST=http://host.docker.internal:11434
+   ```
+5. Start only the app container: `docker compose up app`
+
+## CLI Access
+
+The CLI is available inside the app container via `docker exec`:
+
+```bash
+# Single query
+docker exec -it survivalrag-app python cli.py ask "how to purify water"
+
+# With category filter
+docker exec -it survivalrag-app python cli.py ask --category medical "how to treat a burn"
+
+# Interactive REPL
+docker exec -it survivalrag-app python cli.py
+```
+
+## Building for Multiple Architectures
+
+The default `docker compose build` builds images for your host architecture only.
+To build images for both AMD64 and ARM64 (e.g., for distribution or M-series Macs + x86 servers):
+
+```bash
+# Create a multi-arch builder (one-time setup)
+docker buildx create --name survivalrag-builder --use
+
+# Build app image for both architectures
+docker buildx build --platform linux/amd64,linux/arm64 -t survivalrag-app -f Dockerfile .
+
+# Build Ollama image for both architectures
+docker buildx build --platform linux/amd64,linux/arm64 -t survivalrag-ollama -f Dockerfile.ollama .
+```
+
+> **Note:** Multi-arch builds for the Ollama image are slow because models must be pulled during build for each architecture. The base images (`python:3.14-slim` and `ollama/ollama`) already support both AMD64 and ARM64.
+
+## Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| Build fails during model download | Ensure stable internet during `docker compose build` |
+| "Ollama not available" in logs | Wait for Ollama health check to pass (up to 5 minutes on first start) |
+| Very slow responses | Expected on CPU-only; see GPU Acceleration section |
+| Port 8080 already in use | Change port mapping in docker-compose.yml: `"9090:8080"` |
+| Out of disk space during build | Need 20GB+ free; clear Docker cache: `docker system prune` |
+
+### Useful Commands
+
+```bash
+# Check container status and health
+docker compose ps
+
+# View logs
+docker compose logs -f
+
+# Rebuild after changes
+docker compose build
+
+# Stop and remove containers
+docker compose down
+
+# Check health endpoint
+curl http://localhost:8080/api/health
+```
+
 ## Current Status
 
-**This project is in active development. It is not usable yet.**
+**This project is in active development.** Docker deployment packaging is complete -- you can run the full system with `docker compose up`. The blocking step is running the full corpus through embedding (requires building the Docker images, which bakes in the Ollama models), which populates the vector store and makes everything queryable.
 
-Here's what exists today and what doesn't:
+Here's what exists today:
 
 | Component | Status |
 |---|---|
 | Source documents (70 PDFs, all public domain, individually license-verified) | Done |
 | Provenance manifests (source URL, license, distribution statement per document) | Done |
-| Document processing (extraction, cleaning, section splitting — 7,915 sections) | Done |
+| Document processing (extraction, cleaning, section splitting -- 7,915 sections) | Done |
 | Chunking & embedding code (content-type-aware, benchmarked at 88% Recall@5) | Code done, full corpus run pending |
-| Retrieval pipeline (hybrid vector + BM25 search, category filtering) | Code done, needs embeddings to run |
-| Response generation | Not started |
-| CLI or web interface | Not started |
-| Deployment packaging | Not started |
-
-The pipeline code works. The blocking step is running the full corpus through embedding (requires Ollama with `nomic-embed-text`), which populates the vector store and makes everything queryable.
+| Retrieval pipeline (hybrid vector + BM25 search, category filtering) | Done |
+| Response generation (3 modes: full, compact, ultra-short) | Done |
+| Evaluation framework (retrieval + generation quality) | Done |
+| Web UI (Gradio chat interface) | Done |
+| CLI (single query + interactive REPL) | Done |
+| Docker deployment (single-command `docker compose up`) | Done |
 
 If you want to follow along or help out, star/watch the repo.
 
