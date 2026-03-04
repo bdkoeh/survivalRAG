@@ -1,0 +1,11 @@
+# Runtime dependencies for SurvivalRAG Docker container
+# Excludes build-time-only packages (PDF extraction, ML frameworks, OCR)
+ollama>=0.6.1
+pydantic>=2.0
+pyspellchecker>=0.8.0
+chromadb>=1.5.0
+bm25s>=0.3.0
+gradio>=6.8.0
+click>=8.1
+rich>=14.0
+pyyaml>=6.0

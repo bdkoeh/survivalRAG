@@ -1,0 +1,52 @@
+# Version control
+.git
+.gitignore
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Environment files (use .env.example as reference)
+.env
+.env.local
+.env.*
+!.env.example
+
+# Planning and documentation (not needed at runtime)
+.planning/
+.claude/
+
+# Processed artifacts (build-time only -- not needed in Docker)
+processed/
+
+# Build-time scripts
+scripts/
+sources/scripts/
+sources/excluded/
+sources/checksums.sha256
+
+# Documentation and metadata (not needed at runtime)
+*.md
+LICENSE
+SurvivalRAG_Brief.md
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Docker files (avoid recursive context)
+Dockerfile
+Dockerfile.ollama
+docker-compose*.yml

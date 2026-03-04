@@ -1,0 +1,21 @@
+# SurvivalRAG - NVIDIA GPU Override
+# Usage: docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
+#
+# Requirements:
+#   - NVIDIA GPU on Linux host
+#   - NVIDIA Container Toolkit installed (nvidia-ctk)
+#   - Docker configured with nvidia runtime
+#
+# Note: Docker on macOS cannot access Apple Metal GPUs.
+# For GPU acceleration on Mac, run Ollama natively and set:
+#   OLLAMA_HOST=http://host.docker.internal:11434
+
+services:
+  ollama:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
