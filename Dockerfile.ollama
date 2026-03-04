@@ -1,0 +1,38 @@
+# SurvivalRAG Custom Ollama Container
+# Multi-stage build: bakes llama3.1:8b and nomic-embed-text into the image
+# No model downloads at runtime -- fully offline from the moment the image is built
+
+# --- Stage 1: Model builder (pull models during build) ---
+FROM ollama/ollama:latest AS model-builder
+
+# Install curl for readiness polling (not included in ollama/ollama base)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Start Ollama server, wait for readiness via curl polling loop, then pull models
+RUN ollama serve & \
+    for i in $(seq 1 30); do \
+        curl -sf http://localhost:11434/api/tags > /dev/null 2>&1 && break; \
+        sleep 1; \
+    done && \
+    ollama pull llama3.1:8b && \
+    ollama pull nomic-embed-text
+
+# --- Stage 2: Final image (clean base + pre-pulled models) ---
+FROM ollama/ollama:latest
+
+# Install curl for health checks
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy pre-pulled models from builder stage
+COPY --from=model-builder /root/.ollama /root/.ollama
+
+EXPOSE 11434
+
+HEALTHCHECK --interval=10s --timeout=5s --start-period=10s --retries=5 \
+    CMD curl -sf http://localhost:11434/api/tags || exit 1
+
+CMD ["serve"]
