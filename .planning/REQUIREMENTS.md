@@ -73,7 +73,7 @@
 - [x] **DEPL-05**: User can configure an external Ollama instance instead of the bundled one
 - [x] **DEPL-06**: User can configure a different LLM model via environment variable
 - [x] **DEPL-07**: Health checks verify all components are running before accepting queries
-- [ ] **DEPL-08**: Minimum hardware requirements are documented (16GB RAM, 20GB disk)
+- [x] **DEPL-08**: Minimum hardware requirements are documented (16GB RAM, 20GB disk)
 
 ### Evaluation & Quality
 
@@ -186,7 +186,7 @@
 | DEPL-05 | Phase 8 | Complete |
 | DEPL-06 | Phase 8 | Complete |
 | DEPL-07 | Phase 8 | Complete |
-| DEPL-08 | Phase 8 | Pending |
+| DEPL-08 | Phase 8 | Complete |
 
 **Coverage:**
 - v1 requirements: 52 total
