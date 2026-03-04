@@ -67,11 +67,11 @@
 ### Deployment
 
 - [x] **DEPL-01**: Single `docker compose up` command starts the complete system
-- [ ] **DEPL-02**: Docker Compose runs two containers: application (FastAPI + Gradio + ChromaDB embedded) and Ollama
-- [ ] **DEPL-03**: Ollama container automatically pulls default models (Llama 3.1 8B + nomic-embed-text) on first startup
-- [ ] **DEPL-04**: System is fully functional offline after initial setup (no external API calls at runtime)
-- [ ] **DEPL-05**: User can configure an external Ollama instance instead of the bundled one
-- [ ] **DEPL-06**: User can configure a different LLM model via environment variable
+- [x] **DEPL-02**: Docker Compose runs two containers: application (FastAPI + Gradio + ChromaDB embedded) and Ollama
+- [x] **DEPL-03**: Ollama container automatically pulls default models (Llama 3.1 8B + nomic-embed-text) on first startup
+- [x] **DEPL-04**: System is fully functional offline after initial setup (no external API calls at runtime)
+- [x] **DEPL-05**: User can configure an external Ollama instance instead of the bundled one
+- [x] **DEPL-06**: User can configure a different LLM model via environment variable
 - [x] **DEPL-07**: Health checks verify all components are running before accepting queries
 - [ ] **DEPL-08**: Minimum hardware requirements are documented (16GB RAM, 20GB disk)
 
@@ -180,11 +180,11 @@
 | CLI-02 | Phase 7 | Complete |
 | CLI-03 | Phase 7 | Complete |
 | DEPL-01 | Phase 8 | Complete |
-| DEPL-02 | Phase 8 | Pending |
-| DEPL-03 | Phase 8 | Pending |
-| DEPL-04 | Phase 8 | Pending |
-| DEPL-05 | Phase 8 | Pending |
-| DEPL-06 | Phase 8 | Pending |
+| DEPL-02 | Phase 8 | Complete |
+| DEPL-03 | Phase 8 | Complete |
+| DEPL-04 | Phase 8 | Complete |
+| DEPL-05 | Phase 8 | Complete |
+| DEPL-06 | Phase 8 | Complete |
 | DEPL-07 | Phase 8 | Complete |
 | DEPL-08 | Phase 8 | Pending |
 

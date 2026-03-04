@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-04T00:25:22Z"
+last_updated: "2026-03-04T00:27:13Z"
 progress:
   total_phases: 8
   completed_phases: 7
   total_plans: 21
-  completed_plans: 19
+  completed_plans: 20
 ---
 
 # Project State
@@ -18,21 +18,21 @@ progress:
 See: .planning/PROJECT.md (updated 2026-02-28)
 
 **Core value:** Every survival/medical answer is grounded in cited public domain source documents -- when context is insufficient, the system says so rather than guessing.
-**Current focus:** Phase 8 in progress. Docker Compose orchestration (08-02) complete. Next: remaining deployment plans.
+**Current focus:** Phase 8 in progress. Container infrastructure (08-01) and Docker Compose orchestration (08-02) complete. Next: 08-03 startup scripts and documentation.
 
 ## Current Position
 
 Phase: 8 of 8 (Docker Packaging & Deployment)
-Plan: 2 of 3 in current phase (1 complete: 08-02)
-Status: Executing Phase 8; Docker Compose orchestration complete
-Last activity: 2026-03-03 -- Completed 08-02-PLAN.md (Docker Compose Orchestration)
+Plan: 3 of 3 in current phase (2 complete: 08-01, 08-02)
+Status: Executing Phase 8; container infrastructure and Docker Compose orchestration complete
+Last activity: 2026-03-03 -- Completed 08-01-PLAN.md (Container Infrastructure)
 
-Progress: [██████████████████████████░░] 90%
+Progress: [███████████████████████████░] 95%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 19
+- Total plans completed: 20
 - Average duration: ~27min (skewed by 6h classification run)
 - Total execution time: ~8.2 hours
 
@@ -49,8 +49,8 @@ Progress: [███████████████████████
 | 7. User Interfaces | 2 (of 2) | ~7min | ~3.5min |
 
 **Recent Trend:**
-- Last 5 plans: 2min, 3min, 3min, 4min, 1min
-- Trend: Docker Compose plans execute fastest -- pure config files with clear specs
+- Last 5 plans: 3min, 3min, 4min, 1min, 3min
+- Trend: Docker infrastructure plans fast -- clear specs from research phase
 
 *Updated after each plan completion*
 | Phase 05 P01 | 2min | 2 tasks | 1 files |
@@ -60,6 +60,7 @@ Progress: [███████████████████████
 | Phase 07 P01 | 3min | 2 tasks | 2 files |
 | Phase 07 P02 | 4min | 2 tasks | 1 files |
 | Phase 08 P02 | 1min | 2 tasks | 2 files |
+| Phase 08 P01 | 3min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -137,6 +138,11 @@ Recent decisions affecting current work:
 - [08-02]: Health check gating: Ollama gets 30 retries at 10s intervals (~5min) for slow model loading; app gets 5 retries at 15s
 - [08-02]: No named volumes -- knowledge base is immutable, data lives in container layer
 - [08-02]: GPU support via separate override file (docker-compose.gpu.yml), not conditional logic in main compose
+- [08-01]: python:3.14-slim base image for app container -- matches project Python version, multi-arch
+- [08-01]: Inline Python wrapper in entrypoint.sh for pipeline initialization -- uvicorn direct invocation skips web.py __main__ block
+- [08-01]: Curl polling loop (not fixed sleep) for Ollama readiness in build and runtime
+- [08-01]: Entrypoint starts with WARNING on Ollama timeout (not hard exit) -- web UI shows degraded status via /api/health
+- [08-01]: Port 8080 for Docker web UI (not web.py default 7860) per CONTEXT.md locked decision
 
 ### Pending Todos
 
@@ -153,5 +159,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 08-02-PLAN.md (Docker Compose Orchestration). docker-compose.yml and docker-compose.gpu.yml created. Next: remaining Phase 8 plans.
+Stopped at: Completed 08-01-PLAN.md (Container Infrastructure). All 6 Docker files created (Dockerfile, Dockerfile.ollama, requirements-docker.txt, .dockerignore, entrypoint.sh, .env.example). Next: 08-03-PLAN.md.
 Resume file: none
