@@ -19,8 +19,14 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Claude Code local settings
-.claude/settings.local.json
+# Claude Code
+.claude/
+CLAUDE.md
+
+# Internal planning and build docs
+.planning/
+SurvivalRAG_Brief.md
+ask.py
 
 # Build / data artifacts
 dist/
@@ -39,9 +45,14 @@ faiss_index/
 
 # Embedded chunk files (regenerable from processed/sections/)
 processed/chunks/*.jsonl
+processed/eval/
 
 # Logs
 *.log
+
+# Build scripts and reports
+scripts/
+sources/scripts/download-report.txt
 
 # Source document PDFs (too large for git, downloaded via scripts)
 sources/originals/
