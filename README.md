@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="srpimagfinal.png" alt="SurvivalRAG" width="400">
+</p>
+
 # SurvivalRAG
 
 An offline survival and medical knowledge base for local LLMs — designed to be queryable over Meshtastic mesh radio when the grid is down.
@@ -12,7 +16,7 @@ This pattern repeats in every major disaster. Infrastructure fails, information 
 
 But Meshtastic only moves messages. It doesn't know anything. If you send a question over the mesh today, there's nothing on the other end to answer it.
 
-**SurvivalRAG is building that other end.** A curated, public domain knowledge base of survival and medical content — sourced from US military field manuals, FEMA guides, CDC guidelines, and other government publications — processed and structured for RAG retrieval against a local LLM. The goal is a plug-and-play system: connect it to your local model, connect it to your mesh node, and anyone on the network can send a survival or medical question and get a grounded, source-cited answer back.
+**SurvivalRAG is that other end.** A curated, public domain knowledge base of survival and medical content — sourced from US military field manuals, FEMA guides, CDC guidelines, and other government publications — processed and structured for RAG retrieval against a local LLM. The goal is a plug-and-play system: connect it to your local model, connect it to your mesh node, and anyone on the network can send a survival or medical question and get a grounded, source-cited answer back.
 
 No internet required. No subscriptions. No cloud. Just a knowledge base, a local model, and a radio.
 
@@ -27,7 +31,7 @@ No internet required. No subscriptions. No cloud. Just a knowledge base, a local
 ### Launch
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/pprime/survivalRAG.git
 cd survivalRAG
 docker compose up
 ```
@@ -178,26 +182,20 @@ docker compose down
 curl http://localhost:8080/api/health
 ```
 
-## Current Status
+## What's Included
 
-**This project is in active development.** Docker deployment packaging is complete -- you can run the full system with `docker compose up`. The blocking step is running the full corpus through embedding (requires building the Docker images, which bakes in the Ollama models), which populates the vector store and makes everything queryable.
-
-Here's what exists today:
-
-| Component | Status |
+| Component | Details |
 |---|---|
-| Source documents (70 PDFs, all public domain, individually license-verified) | Done |
-| Provenance manifests (source URL, license, distribution statement per document) | Done |
-| Document processing (extraction, cleaning, section splitting -- 7,915 sections) | Done |
-| Chunking & embedding code (content-type-aware, benchmarked at 88% Recall@5) | Code done, full corpus run pending |
-| Retrieval pipeline (hybrid vector + BM25 search, category filtering) | Done |
-| Response generation (3 modes: full, compact, ultra-short) | Done |
-| Evaluation framework (retrieval + generation quality) | Done |
-| Web UI (Gradio chat interface) | Done |
-| CLI (single query + interactive REPL) | Done |
-| Docker deployment (single-command `docker compose up`) | Done |
-
-If you want to follow along or help out, star/watch the repo.
+| Source documents | 70 PDFs, all public domain, individually license-verified |
+| Provenance manifests | Source URL, license, distribution statement per document |
+| Document processing | Extraction, cleaning, section splitting -- 7,915 sections |
+| Chunking & embedding | Content-type-aware, benchmarked at 88% Recall@5 |
+| Retrieval pipeline | Hybrid vector + BM25 search, category filtering |
+| Response generation | 3 modes: full, compact, ultra-short (~200 chars for mesh) |
+| Evaluation framework | Retrieval + generation quality validation |
+| Web UI | Gradio chat interface |
+| CLI | Single query + interactive REPL |
+| Docker deployment | Single-command `docker compose up` |
 
 ## What's In the Knowledge Base
 
@@ -246,7 +244,78 @@ The system is LLM-agnostic (works with whatever local model you run via Ollama) 
 
 ## Meshtastic Integration
 
-The mesh radio layer is a separate effort from the core knowledge base — it won't be tackled until the base system is solid. The main constraints are LoRa's 228-character message limit and ~1 kbps throughput, which means responses need to be compressed into a single message or split across a few. Projects like [MESH-API](https://github.com/mr-tbot/mesh-api) and [Radio-LLM](https://github.com/pham-tuan-binh/radio-llm) have already proven that bridging Meshtastic to a local LLM works — the missing piece is a knowledge base worth querying.
+SurvivalRAG is designed to be queryable over [Meshtastic](https://meshtastic.org) mesh radio. The pipeline already includes an `ultra` response mode that produces telegram-style answers under 200 characters — sized to fit within LoRa's 228-byte packet limit.
+
+### How It Fits Together
+
+```
+Meshtastic Radio → meshtastic Python package → gen.answer(query, mode="ultra") → response text → Meshtastic Radio
+```
+
+The entire pipeline is a single function call. No HTTP API needed — import the modules directly.
+
+### Minimal Bridge Example
+
+```python
+import meshtastic
+import meshtastic.serial_interface
+
+import pipeline.retrieve as retrieve
+import pipeline.generate as gen
+
+# Initialize the RAG pipeline (once at startup)
+retrieve.init(chroma_path="./data/chroma")
+gen.init()
+
+interface = meshtastic.serial_interface.SerialInterface()
+
+def on_receive(packet, interface):
+    """Handle incoming mesh messages."""
+    if "decoded" not in packet or "text" not in packet["decoded"]:
+        return
+
+    query = packet["decoded"]["text"]
+    sender = packet.get("fromId")
+
+    # Query the knowledge base in ultra mode (~200 chars, no citations)
+    result = gen.answer(query_text=query, mode="ultra")
+    response = result["response"]
+
+    # Send the answer back over the mesh
+    interface.sendText(response, destinationId=sender)
+
+from pubsub import pub
+pub.subscribe(on_receive, "meshtastic.receive.text")
+
+# Keep running
+import time
+while True:
+    time.sleep(1)
+```
+
+### Key Design Points
+
+- **`ultra` mode** — System prompt enforces telegram-style phrasing under 200 characters. Token limit is 80. No citations are included (they'd waste bytes). This is what you want for mesh.
+- **`compact` mode** — 512-token responses for higher-bandwidth scenarios (e.g., TCP-connected nodes, Wi-Fi backhaul). Includes citations.
+- **No streaming needed** — Mesh messages are sent as complete packets, so use `gen.answer()` (blocking) rather than `gen.answer_stream()`.
+- **Category filtering** — Pass `categories=["medical"]` to scope retrieval. Useful if you set up dedicated mesh channels per topic.
+- **Refusal handling** — When no relevant chunks are found, `result["status"]` is `"refused"` and the response is a canned refusal message. Check this before sending to avoid confusing replies.
+
+### Constraints to Plan For
+
+| Constraint | Detail |
+|-----------|--------|
+| LoRa packet size | 228 bytes max per message. `ultra` mode stays under this. |
+| Throughput | ~1 kbps on LoRa. One query-response cycle is fine; bulk queries will queue. |
+| Inference latency | LLM generation takes 2-15 seconds depending on hardware. Consider sending a "thinking..." ack. |
+| Channel management | Decide whether to listen on a dedicated channel or the default. A dedicated channel avoids noise. |
+| Node filtering | You probably don't want to answer every message on the mesh — filter by channel or message prefix (e.g., messages starting with `?`). |
+
+### Reference Projects
+
+- [MESH-API](https://github.com/mr-tbot/mesh-api) — Meshtastic-to-LLM bridge (no knowledge base)
+- [Radio-LLM](https://github.com/pham-tuan-binh/radio-llm) — LoRa radio to local LLM bridge
+- [Meshtastic Python docs](https://meshtastic.org/docs/software/python/cli/) — `meshtastic` package reference
 
 ## Contributing
 
@@ -259,7 +328,7 @@ This is a community project and there's plenty of ways to help, even if you don'
 - **Documentation** — Making it easier for others to deploy and contribute
 - **Translation** — Making the knowledge base accessible in more languages
 
-If you're interested, open an issue or start a discussion. A formal contributing guide is coming.
+If you're interested, open an issue or start a discussion.
 
 ## Project Structure
 
@@ -280,7 +349,7 @@ survivalRAG/
 │   └── excluded/       # Documents excluded with reasoning
 ├── processed/
 │   ├── sections/       # 7,915 extracted sections (70 documents)
-│   ├── chunks/         # Embedded chunks (not yet generated)
+│   ├── chunks/         # Embedded chunks
 │   ├── benchmark/      # Retrieval benchmark results
 │   └── reports/        # Per-document classification reports
 └── requirements.txt
