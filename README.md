@@ -37,6 +37,8 @@ docker compose up
 ```
 
 First build takes 10-20 minutes (downloads base images and bakes LLM models).
+On first launch, the vector store is automatically built from pre-embedded chunks -- this adds ~30-60 seconds. Subsequent starts skip this step.
+
 Once ready, open **http://localhost:8080** in your browser.
 
 > The system is fully offline after the initial build -- no internet required at runtime.
@@ -161,6 +163,7 @@ docker buildx build --platform linux/amd64,linux/arm64 -t survivalrag-ollama -f 
 | "Ollama not available" in logs | Wait for Ollama health check to pass (up to 5 minutes on first start) |
 | Very slow responses | Expected on CPU-only; see GPU Acceleration section |
 | Port 8080 already in use | Change port mapping in docker-compose.yml: `"9090:8080"` |
+| ChromaDB errors or missing vector store | Run `docker compose down && docker compose up --build` to rebuild |
 | Out of disk space during build | Need 20GB+ free; clear Docker cache: `docker system prune` |
 
 ### Useful Commands

@@ -16,7 +16,24 @@ for i in $(seq 1 $MAX_RETRIES); do
     sleep 1
 done
 
-echo "SurvivalRAG: Starting application with pipeline initialization..."
+# Build ChromaDB vector store from pre-embedded chunks if it doesn't exist yet
+if [ ! -f "./data/chroma/chroma.sqlite3" ]; then
+    echo "SurvivalRAG: Building vector store from pre-embedded chunks (first run only)..."
+    python -c "
+from pathlib import Path
+from pipeline.ingest import ingest_directory, get_collection
+import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+collection = get_collection('./data/chroma')
+total = ingest_directory(Path('./processed/chunks'), collection=collection)
+print(f'SurvivalRAG: Vector store built with {total} chunks.')
+"
+    echo "SurvivalRAG: Vector store ready."
+else
+    echo "SurvivalRAG: Vector store already exists, skipping build."
+fi
+
+echo "SurvivalRAG: Starting application..."
 exec python -c "
 import os
 os.environ.setdefault('SURVIVALRAG_PORT', '8080')

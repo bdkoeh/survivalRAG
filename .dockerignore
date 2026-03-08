@@ -22,7 +22,10 @@ build/
 .claude/
 
 # Processed artifacts (build-time only -- not needed in Docker)
-processed/
+processed/sections/
+processed/benchmark/
+processed/reports/
+processed/eval/
 
 # Build-time scripts
 scripts/

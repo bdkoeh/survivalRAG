@@ -43,8 +43,8 @@ chroma_db/
 data/chroma/
 faiss_index/
 
-# Embedded chunk files (regenerable from processed/sections/)
-processed/chunks/*.jsonl
+# Embedded chunk files (large, but needed for ChromaDB build on first run)
+# processed/chunks/*.jsonl  -- intentionally tracked
 processed/eval/
 
 # Logs

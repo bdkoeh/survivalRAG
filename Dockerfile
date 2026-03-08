@@ -1,6 +1,6 @@
 # SurvivalRAG Application Container
-# Multi-stage build: runtime-only dependencies, pre-built ChromaDB data, source PDFs
-# No docling, no torch, no OCR -- all document processing is pre-built
+# Multi-stage build: runtime-only dependencies, pre-embedded chunks, source PDFs
+# ChromaDB vector store is built on first startup from pre-embedded JSONL chunks
 
 # --- Stage 1: Builder (install Python packages) ---
 FROM python:3.14-slim AS builder
@@ -34,8 +34,10 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 COPY web.py cli.py ask.py ./
 COPY pipeline/ ./pipeline/
 
-# Copy pre-built data (ChromaDB vector store + evaluation golden queries)
-COPY data/chroma/ ./data/chroma/
+# Copy pre-embedded chunks (ChromaDB is built on first startup)
+COPY processed/chunks/ ./processed/chunks/
+
+# Copy evaluation data
 COPY data/eval/ ./data/eval/
 
 # Copy source PDFs and manifests for citation links
