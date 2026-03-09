@@ -31,7 +31,7 @@ COPY --from=builder /usr/local/lib/python3.14/site-packages /usr/local/lib/pytho
 COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy application code
-COPY web.py cli.py ask.py ./
+COPY web.py cli.py ./
 COPY pipeline/ ./pipeline/
 
 # Copy pre-embedded chunks (ChromaDB is built on first startup)
