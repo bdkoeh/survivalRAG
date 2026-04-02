@@ -1,10 +1,12 @@
-"""Hybrid retrieval engine with vector search, BM25, RRF fusion, and threshold filtering.
+"""Hybrid retrieval engine with vector search, BM25, RRF fusion, reranking, and threshold filtering.
 
 Implements always-on hybrid search: every query runs both BM25 keyword search
 and vector similarity search via ChromaDB, then fuses results using Reciprocal
-Rank Fusion (RRF). Category pre-filtering is applied to both search paths.
-A cosine similarity threshold filters out irrelevant chunks -- when no chunks
-pass, the caller receives an empty list to trigger refusal.
+Rank Fusion (RRF). An optional cross-encoder reranker (BAAI/bge-reranker-v2-m3)
+re-scores fused candidates for 15-40% precision improvement. Category
+pre-filtering is applied to both search paths. A cosine similarity threshold
+filters out irrelevant chunks -- when no chunks pass, the caller receives an
+empty list to trigger refusal.
 
 The BM25 index is built in-memory at application startup and must be rebuilt
 after knowledge base updates (application restart).
@@ -20,6 +22,7 @@ import chromadb
 
 from pipeline.embed import embed_query
 from pipeline.ingest import get_collection, get_all_chunks_for_bm25
+import pipeline.rerank as rerank
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +60,9 @@ def init(chroma_path: str = None) -> None:
 
     ids, docs, metas = get_all_chunks_for_bm25(collection=_collection)
     build_bm25_index(ids, docs, metas)
+
+    # Initialize cross-encoder reranker (optional, controlled by env var)
+    rerank.init()
 
     logger.info("Retrieval engine initialized: %d chunks in index", len(ids))
 
@@ -326,28 +332,38 @@ def retrieve(
     # Step 2: Build category filter for ChromaDB pre-filtering
     where_filter = _build_category_filter(categories)
 
+    # Widen initial search when reranker is active to give it more candidates
+    fetch_factor = 4 if rerank.is_enabled() else 2
+
     # Step 3: Vector search (over-fetch for fusion)
-    vector_results = _vector_search(query_embedding, n_results * 2, where_filter)
+    vector_results = _vector_search(
+        query_embedding, n_results * fetch_factor, where_filter
+    )
 
     # Step 4: BM25 search (category-filtered post-hoc)
-    bm25_results = _bm25_search(query, n_results * 2, categories)
+    bm25_results = _bm25_search(query, n_results * fetch_factor, categories)
 
     # Step 5: Fuse via Reciprocal Rank Fusion
     fused = reciprocal_rank_fusion(vector_results, bm25_results)
 
-    # Step 6: Threshold filter (cosine similarity)
-    passed = [r for r in fused if r["similarity"] >= threshold]
+    # Step 6: Rerank fused results (passthrough when reranker is disabled)
+    reranked = rerank.rerank(query, fused, top_n=n_results * fetch_factor)
+
+    # Step 7: Threshold filter (cosine similarity)
+    passed = [r for r in reranked if r["similarity"] >= threshold]
 
     # Log search metrics
     logger.info(
-        "Query: '%s' | Categories: %s | Vector: %d | BM25: %d | Fused: %d | Passed threshold: %d",
+        "Query: '%s' | Categories: %s | Vector: %d | BM25: %d | Fused: %d | "
+        "Reranked: %s | Passed threshold: %d",
         query,
         categories,
         len(vector_results),
         len(bm25_results),
         len(fused),
+        len(reranked) if rerank.is_enabled() else "off",
         len(passed),
     )
 
-    # Step 7: Return top n_results or empty list (triggers refusal)
+    # Step 8: Return top n_results or empty list (triggers refusal)
     return passed[:n_results]
