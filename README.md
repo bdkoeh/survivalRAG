@@ -31,7 +31,7 @@ No internet required. No subscriptions. No cloud. Just a knowledge base, a local
 ### Launch
 
 ```bash
-git clone https://github.com/pprime/survivalRAG.git
+git clone https://github.com/bdkoeh/survivalRAG.git
 cd survivalRAG
 docker compose up
 ```
@@ -78,6 +78,7 @@ cp .env.example .env
 | `OLLAMA_HOST` | `http://ollama:11434` | Ollama server URL |
 | `SURVIVALRAG_MAX_CHUNKS` | `5` | Maximum chunks retrieved per query |
 | `SURVIVALRAG_RELEVANCE_THRESHOLD` | `0.25` | Cosine similarity threshold |
+| `SURVIVALRAG_RERANKER_MODEL` | `BAAI/bge-reranker-v2-m3` | Cross-encoder reranker model (set to `none` to disable) |
 
 ### Using an External Ollama Instance
 
@@ -189,13 +190,14 @@ curl http://localhost:8080/api/health
 
 | Component | Details |
 |---|---|
-| Source documents | 70 PDFs, all public domain, individually license-verified |
+| Source documents | 70 public domain PDFs + 226 Wikipedia medical articles (CC BY-SA 4.0) |
+| Knowledge base | 29,786 chunks across 296 sources |
 | Provenance manifests | Source URL, license, distribution statement per document |
-| Document processing | Extraction, cleaning, section splitting -- 7,915 sections |
+| Document processing | Extraction, cleaning, section splitting -- 7,915+ sections |
 | Chunking & embedding | Content-type-aware, benchmarked at 88% Recall@5 |
-| Retrieval pipeline | Hybrid vector + BM25 search, category filtering |
+| Retrieval pipeline | Hybrid vector + BM25 search with cross-encoder reranking |
 | Response generation | 3 modes: full, compact, ultra-short (~200 chars for mesh) |
-| Evaluation framework | Retrieval + generation quality validation |
+| Evaluation framework | 156 golden queries with ground truth, 4-dimension scoring |
 | Web UI | Gradio chat interface |
 | CLI | Single query + interactive REPL |
 | Docker deployment | Single-command `docker compose up` |
@@ -203,6 +205,8 @@ curl http://localhost:8080/api/health
 ## What's In the Knowledge Base
 
 All content is **public domain** (US government works) or **openly licensed** (CC BY, CC BY-SA, CC0). No copyrighted material. Every document has a YAML provenance manifest with source URL, license type, distribution statement, and verification date.
+
+### Tier 1: Public Domain (70 sources)
 
 **Survival & Field Skills**
 - FM 21-76 — US Army Survival Manual
@@ -221,21 +225,50 @@ All content is **public domain** (US government works) or **openly licensed** (C
 - FEMA emergency water and food storage guides
 - USDA food safety guidelines
 
-Plus 50+ additional documents covering cold weather operations, preventive medicine, nuclear preparedness, disease guidelines, and more. See `sources/manifests/` for the full list with provenance details.
+Plus 50+ additional documents covering cold weather operations, preventive medicine, nuclear preparedness, disease guidelines, and more.
+
+### Tier 2: WikiMed — Wikipedia Medical Articles (226 sources, CC BY-SA 4.0)
+
+Curated Wikipedia articles fetched via the MediaWiki API, filling gaps in the military-heavy Tier 1 corpus:
+
+| Domain | Examples |
+|--------|----------|
+| Diseases & Infections | Cholera, Malaria, Dengue, Lyme disease, Rabies, Sepsis |
+| Toxicology | Snakebite, Spider bite, Mushroom poisoning, Carbon monoxide |
+| Environmental Medicine | Hypothermia, Altitude sickness, Heat stroke, Drowning |
+| Medications | Ibuprofen, Aspirin, Epinephrine, Diphenhydramine |
+| Trauma | Burns, Fractures, Pneumothorax, Crush syndrome |
+| Mental Health | PTSD, Acute stress, Panic attacks, Sleep deprivation |
+| Food & Foraging | Edible mushrooms, Cattails, Acorns, Entomophagy |
+| Fire & Tools | Bow drill, Ferrocerium, Knots, Cordage |
+| Shelter | Igloo, Quinzhee, Snow cave, Lean-to |
+| Water | Solar disinfection, Desalination, Rainwater harvesting |
+
+Each WikiMed chunk carries the Wikipedia revision ID, contributor attribution, and CC BY-SA 4.0 license in its metadata. To re-fetch or update the WikiMed content:
+
+```bash
+python -m pipeline.wikimed           # fetch, chunk, embed all articles
+python -m pipeline.wikimed --resume  # skip already-processed articles
+```
+
+See `sources/manifests/` for the full list with provenance details.
 
 ## How It Works
 
 ```
 Source PDFs → Extract & Clean → Split into Sections → Chunk by Content Type → Embed → Vector Store
-                                                                                         ↓
-                                                              User Query → Hybrid Search (Vector + BM25) → Prompt Assembly → LLM → Cited Answer
+Wikipedia  → MediaWiki API → Strip Markup → Chunk → Embed ↗                            ↓
+                                                              User Query → Hybrid Search (Vector + BM25)
+                                                                         → Cross-Encoder Reranking
+                                                                         → Prompt Assembly → LLM → Cited Answer
 ```
 
-1. **Document processing** — PDFs are extracted, cleaned, and split into logical sections with metadata preserved
+1. **Document processing** — PDFs are extracted via Docling, cleaned, and split into logical sections. Wikipedia articles are fetched via MediaWiki API and stripped of wiki markup.
 2. **Content-aware chunking** — Different strategies for procedures, reference tables, safety warnings, and general content (512-token chunks, never splits mid-step)
-3. **Hybrid retrieval** — Vector similarity (ChromaDB) fused with BM25 keyword search (Reciprocal Rank Fusion), with optional category filtering
-4. **Safety-first prompting** — Safety warnings are surfaced before other context. When retrieved context is insufficient, the system says so instead of guessing
-5. **Source citation** — Every answer cites which document the information came from
+3. **Hybrid retrieval** — Vector similarity (ChromaDB) fused with BM25 keyword search via Reciprocal Rank Fusion (RRF), with optional category pre-filtering
+4. **Cross-encoder reranking** — Fused results are re-scored by a cross-encoder model (BAAI/bge-reranker-v2-m3) for 15-40% precision improvement. Optional and configurable via env var.
+5. **Safety-first prompting** — Safety warnings are surfaced before other context. When retrieved context is insufficient, the system says so instead of guessing
+6. **Source citation** — Every answer cites which document the information came from
 
 The system is LLM-agnostic (works with whatever local model you run via Ollama) and fully offline after initial setup.
 
@@ -337,35 +370,68 @@ If you're interested, open an issue or start a discussion.
 
 ```
 survivalRAG/
-├── pipeline/           # Processing and retrieval pipeline (Python)
-│   ├── extract.py      # PDF extraction
-│   ├── clean.py        # Text cleaning
-│   ├── split.py        # Section splitting
-│   ├── chunk.py        # Content-aware chunking
-│   ├── embed.py        # Ollama embedding wrapper
-│   ├── ingest.py       # ChromaDB ingestion
-│   ├── retrieve.py     # Hybrid search (vector + BM25)
-│   └── prompt.py       # Prompt assembly with safety ordering
+├── pipeline/               # Processing and retrieval pipeline
+│   ├── extract.py          # PDF extraction (Docling + OCR fallback)
+│   ├── clean.py            # Text cleaning
+│   ├── split.py            # Section splitting
+│   ├── classify.py         # LLM-based content classification
+│   ├── chunk.py            # Content-aware chunking
+│   ├── embed.py            # Ollama embedding wrapper (nomic-embed-text)
+│   ├── ingest.py           # ChromaDB ingestion
+│   ├── retrieve.py         # Hybrid search (vector + BM25 + RRF)
+│   ├── rerank.py           # Cross-encoder reranking (optional)
+│   ├── rewrite.py          # Multi-turn query rewriting
+│   ├── prompt.py           # Prompt assembly with safety ordering
+│   ├── generate.py         # LLM response generation (full/compact/ultra)
+│   ├── evaluate.py         # 4-dimension evaluation framework
+│   ├── wikimed.py          # WikiMed extraction pipeline
+│   └── validate.py         # Dosage/measurement validation
+├── web.py                  # Gradio web UI
+├── cli.py                  # Click + Rich CLI
 ├── sources/
-│   ├── manifests/      # YAML provenance manifest per document
-│   ├── originals/      # Source PDFs (not in git)
-│   └── excluded/       # Documents excluded with reasoning
+│   ├── manifests/          # YAML provenance manifest per document (292 files)
+│   └── originals/          # Source PDFs (not in git, downloaded via scripts)
 ├── processed/
-│   ├── sections/       # 7,915 extracted sections (70 documents)
-│   ├── chunks/         # Embedded chunks
-│   ├── benchmark/      # Retrieval benchmark results
-│   └── reports/        # Per-document classification reports
+│   ├── chunks/             # Pre-embedded JSONL chunks (29,786 total)
+│   ├── benchmark/          # Retrieval benchmark results
+│   └── reports/            # Per-document classification reports
+├── data/
+│   ├── eval/               # Golden query datasets (156 queries + 20 refusal)
+│   └── wikimed/            # WikiMed article list and config
+├── docker-compose.yml      # Multi-container orchestration
+├── docker-compose.gpu.yml  # NVIDIA GPU override
+├── Dockerfile              # App container
+├── Dockerfile.ollama       # Ollama container with bundled models
 └── requirements.txt
 ```
 
 ## Requirements
 
 - Python 3.11+
-- [Ollama](https://ollama.ai) with `nomic-embed-text` model (for embeddings) and a chat model of your choice
-- ~2GB disk for the processed knowledge base
+- [Ollama](https://ollama.ai) with `nomic-embed-text` (embeddings) and a chat model (default: `llama3.1:8b`)
+- ~3GB disk for the processed knowledge base
+- Optional: `sentence-transformers` for cross-encoder reranking (requires PyTorch)
+
+## Evaluation
+
+SurvivalRAG includes a 4-dimension evaluation framework with 156 golden queries (ground truth authored by Claude Opus 4.6) and 20 out-of-scope refusal queries:
+
+| Dimension | What it measures | Threshold |
+|-----------|-----------------|-----------|
+| Retrieval Recall | Correct chunks retrieved for known queries | >= 85% |
+| Hallucination Refusal | Out-of-scope queries correctly refused | 100% |
+| Citation Faithfulness | Response claims verified against context | >= 90% |
+| Safety Warning Surfacing | Safety-critical warnings shown when present | 100% |
+
+```bash
+python -m pipeline.evaluate                    # Run all dimensions
+python -m pipeline.evaluate --suite retrieval  # Retrieval only (fast, no LLM)
+```
 
 ## License
 
 Code: [GNU General Public License v3.0](LICENSE)
 
-Content: All source material in the knowledge base is public domain or openly licensed (CC BY, CC BY-SA, CC0).
+Content:
+- **Tier 1** (military manuals, FEMA, CDC, etc.): Public domain (17 U.S.C. 105) or CC0/CC BY
+- **Tier 2** (Wikipedia medical articles): CC BY-SA 4.0 — attribution metadata is carried per-chunk
