@@ -1,0 +1,39 @@
+# Provenance Manifest for Wikipedia: Fire making
+# Schema version: 1.0
+
+document:
+  title: "Wikipedia: Fire making"
+  designation: "WikiMed-Fire_making"
+  edition_date: "2026-04-03"
+  pages: 0
+  file_name: "WikiMed-Fire_making.jsonl"
+
+source:
+  primary_url: "https://en.wikipedia.org/wiki/Fire_making"
+  revision_url: "https://en.wikipedia.org/w/index.php?oldid=1337396922"
+  revision_id: 1337396922
+  publisher: "Wikipedia contributors"
+  country: "International"
+
+licensing:
+  license_type: "CC BY-SA 4.0"
+  license_url: "https://creativecommons.org/licenses/by-sa/4.0/"
+  attribution: "Wikipedia contributors, 'Fire making', Wikipedia, The Free Encyclopedia"
+  copyright_status: "Copyrighted, licensed under CC BY-SA 4.0"
+  verification_date: "2026-04-03"
+  verification_method: "Wikipedia content is licensed under CC BY-SA 4.0 per Wikimedia Foundation Terms of Use"
+  verified_by: "automated"
+
+content:
+  categories:
+    - fire
+  tier: 2
+  content_type: "encyclopedia_article"
+  language: "en"
+  chunk_count: 12
+
+processing:
+  notes: "Extracted via MediaWiki API, wikitext converted to plain text, chunked and embedded by SurvivalRAG pipeline"
+  ocr_needed: false
+  download_date: "2026-04-03"
+  download_method: "MediaWiki API (action=parse)"
