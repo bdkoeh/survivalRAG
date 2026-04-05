@@ -226,6 +226,52 @@ def citations_to_links(response_text: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Safety warning deduplication
+# ---------------------------------------------------------------------------
+
+def _strip_llm_warning_lines(text: str, warnings: list[dict]) -> str:
+    """Remove warning lines from LLM response that duplicate the HTML blocks.
+
+    The system prompt tells the LLM to start with safety warnings, and the web
+    UI also renders them as styled HTML blocks. This strips the LLM's warning
+    lines to avoid showing the same warning twice.
+    """
+    if not warnings:
+        return text
+
+    lines = text.split("\n")
+    cleaned = []
+    for line in lines:
+        stripped = line.strip()
+        # Skip lines that are just a bold warning/caution/danger marker
+        # e.g. "**WARNING:** Burns require immediate cooling"
+        is_dup = False
+        for w in warnings:
+            wtext = w.get("warning_text", "")
+            if not wtext:
+                continue
+            # Check if the line contains a substantial portion of the warning text
+            # (LLMs sometimes paraphrase slightly, so check for the key content)
+            wtext_lower = wtext.lower()
+            stripped_lower = stripped.lower()
+            # Match lines like "**WARNING:** <warning text>" or "WARNING: <text>"
+            if stripped_lower.startswith(("**warning", "**caution", "**danger",
+                                          "warning:", "caution:", "danger:")):
+                # Check if the warning text content appears in this line
+                # Use the first 40 chars of warning text as a fingerprint
+                fingerprint = wtext_lower[:40]
+                if fingerprint in stripped_lower:
+                    is_dup = True
+                    break
+        if not is_dup:
+            cleaned.append(line)
+
+    # Strip leading blank lines left after removing warning block
+    result = "\n".join(cleaned)
+    return result.lstrip("\n")
+
+
+# ---------------------------------------------------------------------------
 # Safety warning HTML formatter
 # ---------------------------------------------------------------------------
 
@@ -369,6 +415,10 @@ def chat_respond(
             warnings = collect_safety_warnings(chunks)
             warning_html = format_warnings_html(warnings)
             if warning_html:
+                # Strip duplicate warning lines from the LLM response body --
+                # the LLM is instructed to lead with warnings, but we already
+                # show them as styled HTML blocks above the response.
+                final_text = _strip_llm_warning_lines(final_text, warnings)
                 final_text = warning_html + "\n\n" + final_text
         except Exception:
             logger.debug("Could not collect safety warnings", exc_info=True)

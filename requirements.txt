@@ -23,3 +23,7 @@ sentence-transformers>=3.0.0
 gradio>=6.8.0
 click>=8.1
 rich>=14.0
+
+# Meshtastic mesh radio bridge (optional)
+# Requires a Meshtastic radio connected via USB or WiFi
+# pip install meshtastic>=2.7.0

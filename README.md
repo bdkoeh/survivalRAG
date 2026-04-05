@@ -12,7 +12,7 @@ When Hurricane Helene hit in September 2024, it knocked out 4,562 cell sites acr
 
 This pattern repeats in every major disaster. Infrastructure fails, information channels go dark, and people are left making life-or-death decisions — wound treatment, water purification, shelter, navigation — with no way to look anything up. The 72-hour self-sufficiency window that FEMA recommends turns out to be wildly optimistic.
 
-[Meshtastic](https://meshtastic.org) is changing the communication side of this problem. It's an open-source mesh networking protocol that runs on cheap LoRa radios ($20–$50), requires no license, no cell towers, no internet — just devices talking to each other. It was deployed during Helene, the 2025 LA wildfires, and the Berlin blackout. Communities are building permanent mesh networks so they're not caught off guard again.
+[Meshtastic](https://meshtastic.org) is changing the communication side of this problem. It's an open-source mesh networking protocol that runs on cheap LoRa radios ($20-$50), requires no license, no cell towers, no internet — just devices talking to each other. It was deployed during Helene, the 2025 LA wildfires, and the Berlin blackout. Communities are building permanent mesh networks so they're not caught off guard again.
 
 But Meshtastic only moves messages. It doesn't know anything. If you send a question over the mesh today, there's nothing on the other end to answer it.
 
@@ -20,49 +20,183 @@ But Meshtastic only moves messages. It doesn't know anything. If you send a ques
 
 No internet required. No subscriptions. No cloud. Just a knowledge base, a local model, and a radio.
 
-## Quick Start
+## Quick Start (Local)
+
+Get SurvivalRAG running on your machine. This is where you test queries, verify the knowledge base, and optionally connect a Meshtastic radio.
 
 ### Prerequisites
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (v4.0+) or Docker Engine with Docker Compose v2
-- 16GB RAM minimum
-- 20GB free disk space
+- Python 3.11+
+- [Ollama](https://ollama.ai) installed and running
+- 16GB RAM minimum (32GB recommended)
+- ~10GB free disk space
 
-### Launch
+### Setup
 
 ```bash
 git clone https://github.com/bdkoeh/survivalRAG.git
 cd survivalRAG
+
+# Create virtual environment and install dependencies
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Pull the required models
+ollama pull llama3.1:8b       # Response generation (4.9GB)
+ollama pull nomic-embed-text  # Query embedding (274MB)
+```
+
+### Build the Vector Store
+
+The knowledge base ships as pre-embedded chunks. On first run, build the vector store index:
+
+```bash
+python -c "
+from pipeline.ingest import ingest_directory, get_collection
+collection = get_collection('data/chroma')
+ingest_directory('processed/chunks', collection=collection)
+"
+```
+
+This takes about 30-60 seconds and creates the `data/chroma/` directory. You only need to do this once.
+
+### Run
+
+**Web UI:**
+
+```bash
+python web.py
+```
+
+Open **http://localhost:7860** in your browser.
+
+**CLI:**
+
+```bash
+# Single query
+python cli.py ask "how to purify water"
+
+# With category filter
+python cli.py ask --category medical "how to treat a burn"
+
+# Interactive REPL
+python cli.py
+```
+
+### Using a Different Model
+
+Any Ollama chat model works. Set the environment variable before starting:
+
+```bash
+SURVIVALRAG_MODEL=qwen2.5:7b python web.py
+SURVIVALRAG_MODEL=mistral:7b python cli.py
+```
+
+### Optional: Cross-Encoder Reranking
+
+Improves retrieval precision 15-40% by re-scoring results with a cross-encoder model. Requires PyTorch:
+
+```bash
+pip install sentence-transformers
+```
+
+The reranker activates automatically once installed. Disable it with `SURVIVALRAG_RERANKER_MODEL=none`.
+
+## Package for Distribution (Docker)
+
+Once you've verified everything works locally, package SurvivalRAG as portable Docker images. These images contain everything — the app, the knowledge base, and the LLM models. No internet required to run them.
+
+The idea: build once on a machine with internet, then distribute the images on flash drives. In an emergency, anyone with Docker can plug in the drive and have a working system in minutes.
+
+### Build the Images
+
+```bash
+docker compose build
+```
+
+This takes 10-20 minutes on first build. It bakes the LLM models directly into the Ollama image so no downloads are needed at runtime.
+
+| Image | Size | Contents |
+|-------|------|----------|
+| survivalrag-app | ~1GB | App, knowledge base, vector store |
+| survivalrag-ollama | ~7GB | Ollama + llama3.1:8b + nomic-embed-text |
+| **Total** | **~8GB** | Everything needed to run offline |
+
+### Export to Flash Drive
+
+```bash
+# Save both images to a single file
+docker save survivalrag-ollama survivalrag-app | gzip > survivalrag-images.tar.gz
+
+# Copy to flash drive (along with docker-compose.yml and .env.example)
+cp survivalrag-images.tar.gz /mnt/usb/
+cp docker-compose.yml /mnt/usb/
+cp .env.example /mnt/usb/
+```
+
+The compressed archive is roughly 5-6GB. A 16GB flash drive has room for it plus documentation.
+
+### Multi-Architecture Builds
+
+To build images that run on both Intel/AMD and ARM machines (e.g., Raspberry Pi, M-series Macs):
+
+```bash
+docker buildx create --name survivalrag-builder --use
+docker buildx build --platform linux/amd64,linux/arm64 -t survivalrag-app -f Dockerfile .
+docker buildx build --platform linux/amd64,linux/arm64 -t survivalrag-ollama -f Dockerfile.ollama .
+```
+
+## Deploy from Flash Drive
+
+These are the instructions for the person receiving the flash drive. They need Docker installed — nothing else.
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows/Mac) or Docker Engine (Linux)
+- 16GB RAM minimum
+
+### Steps
+
+```bash
+# 1. Load the images from the flash drive
+docker load < /mnt/usb/survivalrag-images.tar.gz
+
+# 2. Copy the compose file to a working directory
+mkdir ~/survivalrag && cd ~/survivalrag
+cp /mnt/usb/docker-compose.yml .
+
+# 3. Start
 docker compose up
 ```
 
-First build takes 10-20 minutes (downloads base images and bakes LLM models).
-On first launch, the vector store is automatically built from pre-embedded chunks -- this adds ~30-60 seconds. Subsequent starts skip this step.
+Open **http://localhost:8080** in a browser. That's it.
 
-Once ready, open **http://localhost:8080** in your browser.
+On first launch, the vector store builds automatically from the pre-embedded chunks (~30-60 seconds). Subsequent starts skip this step.
 
-> The system is fully offline after the initial build -- no internet required at runtime.
+> No internet is required at any point. Everything is in the images.
 
-## Hardware Requirements
+### GPU Acceleration (Linux with NVIDIA)
 
-| Resource | Minimum | Recommended |
-|----------|---------|-------------|
-| RAM | 16GB | 32GB |
-| Disk | 20GB free | 30GB free |
-| CPU | 4 cores | 8+ cores |
-| GPU | Not required | NVIDIA GPU (Linux only) |
+If the machine has an NVIDIA GPU and the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html):
 
-### Image Sizes
+```bash
+# Also copy the GPU override file to the flash drive during packaging
+docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
+```
 
-| Container | Size |
-|-----------|------|
-| survivalrag-app | ~1GB |
-| survivalrag-ollama | ~7GB |
-| **Total** | **~8GB** |
+### GPU Acceleration (macOS Apple Silicon)
 
-The Ollama image is large because it includes the bundled LLM models:
-- **llama3.1:8b** (4.9GB) -- response generation
-- **nomic-embed-text** (274MB) -- query embedding
+Docker on macOS cannot access Apple Metal GPUs. For GPU acceleration on Mac, install Ollama natively and point the app container at it:
+
+```bash
+brew install ollama
+ollama pull llama3.1:8b && ollama pull nomic-embed-text
+ollama serve
+
+# In another terminal:
+OLLAMA_HOST=http://host.docker.internal:11434 docker compose up app
+```
 
 ## Configuration
 
@@ -78,112 +212,113 @@ cp .env.example .env
 | `OLLAMA_HOST` | `http://ollama:11434` | Ollama server URL |
 | `SURVIVALRAG_MAX_CHUNKS` | `5` | Maximum chunks retrieved per query |
 | `SURVIVALRAG_RELEVANCE_THRESHOLD` | `0.25` | Cosine similarity threshold |
-| `SURVIVALRAG_RERANKER_MODEL` | `BAAI/bge-reranker-v2-m3` | Cross-encoder reranker model (set to `none` to disable) |
+| `SURVIVALRAG_RERANKER_MODEL` | `BAAI/bge-reranker-v2-m3` | Cross-encoder reranker (set to `none` to disable) |
 
 ### Using an External Ollama Instance
 
-To use a GPU-equipped machine on your network instead of the bundled Ollama container:
+To use a GPU-equipped machine on your network:
 
 1. Run Ollama on the GPU machine: `ollama serve`
-2. Ensure the required models are available: `ollama pull llama3.1:8b && ollama pull nomic-embed-text`
-3. Set `OLLAMA_HOST` in your `.env` file:
-   ```
-   OLLAMA_HOST=http://192.168.1.100:11434
-   ```
+2. Pull the required models: `ollama pull llama3.1:8b && ollama pull nomic-embed-text`
+3. Set `OLLAMA_HOST=http://192.168.1.100:11434` in your `.env` file
 4. Start only the app container: `docker compose up app`
 
-### Using a Different Model
+## Meshtastic Integration
 
-Set `SURVIVALRAG_MODEL` in your `.env` file. The model must be available in your Ollama instance:
+SurvivalRAG includes a built-in Meshtastic mesh radio bridge. Anyone on the mesh network can send a query prefixed with `?` and receive a multi-part response split across radio messages, respecting LoRa's 233-byte packet limit.
+
+### How It Works
 
 ```
-SURVIVALRAG_MODEL=mistral:7b
+Phone/Radio → "?how to purify water" → Meshtastic Mesh
+    → SurvivalRAG Bridge (listens on configured channel)
+    → RAG Pipeline (retrieve → generate in compact mode)
+    → Split response into 200-byte parts with [1/3] [2/3] [3/3] numbering
+    → Send parts back over mesh with delay between each
 ```
 
-## GPU Acceleration
+### Running the Bridge
 
-### Linux (NVIDIA)
-
-1. Install the [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
-2. Start with the GPU override:
-   ```bash
-   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up
-   ```
-
-### macOS (Apple Silicon)
-
-Docker on macOS cannot access Apple Metal GPUs. For GPU acceleration on Mac:
-
-1. Install Ollama natively: `brew install ollama`
-2. Pull the required models: `ollama pull llama3.1:8b && ollama pull nomic-embed-text`
-3. Start Ollama: `ollama serve`
-4. Set `OLLAMA_HOST` in your `.env` file:
-   ```
-   OLLAMA_HOST=http://host.docker.internal:11434
-   ```
-5. Start only the app container: `docker compose up app`
-
-## CLI Access
-
-The CLI is available inside the app container via `docker exec`:
+**Local:**
 
 ```bash
-# Single query
-docker exec -it survivalrag-app python cli.py ask "how to purify water"
-
-# With category filter
-docker exec -it survivalrag-app python cli.py ask --category medical "how to treat a burn"
-
-# Interactive REPL
-docker exec -it survivalrag-app python cli.py
+# Plug in your Meshtastic radio via USB, then:
+MESHTASTIC_ENABLED=true python meshtastic_main.py
 ```
 
-## Building for Multiple Architectures
-
-The default `docker compose build` builds images for your host architecture only.
-To build images for both AMD64 and ARM64 (e.g., for distribution or M-series Macs + x86 servers):
+**Docker (with USB radio passthrough):**
 
 ```bash
-# Create a multi-arch builder (one-time setup)
-docker buildx create --name survivalrag-builder --use
-
-# Build app image for both architectures
-docker buildx build --platform linux/amd64,linux/arm64 -t survivalrag-app -f Dockerfile .
-
-# Build Ollama image for both architectures
-docker buildx build --platform linux/amd64,linux/arm64 -t survivalrag-ollama -f Dockerfile.ollama .
+docker compose --profile meshtastic up
 ```
 
-> **Note:** Multi-arch builds for the Ollama image are slow because models must be pulled during build for each architecture. The base images (`python:3.14-slim` and `ollama/ollama`) already support both AMD64 and ARM64.
+### Configuration
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `MESHTASTIC_ENABLED` | `false` | Enable/disable the bridge |
+| `MESHTASTIC_CONNECTION` | `serial` | `serial`, `serial:/dev/ttyACM0`, or `tcp://host:port` |
+| `MESHTASTIC_CHANNEL` | `0` | Channel index to listen/send on (0-7) |
+| `MESHTASTIC_TRIGGER` | `?` | Message prefix that triggers queries |
+| `MESHTASTIC_MAX_PARTS` | `5` | Maximum message parts per response (3-7) |
+| `MESHTASTIC_CHUNK_DELAY` | `2.0` | Seconds between sending parts |
+| `MESHTASTIC_RESPONSE_MODE` | `compact` | RAG response mode (`compact`, `ultra`, `full`) |
+| `MESHTASTIC_BOT_PREFIX` | `[RAG]` | Prefix on outgoing messages (prevents bot loops) |
+
+### Design Details
+
+- **Message splitting** -- Responses are split at sentence boundaries (fallback to word boundaries). Each part includes a `[i/n]` suffix so recipients know the total and can identify missing parts.
+- **Safety warnings first** -- If the query triggers safety warnings from the source material, they appear in part 1. If only one part arrives, it's the warning.
+- **Deduplication** -- The mesh can deliver the same packet via multiple paths. The bridge deduplicates by packet ID.
+- **Concurrency** -- Queries are serialized (one at a time) to prevent OOM on constrained hardware. Additional queries get a "Busy, try again shortly" response.
+- **Bot loop prevention** -- Outgoing messages are prefixed with `[RAG]`. Incoming messages starting with that prefix are ignored. The bridge also ignores its own node ID.
+
+### Constraints
+
+| Constraint | Detail |
+|-----------|--------|
+| Packet size | 233 bytes max. Parts are capped at 200 bytes (194 content + 6 for `[i/n]`). |
+| Throughput | ~1 kbps on LoRa. A 5-part response takes ~10 seconds to transmit. |
+| Inference latency | LLM generation takes 2-15 seconds. A "Thinking..." ack is sent immediately. |
+| Range | Depends on terrain and antenna. Typical: 1-5 km urban, 10-30 km line-of-sight. |
+
+### Reference Projects
+
+- [MESH-API](https://github.com/mr-tbot/mesh-api) -- Meshtastic-to-LLM bridge with configurable chunking
+- [Radio-LLM](https://github.com/pham-tuan-binh/radio-llm) -- LoRa radio to local LLM bridge
+- [MeshasticBot](https://github.com/vitug/MeshasticBot) -- Part-numbering implementation reference
+- [Meshtastic Python docs](https://meshtastic.org/docs/software/python/cli/) -- `meshtastic` package reference
 
 ## Troubleshooting
 
 | Problem | Solution |
 |---------|----------|
-| Build fails during model download | Ensure stable internet during `docker compose build` |
-| "Ollama not available" in logs | Wait for Ollama health check to pass (up to 5 minutes on first start) |
-| Very slow responses | Expected on CPU-only; see GPU Acceleration section |
-| Port 8080 already in use | Change port mapping in docker-compose.yml: `"9090:8080"` |
-| ChromaDB errors or missing vector store | Run `docker compose down && docker compose up --build` to rebuild |
-| Out of disk space during build | Need 20GB+ free; clear Docker cache: `docker system prune` |
+| `ModuleNotFoundError` | Activate the venv: `source venv/bin/activate` |
+| Ollama not running | Start it: `ollama serve` |
+| Model not found | Pull it: `ollama pull llama3.1:8b` |
+| No vector store | Run the build step from Quick Start |
+| Very slow responses | Expected on CPU-only; use a GPU or a smaller model |
+| Port already in use | Web UI uses 7860 (local) or 8080 (Docker) |
+| Docker build fails | Ensure stable internet during `docker compose build` |
+| Meshtastic "no device" | Check USB connection: `ls /dev/ttyUSB* /dev/ttyACM*` |
 
 ### Useful Commands
 
 ```bash
-# Check container status and health
-docker compose ps
+# Check health (local)
+curl http://localhost:7860/api/health
 
-# View logs
+# Check health (Docker)
+curl http://localhost:8080/api/health
+
+# Docker logs
 docker compose logs -f
 
-# Rebuild after changes
+# Docker rebuild
 docker compose build
 
-# Stop and remove containers
-docker compose down
-
-# Check health endpoint
-curl http://localhost:8080/api/health
+# Run evaluation suite
+python -m pipeline.evaluate
 ```
 
 ## What's Included
@@ -200,7 +335,7 @@ curl http://localhost:8080/api/health
 | Evaluation framework | 156 golden queries with ground truth, 4-dimension scoring |
 | Web UI | Gradio chat interface |
 | CLI | Single query + interactive REPL |
-| Docker deployment | Single-command `docker compose up` |
+| Meshtastic bridge | Multi-part mesh radio interface with message splitting |
 
 ## What's In the Knowledge Base
 
@@ -209,15 +344,15 @@ All content is **public domain** (US government works) or **openly licensed** (C
 ### Tier 1: Public Domain (70 sources)
 
 **Survival & Field Skills**
-- FM 21-76 — US Army Survival Manual
-- FM 3-05.70 — Survival (shelter, water, food, navigation, firecraft, tools)
-- FM 21-76-1 — Survival, Evasion, and Recovery (pocket guide)
+- FM 21-76 -- US Army Survival Manual
+- FM 3-05.70 -- Survival (shelter, water, food, navigation, firecraft, tools)
+- FM 21-76-1 -- Survival, Evasion, and Recovery (pocket guide)
 - FEMA "Are You Ready?" Citizen Preparedness Guide
 
 **Field Medicine**
-- ST 31-91B — Special Forces Medical Handbook (400+ pages)
-- FM 21-10 — Field Hygiene and Sanitation
-- FM 4-25.11 — First Aid
+- ST 31-91B -- Special Forces Medical Handbook (400+ pages)
+- FM 21-10 -- Field Hygiene and Sanitation
+- FM 4-25.11 -- First Aid
 - CDC disaster first aid, wound care, water treatment, and food safety guidelines
 
 **Water, Food, Shelter**
@@ -227,7 +362,7 @@ All content is **public domain** (US government works) or **openly licensed** (C
 
 Plus 50+ additional documents covering cold weather operations, preventive medicine, nuclear preparedness, disease guidelines, and more.
 
-### Tier 2: WikiMed — Wikipedia Medical Articles (226 sources, CC BY-SA 4.0)
+### Tier 2: WikiMed -- Wikipedia Medical Articles (226 sources, CC BY-SA 4.0)
 
 Curated Wikipedia articles fetched via the MediaWiki API, filling gaps in the military-heavy Tier 1 corpus:
 
@@ -263,12 +398,12 @@ Wikipedia  → MediaWiki API → Strip Markup → Chunk → Embed ↗           
                                                                          → Prompt Assembly → LLM → Cited Answer
 ```
 
-1. **Document processing** — PDFs are extracted via Docling, cleaned, and split into logical sections. Wikipedia articles are fetched via MediaWiki API and stripped of wiki markup.
-2. **Content-aware chunking** — Different strategies for procedures, reference tables, safety warnings, and general content (512-token chunks, never splits mid-step)
-3. **Hybrid retrieval** — Vector similarity (ChromaDB) fused with BM25 keyword search via Reciprocal Rank Fusion (RRF), with optional category pre-filtering
-4. **Cross-encoder reranking** — Fused results are re-scored by a cross-encoder model (BAAI/bge-reranker-v2-m3) for 15-40% precision improvement. Optional and configurable via env var.
-5. **Safety-first prompting** — Safety warnings are surfaced before other context. When retrieved context is insufficient, the system says so instead of guessing
-6. **Source citation** — Every answer cites which document the information came from
+1. **Document processing** -- PDFs are extracted via Docling, cleaned, and split into logical sections. Wikipedia articles are fetched via MediaWiki API and stripped of wiki markup.
+2. **Content-aware chunking** -- Different strategies for procedures, reference tables, safety warnings, and general content (512-token chunks, never splits mid-step)
+3. **Hybrid retrieval** -- Vector similarity (ChromaDB) fused with BM25 keyword search via Reciprocal Rank Fusion (RRF), with optional category pre-filtering
+4. **Cross-encoder reranking** -- Fused results are re-scored by a cross-encoder model (BAAI/bge-reranker-v2-m3) for 15-40% precision improvement. Optional and configurable via env var.
+5. **Safety-first prompting** -- Safety warnings are surfaced before other context. When retrieved context is insufficient, the system says so instead of guessing
+6. **Source citation** -- Every answer cites which document the information came from
 
 The system is LLM-agnostic (works with whatever local model you run via Ollama) and fully offline after initial setup.
 
@@ -276,141 +411,7 @@ The system is LLM-agnostic (works with whatever local model you run via Ollama) 
 
 - **Not a diagnostic tool.** This is a reference system, not a medical system.
 - **Not a replacement for training.** It can recite the steps but it cannot teach the skill.
-- **Not guaranteed accurate.** Small local LLMs can misinterpret context. That's why every answer includes citations — so you can verify against the source.
-
-## Meshtastic Integration
-
-SurvivalRAG is designed to be queryable over [Meshtastic](https://meshtastic.org) mesh radio. The pipeline already includes an `ultra` response mode that produces telegram-style answers under 200 characters — sized to fit within LoRa's 228-byte packet limit.
-
-### How It Fits Together
-
-```
-Meshtastic Radio → meshtastic Python package → gen.answer(query, mode="ultra") → response text → Meshtastic Radio
-```
-
-The entire pipeline is a single function call. No HTTP API needed — import the modules directly.
-
-### Minimal Bridge Example
-
-```python
-import meshtastic
-import meshtastic.serial_interface
-
-import pipeline.retrieve as retrieve
-import pipeline.generate as gen
-
-# Initialize the RAG pipeline (once at startup)
-retrieve.init(chroma_path="./data/chroma")
-gen.init()
-
-interface = meshtastic.serial_interface.SerialInterface()
-
-def on_receive(packet, interface):
-    """Handle incoming mesh messages."""
-    if "decoded" not in packet or "text" not in packet["decoded"]:
-        return
-
-    query = packet["decoded"]["text"]
-    sender = packet.get("fromId")
-
-    # Query the knowledge base in ultra mode (~200 chars, no citations)
-    result = gen.answer(query_text=query, mode="ultra")
-    response = result["response"]
-
-    # Send the answer back over the mesh
-    interface.sendText(response, destinationId=sender)
-
-from pubsub import pub
-pub.subscribe(on_receive, "meshtastic.receive.text")
-
-# Keep running
-import time
-while True:
-    time.sleep(1)
-```
-
-### Key Design Points
-
-- **`ultra` mode** — System prompt enforces telegram-style phrasing under 200 characters. Token limit is 80. No citations are included (they'd waste bytes). This is what you want for mesh.
-- **`compact` mode** — 512-token responses for higher-bandwidth scenarios (e.g., TCP-connected nodes, Wi-Fi backhaul). Includes citations.
-- **No streaming needed** — Mesh messages are sent as complete packets, so use `gen.answer()` (blocking) rather than `gen.answer_stream()`.
-- **Category filtering** — Pass `categories=["medical"]` to scope retrieval. Useful if you set up dedicated mesh channels per topic.
-- **Refusal handling** — When no relevant chunks are found, `result["status"]` is `"refused"` and the response is a canned refusal message. Check this before sending to avoid confusing replies.
-
-### Constraints to Plan For
-
-| Constraint | Detail |
-|-----------|--------|
-| LoRa packet size | 228 bytes max per message. `ultra` mode stays under this. |
-| Throughput | ~1 kbps on LoRa. One query-response cycle is fine; bulk queries will queue. |
-| Inference latency | LLM generation takes 2-15 seconds depending on hardware. Consider sending a "thinking..." ack. |
-| Channel management | Decide whether to listen on a dedicated channel or the default. A dedicated channel avoids noise. |
-| Node filtering | You probably don't want to answer every message on the mesh — filter by channel or message prefix (e.g., messages starting with `?`). |
-
-### Reference Projects
-
-- [MESH-API](https://github.com/mr-tbot/mesh-api) — Meshtastic-to-LLM bridge (no knowledge base)
-- [Radio-LLM](https://github.com/pham-tuan-binh/radio-llm) — LoRa radio to local LLM bridge
-- [Meshtastic Python docs](https://meshtastic.org/docs/software/python/cli/) — `meshtastic` package reference
-
-## Contributing
-
-This is a community project and there's plenty of ways to help, even if you don't write code:
-
-- **Content** — Finding and verifying public domain survival/medical documents
-- **Data quality** — Improving OCR output, cleaning up formatting, fixing chunking issues
-- **Code** — Retrieval pipeline, response generation, interfaces, deployment
-- **Testing** — Running queries, evaluating answer quality, reporting issues
-- **Documentation** — Making it easier for others to deploy and contribute
-- **Translation** — Making the knowledge base accessible in more languages
-
-If you're interested, open an issue or start a discussion.
-
-## Project Structure
-
-```
-survivalRAG/
-├── pipeline/               # Processing and retrieval pipeline
-│   ├── extract.py          # PDF extraction (Docling + OCR fallback)
-│   ├── clean.py            # Text cleaning
-│   ├── split.py            # Section splitting
-│   ├── classify.py         # LLM-based content classification
-│   ├── chunk.py            # Content-aware chunking
-│   ├── embed.py            # Ollama embedding wrapper (nomic-embed-text)
-│   ├── ingest.py           # ChromaDB ingestion
-│   ├── retrieve.py         # Hybrid search (vector + BM25 + RRF)
-│   ├── rerank.py           # Cross-encoder reranking (optional)
-│   ├── rewrite.py          # Multi-turn query rewriting
-│   ├── prompt.py           # Prompt assembly with safety ordering
-│   ├── generate.py         # LLM response generation (full/compact/ultra)
-│   ├── evaluate.py         # 4-dimension evaluation framework
-│   ├── wikimed.py          # WikiMed extraction pipeline
-│   └── validate.py         # Dosage/measurement validation
-├── web.py                  # Gradio web UI
-├── cli.py                  # Click + Rich CLI
-├── sources/
-│   ├── manifests/          # YAML provenance manifest per document (292 files)
-│   └── originals/          # Source PDFs (not in git, downloaded via scripts)
-├── processed/
-│   ├── chunks/             # Pre-embedded JSONL chunks (29,786 total)
-│   ├── benchmark/          # Retrieval benchmark results
-│   └── reports/            # Per-document classification reports
-├── data/
-│   ├── eval/               # Golden query datasets (156 queries + 20 refusal)
-│   └── wikimed/            # WikiMed article list and config
-├── docker-compose.yml      # Multi-container orchestration
-├── docker-compose.gpu.yml  # NVIDIA GPU override
-├── Dockerfile              # App container
-├── Dockerfile.ollama       # Ollama container with bundled models
-└── requirements.txt
-```
-
-## Requirements
-
-- Python 3.11+
-- [Ollama](https://ollama.ai) with `nomic-embed-text` (embeddings) and a chat model (default: `llama3.1:8b`)
-- ~3GB disk for the processed knowledge base
-- Optional: `sentence-transformers` for cross-encoder reranking (requires PyTorch)
+- **Not guaranteed accurate.** Small local LLMs can misinterpret context. That's why every answer includes citations -- so you can verify against the source.
 
 ## Evaluation
 
@@ -428,10 +429,65 @@ python -m pipeline.evaluate                    # Run all dimensions
 python -m pipeline.evaluate --suite retrieval  # Retrieval only (fast, no LLM)
 ```
 
+## Project Structure
+
+```
+survivalRAG/
+├── pipeline/                   # Processing and retrieval pipeline
+│   ├── extract.py              # PDF extraction (Docling + OCR fallback)
+│   ├── clean.py                # Text cleaning
+│   ├── split.py                # Section splitting
+│   ├── classify.py             # LLM-based content classification
+│   ├── chunk.py                # Content-aware chunking
+│   ├── embed.py                # Ollama embedding wrapper (nomic-embed-text)
+│   ├── ingest.py               # ChromaDB ingestion
+│   ├── retrieve.py             # Hybrid search (vector + BM25 + RRF)
+│   ├── rerank.py               # Cross-encoder reranking (optional)
+│   ├── rewrite.py              # Multi-turn query rewriting
+│   ├── prompt.py               # Prompt assembly with safety ordering
+│   ├── generate.py             # LLM response generation (full/compact/ultra)
+│   ├── meshtastic_bridge.py    # Meshtastic mesh radio bridge
+│   ├── evaluate.py             # 4-dimension evaluation framework
+│   ├── wikimed.py              # WikiMed extraction pipeline
+│   └── validate.py             # Dosage/measurement validation
+├── web.py                      # Gradio web UI
+├── cli.py                      # Click + Rich CLI
+├── meshtastic_main.py          # Meshtastic bridge entry point
+├── sources/
+│   ├── manifests/              # YAML provenance manifest per document (292 files)
+│   └── originals/              # Source PDFs (not in git, downloaded via scripts)
+├── processed/
+│   ├── chunks/                 # Pre-embedded JSONL chunks (29,786 total)
+│   ├── benchmark/              # Retrieval benchmark results
+│   └── reports/                # Per-document classification reports
+├── data/
+│   ├── eval/                   # Golden query datasets (156 queries + 20 refusal)
+│   └── wikimed/                # WikiMed article list and config
+├── tests/                      # Unit tests
+├── docker-compose.yml          # Multi-container orchestration
+├── docker-compose.gpu.yml      # NVIDIA GPU override
+├── Dockerfile                  # App container
+├── Dockerfile.ollama           # Ollama container with bundled models
+└── requirements.txt
+```
+
+## Contributing
+
+This is a community project and there's plenty of ways to help, even if you don't write code:
+
+- **Content** -- Finding and verifying public domain survival/medical documents
+- **Data quality** -- Improving OCR output, cleaning up formatting, fixing chunking issues
+- **Code** -- Retrieval pipeline, response generation, interfaces, deployment
+- **Testing** -- Running queries, evaluating answer quality, reporting issues
+- **Documentation** -- Making it easier for others to deploy and contribute
+- **Translation** -- Making the knowledge base accessible in more languages
+
+If you're interested, open an issue or start a discussion.
+
 ## License
 
 Code: [GNU General Public License v3.0](LICENSE)
 
 Content:
 - **Tier 1** (military manuals, FEMA, CDC, etc.): Public domain (17 U.S.C. 105) or CC0/CC BY
-- **Tier 2** (Wikipedia medical articles): CC BY-SA 4.0 — attribution metadata is carried per-chunk
+- **Tier 2** (Wikipedia medical articles): CC BY-SA 4.0 -- attribution metadata is carried per-chunk

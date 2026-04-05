@@ -25,6 +25,7 @@ CLAUDE.md
 
 # Internal planning and build docs
 .planning/
+TODO-*.md
 SurvivalRAG_Brief.md
 ask.py
 

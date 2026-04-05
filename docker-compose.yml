@@ -40,3 +40,33 @@ services:
       retries: 5
       start_period: 30s
     restart: unless-stopped
+
+  # Meshtastic mesh radio bridge (optional)
+  # Start with: docker compose --profile meshtastic up
+  meshtastic:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: survivalrag-meshtastic
+    command: ["python", "meshtastic_main.py"]
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+      - SURVIVALRAG_MODEL=${SURVIVALRAG_MODEL:-llama3.1:8b}
+      - SURVIVALRAG_MAX_CHUNKS=${SURVIVALRAG_MAX_CHUNKS:-5}
+      - SURVIVALRAG_RELEVANCE_THRESHOLD=${SURVIVALRAG_RELEVANCE_THRESHOLD:-0.25}
+      - MESHTASTIC_ENABLED=true
+      - MESHTASTIC_CONNECTION=${MESHTASTIC_CONNECTION:-serial}
+      - MESHTASTIC_CHANNEL=${MESHTASTIC_CHANNEL:-0}
+      - MESHTASTIC_TRIGGER=${MESHTASTIC_TRIGGER:-?}
+      - MESHTASTIC_MAX_PARTS=${MESHTASTIC_MAX_PARTS:-5}
+      - MESHTASTIC_CHUNK_DELAY=${MESHTASTIC_CHUNK_DELAY:-2.0}
+      - MESHTASTIC_RESPONSE_MODE=${MESHTASTIC_RESPONSE_MODE:-compact}
+      - MESHTASTIC_BOT_PREFIX=${MESHTASTIC_BOT_PREFIX:-[RAG]}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    profiles:
+      - meshtastic
+    restart: unless-stopped
